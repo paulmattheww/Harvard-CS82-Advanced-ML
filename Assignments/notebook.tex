@@ -1,0 +1,1161 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{WashburnPaulHW1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \#\#
+
+CSCI E-82
+
+\#\#
+
+HW 1 Dimensionality Reduction
+
+\#\#\#
+
+Due: Sept 17, 2018 11:59pm EST
+
+\paragraph{Note that this is an individual homework to be completed
+without collaborations except through
+Piazza.}\label{note-that-this-is-an-individual-homework-to-be-completed-without-collaborations-except-through-piazza.}
+
+\paragraph{We encourage you to make progress this weekend since the
+second homework will likely come out in a week before this one is
+due.}\label{we-encourage-you-to-make-progress-this-weekend-since-the-second-homework-will-likely-come-out-in-a-week-before-this-one-is-due.}
+
+    \subsubsection{Your name:}\label{your-name}
+
+    PAUL M. WASHBURN
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{PCA}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{from} \PY{n+nn}{functools} \PY{k}{import} \PY{n}{wraps}
+        \PY{k+kn}{import} \PY{n+nn}{time}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{manifold} \PY{k}{import} \PY{n}{MDS}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{manifold} \PY{k}{import} \PY{n}{TSNE}
+        
+        \PY{k}{def} \PY{n+nf}{timing\PYZus{}function}\PY{p}{(}\PY{n}{some\PYZus{}function}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    Decorator function.  Outputs the time a function takes to execute.}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n+nd}{@wraps}\PY{p}{(}\PY{n}{some\PYZus{}function}\PY{p}{)}
+            \PY{k}{def} \PY{n+nf}{wrapper}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+                \PY{n}{t1} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+                \PY{n}{result} \PY{o}{=} \PY{n}{some\PYZus{}function}\PY{p}{(}\PY{o}{*}\PY{n}{args}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}
+                \PY{n}{t2} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+                \PY{n}{time\PYZus{}elapsed} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{p}{(}\PY{n}{t2} \PY{o}{\PYZhy{}} \PY{n}{t1}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Runtime: }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{time\PYZus{}elapsed}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ seconds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{k}{return} \PY{n}{result}
+            
+            \PY{k}{return} \PY{n}{wrapper}
+\end{Verbatim}
+
+
+    \subsubsection{Problem 1 (5 points)}\label{problem-1-5-points}
+
+\[\mathbf{X} = \left[\begin{array}
+{rrr}
+1 & 2 & 3 \\
+4 & 5 & 6 \\
+7 & 8 & 9
+\end{array}\right]
+\]
+
+\[\mathbf{Y} = \left[\begin{array}
+{rrr}
+1 & 2 & 1 \\
+2 & 1 & 2  
+\end{array}\right]
+\]
+
+Compute XYT. The answer can be computed by hand and written in Markdown
+like the above matrices, or computed in python. Either way is
+acceptable.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{Y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+        \PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} array([[ 8, 10],
+               [20, 25],
+               [32, 40]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{Y}\PY{o}{.}\PY{n}{T}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} array([[ 8, 10],
+               [20, 25],
+               [32, 40]])
+\end{Verbatim}
+            
+    \subsubsection{Problem 2}\label{problem-2}
+
+This problem goes through a combination of python data manipulations as
+well as the full math projection using PCA. We have divided the problem
+into multiple parts.
+
+    \subsubsection{Problem 2a (5 points)}\label{problem-2a-5-points}
+
+Download and load in the data set from the UCI archive
+https://archive.ics.uci.edu/ml/machine-learning-databases/ecoli/. Print
+the dimensions and the first few rows to demonstrate a successful load.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} read data from source}
+        \PY{n}{url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://archive.ics.uci.edu/ml/machine\PYZhy{}learning\PYZhy{}databases/ecoli/ecoli.data}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{colnames} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sequence\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mcg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gvh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aac}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alm1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alm2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}fwf}\PY{p}{(}\PY{n}{url}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{colnames}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} download}
+        \PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/ecoli\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+  sequence\_name   mcg   gvh   lip  chg   aac  alm1  alm2 target
+0     AAT\_ECOLI  0.49  0.29  0.48  0.5  0.56  0.24  0.35     cp
+1    ACEA\_ECOLI  0.07  0.40  0.48  0.5  0.54  0.35  0.44     cp
+2    ACEK\_ECOLI  0.56  0.40  0.48  0.5  0.49  0.37  0.46     cp
+3    ACKA\_ECOLI  0.59  0.49  0.48  0.5  0.52  0.45  0.36     cp
+4     ADI\_ECOLI  0.23  0.32  0.48  0.5  0.55  0.25  0.35     cp
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} load}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/ecoli\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} describe dimensions}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rows = }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s1}{, columns = }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} first five }
+        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+rows = 336, columns = 9
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}   sequence\_name   mcg   gvh   lip  chg   aac  alm1  alm2 target
+        0     AAT\_ECOLI  0.49  0.29  0.48  0.5  0.56  0.24  0.35     cp
+        1    ACEA\_ECOLI  0.07  0.40  0.48  0.5  0.54  0.35  0.44     cp
+        2    ACEK\_ECOLI  0.56  0.40  0.48  0.5  0.49  0.37  0.46     cp
+        3    ACKA\_ECOLI  0.59  0.49  0.48  0.5  0.52  0.45  0.36     cp
+        4     ADI\_ECOLI  0.23  0.32  0.48  0.5  0.55  0.25  0.35     cp
+\end{Verbatim}
+            
+    \subsubsection{Problem 2b (10 points)}\label{problem-2b-10-points}
+
+Compute and print the covariance matrix for all columns excluding the
+first and last. Rather than use the built-in function, compute this
+using python code for practice. The following equation will suffice for
+this.
+
+Cov(X, Y) = Σ ( Xi - X ) ( Yi - Y ) / N
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{cov\PYZus{}xy}\PY{p}{(}\PY{n}{m}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    Input vectors as 1D arrays}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{p}{(}\PY{n}{m}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{N} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+            \PY{n}{X} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{C} \PY{o}{=} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{conj}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{n}{N}\PY{p}{)}\PY{o}{.}\PY{n}{squeeze}\PY{p}{(}\PY{p}{)}
+            \PY{k}{return} \PY{n}{C}
+        
+        \PY{k}{def} \PY{n+nf}{cov\PYZus{}matrix}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{cols}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+sd}{    Returns covariance matrix with column names}
+        \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+            \PY{c+c1}{\PYZsh{} create empty dataframe with variance on the diagonals}
+            \PY{c+c1}{\PYZsh{} while preserving names \PYZhy{}\PYZhy{} leverages pd.DataFrame object}
+            \PY{c+c1}{\PYZsh{} df.var() method}
+            \PY{n}{cov\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{cols}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{cols}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} populate cov\PYZus{}df empty dataframe with covariances}
+            \PY{k}{for} \PY{n}{X} \PY{o+ow}{in} \PY{n}{cols}\PY{p}{:}
+                \PY{k}{for} \PY{n}{Y} \PY{o+ow}{in} \PY{n}{cols}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{} we already have the variances, so ignore when X == Y}
+                    \PY{k}{if} \PY{n}{X} \PY{o}{!=} \PY{n}{Y}\PY{p}{:}
+                        \PY{c+c1}{\PYZsh{} populate empty dataframe with symmetrical value}
+                        \PY{c+c1}{\PYZsh{} that is off the diagonal}
+                        \PY{n}{\PYZus{}cov} \PY{o}{=} \PY{n}{cov\PYZus{}xy}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{X}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{n}{Y}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+                        \PY{n}{cov\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{Y}\PY{p}{,} \PY{n}{X}\PY{p}{]} \PY{o}{=}  \PY{n}{\PYZus{}cov}
+                    \PY{k}{else}\PY{p}{:}
+                        \PY{k}{pass}
+            \PY{k}{return} \PY{n}{cov\PYZus{}df}
+        
+        \PY{n}{cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mcg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gvh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aac}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alm1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alm2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{C} \PY{o}{=} \PY{n}{cov\PYZus{}matrix}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{cols}\PY{p}{)}
+        \PY{n}{C}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}            mcg       gvh       lip       chg       aac      alm1      alm2
+        mcg   0.037882  0.013115  0.002529  0.000373  0.005257  0.016670  0.006810
+        gvh   0.013115  0.021950  0.000574  0.000075  0.001266  0.005546 -0.003729
+        lip   0.002529  0.000574  0.007831  0.000753  0.000760  0.001829 -0.001067
+        chg   0.000373  0.000075  0.000753  0.000744 -0.000149 -0.000045 -0.000298
+        aac   0.005257  0.001266  0.000760 -0.000149  0.014976  0.007379  0.006475
+        alm1  0.016670  0.005546  0.001829 -0.000045  0.007379  0.046549  0.036566
+        alm2  0.006810 -0.003729 -0.001067 -0.000298  0.006475  0.036566  0.043853
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} make sure above is correct}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cov}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{cols}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{cols}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}            mcg       gvh       lip       chg       aac      alm1      alm2
+        mcg   0.037882  0.013115  0.002529  0.000373  0.005257  0.016670  0.006810
+        gvh   0.013115  0.021950  0.000574  0.000075  0.001266  0.005546 -0.003729
+        lip   0.002529  0.000574  0.007831  0.000753  0.000760  0.001829 -0.001067
+        chg   0.000373  0.000075  0.000753  0.000744 -0.000149 -0.000045 -0.000298
+        aac   0.005257  0.001266  0.000760 -0.000149  0.014976  0.007379  0.006475
+        alm1  0.016670  0.005546  0.001829 -0.000045  0.007379  0.046549  0.036566
+        alm2  0.006810 -0.003729 -0.001067 -0.000298  0.006475  0.036566  0.043853
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} double\PYZhy{}check to make sure above is correct}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{allclose}\PY{p}{(}\PY{n}{cov\PYZus{}matrix}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{cols}\PY{p}{)}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{o}{.}\PY{n}{cov}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{allclose}\PY{p}{(}\PY{n}{cov\PYZus{}matrix}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{cols}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{cov}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+True
+
+    \end{Verbatim}
+
+    \subsubsection{Problem 2c (10 points).}\label{problem-2c-10-points.}
+
+Compute the decomposition of the covariance matrix using singular value
+decomposition. Using a python function is definitely the way to go here.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{u}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{v} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{svd}\PY{p}{(}\PY{n}{C}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{u = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{u}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{v}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Note same as covariance matrix:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{u}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{,} \PY{n}{v}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+u =  [[-3.41720629e-01 -7.29824958e-01  4.56914809e-01  3.52555665e-01
+  -1.29441525e-01  2.62199804e-02 -8.56193962e-03]
+ [-9.17492644e-02 -5.28794379e-01 -7.04480258e-01 -3.42514767e-01
+  -1.39018617e-01  2.81111220e-01  2.89703065e-04]
+ [-1.99698823e-02 -7.25012267e-02  9.24097367e-02 -1.46705018e-02
+   8.54762221e-01  4.93627297e-01 -1.06318528e-01]
+ [ 9.74209562e-04 -1.16809378e-02  8.81896510e-03  1.64849996e-02
+   8.61437517e-02  6.21081678e-02  9.94100049e-01]
+ [-1.47115119e-01 -4.80496808e-02  4.70463079e-01 -8.66343630e-01
+  -4.86492931e-02 -3.90505852e-02  1.64278490e-02]
+ [-6.89914858e-01  7.21275410e-02 -2.54072739e-01 -1.83906883e-02
+   3.50569568e-01 -5.75266798e-01  9.64476070e-03]
+ [-6.13827312e-01  4.18124394e-01  2.07514962e-02  8.37356323e-02
+  -3.17196689e-01  5.83358230e-01 -5.01770938e-03]] 
+
+s =  [0.08970253 0.04243901 0.01463252 0.01288363 0.00853362 0.00493527
+ 0.00065892] 
+
+v =  [[-3.41720629e-01 -9.17492644e-02 -1.99698823e-02  9.74209562e-04
+  -1.47115119e-01 -6.89914858e-01 -6.13827312e-01]
+ [-7.29824958e-01 -5.28794379e-01 -7.25012267e-02 -1.16809378e-02
+  -4.80496808e-02  7.21275410e-02  4.18124394e-01]
+ [ 4.56914809e-01 -7.04480258e-01  9.24097367e-02  8.81896510e-03
+   4.70463079e-01 -2.54072739e-01  2.07514962e-02]
+ [ 3.52555665e-01 -3.42514767e-01 -1.46705018e-02  1.64849996e-02
+  -8.66343630e-01 -1.83906883e-02  8.37356323e-02]
+ [-1.29441525e-01 -1.39018617e-01  8.54762221e-01  8.61437517e-02
+  -4.86492931e-02  3.50569568e-01 -3.17196689e-01]
+ [ 2.62199804e-02  2.81111220e-01  4.93627297e-01  6.21081678e-02
+  -3.90505852e-02 -5.75266798e-01  5.83358230e-01]
+ [-8.56193962e-03  2.89703065e-04 -1.06318528e-01  9.94100049e-01
+   1.64278490e-02  9.64476070e-03 -5.01770938e-03]] 
+
+Note same as covariance matrix:
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:}           0         1         2         3         4         5         6
+        0  0.037882  0.013115  0.002529  0.000373  0.005257  0.016670  0.006810
+        1  0.013115  0.021950  0.000574  0.000075  0.001266  0.005546 -0.003729
+        2  0.002529  0.000574  0.007831  0.000753  0.000760  0.001829 -0.001067
+        3  0.000373  0.000075  0.000753  0.000744 -0.000149 -0.000045 -0.000298
+        4  0.005257  0.001266  0.000760 -0.000149  0.014976  0.007379  0.006475
+        5  0.016670  0.005546  0.001829 -0.000045  0.007379  0.046549  0.036566
+        6  0.006810 -0.003729 -0.001067 -0.000298  0.006475  0.036566  0.043853
+\end{Verbatim}
+            
+    \subsubsection{Problem 2d (10 points)}\label{problem-2d-10-points}
+
+Compute the projection of the raw data onto the appropriate two
+eigenvectors. Consider which columns should be projected and the
+normalizations.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} subtract mean}
+         \PY{n}{cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mcg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gvh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{chg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aac}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alm1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alm2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}0} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} get covariance matrix}
+         \PY{n}{C} \PY{o}{=} \PY{n}{cov\PYZus{}matrix}\PY{p}{(}\PY{n}{df\PYZus{}0}\PY{p}{,} \PY{n}{cols}\PY{p}{)}
+         
+         \PY{k}{assert} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{det}\PY{p}{(}\PY{n}{C}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{0} 
+         
+         \PY{n}{eigenvalues}\PY{p}{,} \PY{n}{eigenvectors} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{eigh}\PY{p}{(}\PY{n}{C}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eigenvalues }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{eigenvalues})
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Eigenvectors }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{eigenvectors})
+         
+         \PY{k}{for} \PY{n}{vec} \PY{o+ow}{in} \PY{n}{eigenvectors}\PY{p}{:}
+             \PY{k}{assert} \PY{n}{np}\PY{o}{.}\PY{n}{allclose}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{vec}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(eigenvectors[:,1])}
+         
+         \PY{c+c1}{\PYZsh{} sort eigenvalues in desc order}
+         \PY{n}{idx} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argsort} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{eigenvalues}\PY{p}{)}
+         \PY{n}{eigenvalues} \PY{o}{=} \PY{n}{eigenvalues} \PY{p}{[} \PY{n}{idx} \PY{p}{]}
+         \PY{n}{eigenvectors} \PY{o}{=} \PY{n}{eigenvectors} \PY{p}{[}\PY{p}{:} \PY{p}{,} \PY{n}{idx} \PY{p}{]}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{eigenvalues = }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{eigenvalues}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sorted idx = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{idx}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sorted eigenvectors = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{eigenvectors}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{eigenvectors[:,0] = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{eigenvectors}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{eigenvectors[:,1] = }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{eigenvectors}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Eigenvalues 
+[0.00065892 0.00493527 0.00853362 0.01288363 0.01463252 0.04243901
+ 0.08970253]
+
+Eigenvectors 
+[[-8.56193962e-03  2.62199804e-02 -1.29441525e-01  3.52555665e-01
+   4.56914809e-01 -7.29824958e-01 -3.41720629e-01]
+ [ 2.89703065e-04  2.81111220e-01 -1.39018617e-01 -3.42514767e-01
+  -7.04480258e-01 -5.28794379e-01 -9.17492644e-02]
+ [-1.06318528e-01  4.93627297e-01  8.54762221e-01 -1.46705018e-02
+   9.24097367e-02 -7.25012267e-02 -1.99698823e-02]
+ [ 9.94100049e-01  6.21081678e-02  8.61437517e-02  1.64849996e-02
+   8.81896510e-03 -1.16809378e-02  9.74209562e-04]
+ [ 1.64278490e-02 -3.90505852e-02 -4.86492931e-02 -8.66343630e-01
+   4.70463079e-01 -4.80496808e-02 -1.47115119e-01]
+ [ 9.64476070e-03 -5.75266798e-01  3.50569568e-01 -1.83906883e-02
+  -2.54072739e-01  7.21275410e-02 -6.89914858e-01]
+ [-5.01770938e-03  5.83358230e-01 -3.17196689e-01  8.37356323e-02
+   2.07514962e-02  4.18124394e-01 -6.13827312e-01]]
+
+eigenvalues = 
+ [0.08970253 0.04243901 0.01463252 0.01288363 0.00853362 0.00493527
+ 0.00065892] 
+
+sorted idx =  [6 5 4 3 2 1 0] 
+
+sorted eigenvectors =  [[-3.41720629e-01 -7.29824958e-01  4.56914809e-01  3.52555665e-01
+  -1.29441525e-01  2.62199804e-02 -8.56193962e-03]
+ [-9.17492644e-02 -5.28794379e-01 -7.04480258e-01 -3.42514767e-01
+  -1.39018617e-01  2.81111220e-01  2.89703065e-04]
+ [-1.99698823e-02 -7.25012267e-02  9.24097367e-02 -1.46705018e-02
+   8.54762221e-01  4.93627297e-01 -1.06318528e-01]
+ [ 9.74209562e-04 -1.16809378e-02  8.81896510e-03  1.64849996e-02
+   8.61437517e-02  6.21081678e-02  9.94100049e-01]
+ [-1.47115119e-01 -4.80496808e-02  4.70463079e-01 -8.66343630e-01
+  -4.86492931e-02 -3.90505852e-02  1.64278490e-02]
+ [-6.89914858e-01  7.21275410e-02 -2.54072739e-01 -1.83906883e-02
+   3.50569568e-01 -5.75266798e-01  9.64476070e-03]
+ [-6.13827312e-01  4.18124394e-01  2.07514962e-02  8.37356323e-02
+  -3.17196689e-01  5.83358230e-01 -5.01770938e-03]] 
+
+eigenvectors[:,0] =  [-0.34172063 -0.09174926 -0.01996988  0.00097421 -0.14711512 -0.68991486
+ -0.61382731]
+eigenvectors[:,1] =  [-0.72982496 -0.52879438 -0.07250123 -0.01168094 -0.04804968  0.07212754
+  0.41812439]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} get principal component projections}
+         \PY{n}{df\PYZus{}0}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{eigenvectors}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}         0         1         2         3         4         5         6    \textbackslash{}
+         0  0.285601  0.290838  0.104676  0.087943  0.366268  0.080230  0.385554   
+         1  0.035274  0.330159 -0.015248 -0.122218  0.210366 -0.083273  0.187390   
+         
+                 7         8         9      {\ldots}          326       327       328  \textbackslash{}
+         0  0.331901  0.064330  0.371515    {\ldots}     0.092863  0.198870  0.087381   
+         1  0.235198  0.283871  0.002960    {\ldots}    -0.310786 -0.153296 -0.322197   
+         
+                 329       330       331       332       333       334       335  
+         0 -0.028480 -0.016919 -0.084233  0.139026  0.111904  0.106204 -0.108764  
+         1 -0.262023  0.028185 -0.274803 -0.274116 -0.187103 -0.178851 -0.281129  
+         
+         [2 rows x 336 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} check to make sure PCA results return same\PYZhy{}ish as above}
+         \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}         0         1         2         3         4         5         6    \textbackslash{}
+         0 -0.285601 -0.290838 -0.104676 -0.087943 -0.366268 -0.080230 -0.385554   
+         1 -0.035274 -0.330159  0.015248  0.122218 -0.210366  0.083273 -0.187390   
+         
+                 7         8         9      {\ldots}          326       327       328  \textbackslash{}
+         0 -0.331901 -0.064330 -0.371515    {\ldots}    -0.092863 -0.198870 -0.087381   
+         1 -0.235198 -0.283871 -0.002960    {\ldots}     0.310786  0.153296  0.322197   
+         
+                 329       330       331       332       333       334       335  
+         0  0.028480  0.016919  0.084233 -0.139026 -0.111904 -0.106204  0.108764  
+         1  0.262023 -0.028185  0.274803  0.274116  0.187103  0.178851  0.281129  
+         
+         [2 rows x 336 columns]
+\end{Verbatim}
+            
+    \subsubsection{Problem 2e (10 points)}\label{problem-2e-10-points}
+
+Plot the projected points such that the 8 different classes can be
+visually identified. Be sure to label the classes and axes. Commont on
+the quality of the separation of the different classes using PCA.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k}{def} \PY{n+nf}{random\PYZus{}hex}\PY{p}{(}\PY{n}{seed}\PY{p}{)}\PY{p}{:}
+             \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{seed}\PY{p}{)}
+             \PY{n}{r} \PY{o}{=} \PY{k}{lambda}\PY{p}{:} \PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{255}\PY{p}{)}
+             \PY{k}{return} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}}\PY{l+s+si}{\PYZpc{}02X}\PY{l+s+si}{\PYZpc{}02X}\PY{l+s+si}{\PYZpc{}02X}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{r}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{r}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{r}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} map targets to colors randomly}
+         \PY{n}{unq\PYZus{}tgts} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{target}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+         \PY{n}{colors} \PY{o}{=} \PY{p}{[}\PY{n}{random\PYZus{}hex}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n+nb+bp}{cls} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{unq\PYZus{}tgts}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{unq\PYZus{}tgts}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} do projection by hand}
+         \PY{n}{df\PYZus{}pca} \PY{o}{=} \PY{n}{df\PYZus{}0}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{eigenvectors}\PY{p}{)}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+         \PY{n}{df\PYZus{}pca}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} plot the first two PCs}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{target}\PY{p}{,} \PY{n}{\PYZus{}df} \PY{o+ow}{in} \PY{n}{df\PYZus{}pca}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{color} \PY{o}{=} \PY{n}{colors}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n}{label} \PY{o}{=} \PY{n}{unq\PYZus{}tgts}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{label}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{65}\PY{p}{)}
+             \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1st Principal Component}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2nd Principal Component}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hand Computed: Top 2 Principal Components}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Colored by Class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} perform PCA using sklearn}
+         \PY{n}{pca} \PY{o}{=} \PY{n}{PCA}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{77}\PY{p}{)}
+         \PY{n}{pca}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df\PYZus{}pca} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{pca}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} add target for plotting}
+         \PY{n}{df\PYZus{}pca}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} plot the first two PCs}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{target}\PY{p}{,} \PY{n}{\PYZus{}df} \PY{o+ow}{in} \PY{n}{df\PYZus{}pca}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{color} \PY{o}{=} \PY{n}{colors}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n}{label} \PY{o}{=} \PY{n}{unq\PYZus{}tgts}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{label}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{65}\PY{p}{)}
+             \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1st Principal Component}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2nd Principal Component}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sklearn PCA Computed: Top 2 Principal Components}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Colored by Class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The separation of the classes using PCA is noticeable but not stark.
+Also note how the explicitly computed PCA is a mirror image of the PCA
+computed with \texttt{sklearn.decomposition.PCA}.
+
+    \subsubsection{Problem 2f (10 points)}\label{problem-2f-10-points}
+
+The PCA that you have just completed takes each data point and projects
+it using a weighted sum of features. One could also do the opposite to
+map the features as a weighted sum of the data entries. How could this
+be done? What is a potential issue? Describe these in a few sentences
+(do not code it).
+
+    To recover the "original" data after doing principal component analysis
+we can simply reverse the operations. Since the original projection
+\(Y\) is a linear combination of the mean adjusted original data \(A\)
+and the feature vector \(F\), we can reverse \(Y = FA\) using
+\(A = F^TY\). Finally we would account for the mean by adding it back
+in. One potential issue of reversing PCA to recover the original data
+would be non-linearity in the dataset. Since PCA is a linear
+transformation, any non-linearities in the data will be lost when
+recovering.
+
+If our goal is to do a projection of features into a lower space
+weighted by data points, as was clarified on the forums, then we could
+rearrange the equation above to solve for \(F\) such that \(Y=A/F^T\).
+
+    \subsubsection{Problem 3 MDS (10 points)}\label{problem-3-mds-10-points}
+
+For the same data set, repeat 2e using sklearn's Multidimensional
+scaling algorithm.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} perform PCA using sklearn}
+         \PY{n}{mds} \PY{o}{=} \PY{n}{MDS}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{77}\PY{p}{)}
+         \PY{n}{df\PYZus{}mds} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{mds}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} add target for plotting}
+         \PY{n}{df\PYZus{}mds}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} plot the first two PCs}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+         \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{target}\PY{p}{,} \PY{n}{\PYZus{}df} \PY{o+ow}{in} \PY{n}{df\PYZus{}mds}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{color} \PY{o}{=} \PY{n}{colors}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n}{label} \PY{o}{=} \PY{n}{unq\PYZus{}tgts}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{label}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{65}\PY{p}{)}
+             \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1st Dimension}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2nd Dimension}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MDS: Top 2 Scaled Dimensions}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Colored by Class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The separation of the classes using \texttt{MDS} appears similar to
+\texttt{PCA}: groups are similarly overlapping and are similarly far
+apart when comparing the two approaches.
+
+    \subsubsection{Problem 4a t-SNE (5
+points)}\label{problem-4a-t-sne-5-points}
+
+Repeat 2e using a t-SNE plot with the default settings.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n+nd}{@timing\PYZus{}function}
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}tsne}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{cols}\PY{p}{,} \PY{n}{perplexity}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{barnes\PYZus{}hut}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{77}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    DataFrame must have target column.  Value for perplexity }
+         \PY{l+s+sd}{    defaults to that for sklearn\PYZsq{}s API. Parameter `cols` must}
+         \PY{l+s+sd}{    be numeric names of DataFrame `df`.  }
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{c+c1}{\PYZsh{} perform TSNE using sklearn}
+             \PY{n}{tsne} \PY{o}{=} \PY{n}{TSNE}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} 
+                         \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{random\PYZus{}state}\PY{p}{,} 
+                         \PY{n}{perplexity}\PY{o}{=}\PY{n}{perplexity}\PY{p}{,} 
+                         \PY{n}{method}\PY{o}{=}\PY{n}{method}\PY{p}{)}
+             \PY{n}{df\PYZus{}tsne} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{tsne}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} add target for plotting}
+             \PY{n}{df\PYZus{}tsne}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+             \PY{c+c1}{\PYZsh{} plot the first two vectors}
+             \PY{k}{if} \PY{n}{ax} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                 \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+             \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{target}\PY{p}{,} \PY{n}{\PYZus{}df} \PY{o+ow}{in} \PY{n}{df\PYZus{}tsne}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{target}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{color} \PY{o}{=} \PY{n}{colors}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                 \PY{n}{label} \PY{o}{=} \PY{n}{unq\PYZus{}tgts}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                 \PY{n}{ax}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{label}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{65}\PY{p}{)}
+                 \PY{n}{i} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1st Dimension}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2nd Dimension}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{if} \PY{n}{title} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                 \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T\PYZhy{}SNE: Top 2 Scaled Dimensions}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Colored by Class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+             \PY{k}{if} \PY{n}{ax} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:} 
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             
+         \PY{n}{plot\PYZus{}tsne}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{cols}\PY{p}{,} \PY{n}{perplexity}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Runtime: 5.85 seconds
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    T-SNE, even with default settings, clearly does a much better job than
+both \texttt{PCA} and \texttt{MDS} of separating classes while still
+preserving the intra-group proximity between points.
+
+    \subsubsection{Problem 4b t-SNE perplexity (5
+points)}\label{problem-4b-t-sne-perplexity-5-points}
+
+Try out a few t-SNE plots by varying the perplexity. State the best
+perplexity for separating the 8 different classes and describe your
+rationale in a sentence or two. Report the average calculation time for
+the t-SNE projection over a number of iterations.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} use \PYZpc{}timemit}
+         \PY{n}{perplexities} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{64}\PY{p}{,} \PY{l+m+mi}{128}\PY{p}{,} \PY{l+m+mi}{256}\PY{p}{,} \PY{l+m+mi}{512}\PY{p}{,} \PY{l+m+mi}{1024}\PY{p}{]}
+         \PY{n}{nrows} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{perplexities}\PY{p}{)}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}
+         \PY{n}{height} \PY{o}{=} \PY{l+m+mi}{7}\PY{o}{*}\PY{n}{nrows}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,} \PY{n}{height}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{p}\PY{p}{,} \PY{n}{perplexity} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{perplexities}\PY{p}{)}\PY{p}{:}
+             \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T\PYZhy{}SNE: Top 2 Scaled Dimensions Colored by Class}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Perplexity = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{perplexity}\PY{p}{)}
+             \PY{k}{if} \PY{n}{p} \PY{o}{\PYZlt{}} \PY{n}{nrows}\PY{p}{:}
+                 \PY{n}{ax} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{n}{p}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{ax} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{n}{p}\PY{o}{\PYZhy{}}\PY{n}{nrows}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Running t\PYZhy{}SNE @perplexity = }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{perplexity})
+             \PY{n}{plot\PYZus{}tsne}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{cols}\PY{p}{,} \PY{n}{perplexity}\PY{o}{=}\PY{n}{perplexity}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{n}{title}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Running t-SNE @perplexity = 2 
+Runtime: 2.37 seconds
+
+Running t-SNE @perplexity = 4 
+Runtime: 2.5 seconds
+
+Running t-SNE @perplexity = 8 
+Runtime: 3.12 seconds
+
+Running t-SNE @perplexity = 16 
+Runtime: 4.13 seconds
+
+Running t-SNE @perplexity = 32 
+Runtime: 5.64 seconds
+
+Running t-SNE @perplexity = 64 
+Runtime: 7.71 seconds
+
+Running t-SNE @perplexity = 128 
+Runtime: 9.55 seconds
+
+Running t-SNE @perplexity = 256 
+Runtime: 10.71 seconds
+
+Running t-SNE @perplexity = 512 
+Runtime: 6.1 seconds
+
+Running t-SNE @perplexity = 1024 
+Runtime: 6.0 seconds
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{times} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{2}\PY{p}{:} \PY{l+m+mf}{2.37}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{:} \PY{l+m+mf}{2.5}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{:} \PY{l+m+mf}{3.12}\PY{p}{,} \PY{l+m+mi}{16}\PY{p}{:} \PY{l+m+mf}{4.13}\PY{p}{,} \PY{l+m+mi}{32}\PY{p}{:} \PY{l+m+mf}{5.64}\PY{p}{,} \PY{l+m+mi}{64}\PY{p}{:} \PY{l+m+mf}{7.71}\PY{p}{,} \PY{l+m+mi}{128}\PY{p}{:} \PY{l+m+mf}{9.55}\PY{p}{,} \PY{l+m+mi}{256}\PY{p}{:} \PY{l+m+mf}{10.71}\PY{p}{,} \PY{l+m+mi}{512}\PY{p}{:} \PY{l+m+mf}{6.1}\PY{p}{\PYZcb{}}
+         \PY{n}{avg\PYZus{}time} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{times}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Average runtime = }\PY{l+s+si}{\PYZpc{}.4f}\PY{l+s+s1}{ seconds}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{avg\PYZus{}time})
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Average runtime = 5.7589 seconds
+
+    \end{Verbatim}
+
+    While the approach is imperfect, a \texttt{perplexity} value of 32
+appears to have the strongest separation between groups while still
+preserving local proximities within groups. This is visually apparent in
+the plot on the lower left where \texttt{perplexity=32}: we see that the
+red cluster is more dense than at lower \texttt{perplexity} values, yet
+the distance from other dissimilar groups is preserved. Beyond
+\texttt{perplexity=64} we observe that the clusters first begin to grow
+more chaotic before finally conveging into some elliptical-like shape.
+
+    \subsubsection{Problem 4c t-SNE randomization (10
+points)}\label{problem-4c-t-sne-randomization-10-points}
+
+The S of t-SNE means stochastic or random, usually as a function of
+time. Explore whether you can reproduce the result in 4b through a
+second projection and plot.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{perplexities} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{30} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{} use default 4 separate times}
+         \PY{n}{nrows} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{perplexities}\PY{p}{)}\PY{o}{/}\PY{o}{/}\PY{l+m+mi}{2}
+         \PY{n}{height} \PY{o}{=} \PY{l+m+mi}{7}\PY{o}{*}\PY{n}{nrows}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{nrows}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,} \PY{n}{height}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{p}\PY{p}{,} \PY{n}{perplexity} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{perplexities}\PY{p}{)}\PY{p}{:}
+             \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T\PYZhy{}SNE: Top 2 Scaled Dimensions Colored by Class}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Perplexity = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{perplexity}\PY{p}{)}
+             \PY{k}{if} \PY{n}{p} \PY{o}{\PYZlt{}} \PY{n}{nrows}\PY{p}{:}
+                 \PY{n}{ax} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{n}{p}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{ax} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{n}{p}\PY{o}{\PYZhy{}}\PY{n}{nrows}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Running t\PYZhy{}SNE @perplexity = }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{perplexity})
+             \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+             \PY{n}{plot\PYZus{}tsne}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{cols}\PY{p}{,} \PY{n}{perplexity}\PY{o}{=}\PY{n}{perplexity}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{n}{title}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{p}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Running t-SNE @perplexity = 30 
+Runtime: 6.76 seconds
+
+Running t-SNE @perplexity = 30 
+Runtime: 6.62 seconds
+
+Running t-SNE @perplexity = 30 
+Runtime: 6.27 seconds
+
+Running t-SNE @perplexity = 30 
+Runtime: 6.69 seconds
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We see above that varying the \texttt{random\_seed} four separate times
+yields four unique plots. While the plots are similar (i.e. they
+distinguish between groups in a similar way, by preserving distances
+between groups adn within) they are clearly different when different
+seeds are set. This is due to the fact that stochastic methods are used
+to perform t-SNE, and the initial randomization leads to different
+results.
+
+    \subsubsection{Problem 4d t-SNE Barnes-Hut (5
+points)}\label{problem-4d-t-sne-barnes-hut-5-points}
+
+The default t-SNE method of 4b uses the Barnes-Hut approximation.
+Keeping the other parameters the same as 4b, plot the t-SNE result using
+the exact method. Which method do you prefer? Compare the average
+calculation time for the exact method over a number of iterations.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{perplexities} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{30} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]} \PY{c+c1}{\PYZsh{} use default 2 separate times}
+         \PY{n}{methods} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{barnes\PYZus{}hut}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exact}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{axes} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{p}\PY{p}{,} \PY{n}{perplexity} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{perplexities}\PY{p}{)}\PY{p}{:}
+             \PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T\PYZhy{}SNE: Top 2 Scaled Dimensions Colored by Class}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Method = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{methods}\PY{p}{[}\PY{n}{p}\PY{p}{]}\PY{p}{)}
+             \PY{n}{ax} \PY{o}{=} \PY{n}{axes}\PY{p}{[}\PY{n}{p}\PY{p}{]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Running t\PYZhy{}SNE @method = }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{methods}[p])
+             \PY{n}{plot\PYZus{}tsne}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{cols}\PY{p}{,} \PY{n}{perplexity}\PY{o}{=}\PY{n}{perplexity}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{n}{title}\PY{p}{,} \PY{n}{method}\PY{o}{=}\PY{n}{methods}\PY{p}{[}\PY{n}{p}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Running t-SNE @method = barnes\_hut 
+Runtime: 5.69 seconds
+
+Running t-SNE @method = exact 
+Runtime: 4.03 seconds
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{k}{def} \PY{n+nf}{run\PYZus{}tsne}\PY{p}{(}\PY{n}{method}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} perform TSNE using sklearn}
+             \PY{c+c1}{\PYZsh{} vary method to compare times}
+             \PY{n}{tsne} \PY{o}{=} \PY{n}{TSNE}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} 
+                         \PY{n}{method}\PY{o}{=}\PY{n}{method}\PY{p}{)}
+             \PY{n}{df\PYZus{}tsne} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{tsne}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{cols}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{k+kc}{None}
+         
+         \PY{o}{\PYZpc{}}\PY{k}{timeit} run\PYZus{}tsne(\PYZsq{}barnes\PYZus{}hut\PYZsq{})
+         \PY{o}{\PYZpc{}}\PY{k}{timeit} run\PYZus{}tsne(\PYZsq{}exact\PYZsq{})
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5.71 s ± 161 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+3.93 s ± 65.2 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+
+    \end{Verbatim}
+
+    The plots using the two methods appear to highlight the same clusters as
+one another, yet the average runtime for the
+\texttt{method=\textquotesingle{}exact\textquotesingle{}} approach (3.93
+seconds)9 goes faster on average (and with a tighter distribution) than
+\texttt{method=\textquotesingle{}barnes\_hut\textquotesingle{}} (5.71
+seconds). The exact approach appears to be the better way to go, at
+least w.r.t. computation time.
+
+    \subsubsection{How many hours did this homework
+take?}\label{how-many-hours-did-this-homework-take}
+
+This will not affect your grade. We will be monitoring time spent on
+homework to be sure that we are not over-burdening students.
+
+    First pass, roughly 6 hours. Making sure all is good for submission,
+roughly 9 hours.
+
+    \subsubsection{Last step (5 points)}\label{last-step-5-points}
+
+Save this notebook as LastnameFirstnameHW1.ipynb such as
+MuskElonHW1.ipynb. Create a pdf of this notebook named similarly. Submit
+both the python notebook and the pdf version to the Canvas dropbox. We
+require both versions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OK.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+OK.
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
