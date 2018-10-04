@@ -1,0 +1,1785 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{HW2WashburnPaul}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Sept 16, 2018 Trend Detection CSCI E-82 Homework
+2}\label{sept-16-2018-trend-detection-csci-e-82-homework-2}
+
+\subsubsection{Due: October 1, 2018 11:59pm
+EST}\label{due-october-1-2018-1159pm-est}
+
+\subsection{Overview}\label{overview}
+
+\emph{Identifying technology trends is of core importance to venture
+capitalists, companies and individuals who may invest money or time to
+pursue the hottest areas. Using historic data, the goals are to
+characterize either an increase or decrease in certain areas over a span
+of time, and use that information to predict the next areas before
+everyone becomes aware of the trend. Economists and financial traders
+routinely develop methods to achieve this goal using numeric data, but
+that's a different problem.}
+
+Mining published literature for trend detection is not a new area, but
+it is far from being adequately solved. There are a number of papers
+that describe case studies for a given area, but none offer a definitive
+approach; most focus on only a niche area. The two main approaches to
+the problem are using word concepts and citation networks. The word
+concept approach aims to characterize a subfield by its component terms
+automatically and then look for patterns over time. Google Trends offers
+a plot of word frequency over time, but subfields tend to be more
+complex in that ``convolutional neural network'' has synonyms or
+abbreviations (CNN) that can be ambiguous. Furthermore, as areas mature,
+the concepts may refine into distinct groups and associate with specific
+sets of terms. The citation network looks for patterns in which authors
+are referenced to characterize concepts. These can be used to separate
+different areas based on which paper is cited, but also tend to be
+fairly noisy. This homework will give you and a required partner a
+chance to develop your text mining skills to computationally find the
+top 10 upward or downward trending areas within the context of 30 years
+of the Neural Information Processing Systems (NIPS) proceedings for
+their annual conference.
+
+\subsection{Data Set}\label{data-set}
+
+The official data set is the NIPS Proceedings available at
+https://papers.nips.cc/. However, this will take a long time to download
+and hammer their server so we will would like to provide you with
+alternatives. There is a version of the dataset here:
+https://www.kaggle.com/benhamner/nips-papers. You will need a Kaggle
+login in order to download it. Since I would prefer everyone spend more
+time on the analysis and less time on the cleaning, I am working to put
+out a slightly cleaner version of the official data set shortly that I
+will post. Partners: HW2 is a partnered homework so work should be
+completed with 1 partner. To help everyone find a partner, we ask you to
+sign up by putting your partner's first name next to yours and vice
+versa using this shared spreadsheet:
+https://docs.google.com/spreadsheets/d/1oz0pNYx8X2WptwiLsD9zMUtsCVZiEUTFXZ5DEnPaewk/edit?u
+sp=sharing. This will give everyone immediate feedback on who doesn't
+have a partner. To select a partner, the self-intros on piazza are a
+good place to start. Please use the Canvas email to contact them since
+we respect your privacy and don't want to post everyone's email.
+
+\subsection{Prompts \& Answers}\label{prompts-answers}
+
+\textbf{\emph{How have you defined a trend? How can you separate it from
+background noise and/or spurious relationships?}}
+
+The final methodology employed the \texttt{apriori} algorithm separately
+to each year's set of NIPS papers, then extracts growing itemsets based
+on the simple heuristic of sequential temporal differences in the
+support score for each itemset. To analyze trends, first the scores were
+adjusted for the size of the conference, then a rolling 5 period mean
+was applied to this adjusted score. This was meant to separate out noise
+and/or spurious relationships.
+
+\textbf{\emph{What are the main techniques you have used and how have
+you tailored them for this problem?}}
+
+Several methods for text pre-processing were tested in this analysis.
+LDA was used with two text cleaning mechanisms, then the apriori
+algorithm was tested. Also, \texttt{gensim.Word2Vec} was applied out of
+curiosity. Preferring the interpretability of the results from apriori
+this algorithm was chosen as the main technique, then applied to each
+year's group of papers.
+
+Summary of tests: * \texttt{LatentDirichletAllocation} was tested with
+Scikit-learn's \texttt{CountVectorizer} *
+\texttt{LatentDirichletAllocation} was tested with custom
+\texttt{TextCleaner} * \texttt{apriori} was tested with custom
+\texttt{TextCleaner} * \texttt{gensim.Word2Vec} was tested with
+\texttt{TextCleaner} * Leveraging the clarity from the outputs from
+running \texttt{apriori}, the algorithm was applied to each year's set
+of papers separately.
+
+\textbf{\emph{What was your strategy for finding multi-word phrases
+versus single words?}}
+
+N-grams of length between 1 and 3 words were selected for -\/- then
+filters to the aggregate outputs were applied to select for items
+greater than 2 words in length. This was emloyed on all vectorizers that
+were used.
+
+\textbf{\emph{What approach(es) did you use to separate one subfield
+from others?}}
+
+Separating sub-fields of machine learning was difficult. The
+\emph{laissez faire} approach of removing minimal stop-words was used,
+yet it was evident that many words are connecting \emph{bridge}
+words-\/-such as the word "neural"-\/-that if they were removed would
+potentially remove an important signal.
+
+\textbf{\emph{What parts of the document did you use and why?}}
+
+Both the title and the text body were processed using the custom
+\texttt{TextCleaner} class, then -\/- in order to amplify whatever
+signal may be contained in the titles of papers -\/- the cleaned titles
+were duplicated before being concatenated to the cleaned paper body
+text. The idea behind amplifying the text contained in the title is an
+assumption that the titles will be dense with information via the
+recursive meaning of the words chosen therein, and thus informative for
+these purposes. Abstracts were specifically left out of the process due
+to the fact that many papers did not have one. This reason is somewhat
+arbitrary, and future work could explore the potential contained in this
+latent information.
+
+\textbf{\emph{How did you normalize the results against the growth of
+the conference, lengths of documents, etc.?}}
+
+A simple approach was used. A value of 100 was added to each topic's
+support score, then that value was multiplied by the number of papers
+for that year. This approach was meant to be a simple way of accounting
+for the size of the conference.
+
+\textbf{\emph{We know that you can look back and find trends but how
+would you find the next trend with your method? Be specific.}}
+
+The time-series modeling techniques could be applied to the output of
+this approach to predict the future adjusted support scores for each
+topic, then further research could be done to determine the
+meaningfulness of such predictions.
+
+\textbf{\emph{Plot of the final top 10 normalized trends as a function
+of time.}}
+
+See {[}way{]} below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{re}
+        \PY{k+kn}{import} \PY{n+nn}{string}
+        \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{time}
+        \PY{k+kn}{import} \PY{n+nn}{spacy}
+        \PY{k+kn}{from} \PY{n+nn}{tld} \PY{k}{import} \PY{n}{get\PYZus{}tld}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{base} \PY{k}{import} \PY{n}{TransformerMixin}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{TfidfVectorizer}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{CountVectorizer}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{decomposition} \PY{k}{import} \PY{n}{LatentDirichletAllocation}
+        \PY{k+kn}{from} \PY{n+nn}{mlxtend}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{TransactionEncoder}  
+        \PY{k+kn}{from} \PY{n+nn}{mlxtend}\PY{n+nn}{.}\PY{n+nn}{frequent\PYZus{}patterns} \PY{k}{import} \PY{n}{apriori}
+        \PY{k+kn}{from} \PY{n+nn}{mlxtend}\PY{n+nn}{.}\PY{n+nn}{frequent\PYZus{}patterns} \PY{k}{import} \PY{n}{association\PYZus{}rules}
+        \PY{k+kn}{import} \PY{n+nn}{ast}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{wordcloud}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{glob}
+        \PY{k+kn}{from} \PY{n+nn}{gensim}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Word2Vec}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} read in authors table}
+        \PY{n}{authors} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/authors.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{authors}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{authors}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{author\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{c+c1}{\PYZsh{} print details of authors table}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Authors table:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{o}{*}\PY{l+m+mi}{50}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s1}{ unique authors}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{authors}.index.nunique())
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shape of authors table }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{str}(authors.shape))
+        \PY{c+c1}{\PYZsh{} print(authors.head(), \PYZsq{}\PYZbs{}n\PYZbs{}n\PYZsq{})}
+        
+        \PY{c+c1}{\PYZsh{} read in paper authors map}
+        \PY{n}{paper\PYZus{}authors} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/paper\PYZus{}authors.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{paper\PYZus{}authors}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} print details about paper authors map}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Paper Author table:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{o}{*}\PY{l+m+mi}{50}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There exist }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s1}{ papers authored by }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s1}{ unique authors}\PY{l+s+s1}{\PYZsq{}} 
+             \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{paper\PYZus{}authors}\PY{o}{.}\PY{n}{paper\PYZus{}id}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{paper\PYZus{}authors}\PY{o}{.}\PY{n}{author\PYZus{}id}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{paper\PYZus{}authors}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{paper\PYZus{}author\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{paper\PYZus{}authors}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{paper\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{paper\PYZus{}authors}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{author\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s1}{ unique author/paper pairs}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{paper\PYZus{}authors}[\PYZsq{}paper\PYZus{}author\PYZus{}id\PYZsq{}].nunique())
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shape of Paper Author table }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{str}(paper\PYZus{}authors.shape))
+        \PY{c+c1}{\PYZsh{} print(paper\PYZus{}authors.head(), \PYZsq{}\PYZbs{}n\PYZbs{}n\PYZsq{})}
+        
+        \PY{c+c1}{\PYZsh{} read in papers}
+        \PY{n}{papers} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/papers.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{papers}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{papers}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{paper\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{c+c1}{\PYZsh{} print details about papers table}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Papers table:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{o}{*}\PY{l+m+mi}{50}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There exist }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s1}{ papers with }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s1}{ unique titles}\PY{l+s+s1}{\PYZsq{}} 
+             \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{papers}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{papers}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shape of Papers table }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{str}(papers.shape))
+        \PY{c+c1}{\PYZsh{} print(papers.head(), \PYZsq{}\PYZbs{}n\PYZbs{}n\PYZsq{})}
+        
+        \PY{c+c1}{\PYZsh{} map author names }
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Combining data to one structure}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{*}\PY{l+s+s1}{\PYZsq{}}\PY{o}{*}\PY{l+m+mi}{50}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mapping author names to the Paper Authors table in preparation to merge}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{author\PYZus{}map} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{authors}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{values}\PY{p}{,} \PY{n}{authors}\PY{o}{.}\PY{n}{name}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{)}
+        \PY{n}{paper\PYZus{}authors}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{paper\PYZus{}authors}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{author\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{author\PYZus{}map}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} outer join of papers/authors}
+        \PY{n}{papers}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{drop}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{paper\PYZus{}authors}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{papers}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{paper\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} print outputs}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{After merging there are }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s1}{ missing values in the author field}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{df}.author.isnull().sum())
+        \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{o}{.}\PY{n}{author}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{UNKNOWN}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Final shape of data }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{str}(df.shape))
+        
+        \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Authors table:
+ **************************************************
+There are 9784 unique authors
+Shape of authors table (9784, 1) 
+
+Paper Author table:
+ **************************************************
+There exist 7238 papers authored by 9784 unique authors
+There are 20823 unique author/paper pairs
+Shape of Paper Author table (20838, 3)
+
+Papers table:
+ **************************************************
+There exist 7241 papers with 7241 unique titles
+Shape of Papers table (7241, 6)
+
+Combining data to one structure
+ **************************************************
+Mapping author names to the Paper Authors table in preparation to merge
+After merging there are 3 missing values in the author field
+Final shape of data (20841, 10)
+
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}    paper\_id  author\_id paper\_author\_id                   author  year  \textbackslash{}
+        0        63       94.0           63\_94     Yaser S. Abu-Mostafa  1987   
+        1        80      124.0          80\_124         Joshua Alspector  1987   
+        2        80      125.0          80\_125          Robert B. Allen  1987   
+        3        80      126.0          80\_126                Victor Hu  1987   
+        4        80      127.0          80\_127  Srinagesh Satyanarayana  1987   
+        
+                                                       title event\_type  \textbackslash{}
+        0                        Connectivity Versus Entropy        NaN   
+        1  Stochastic Learning Networks and their Electro{\ldots}        NaN   
+        2  Stochastic Learning Networks and their Electro{\ldots}        NaN   
+        3  Stochastic Learning Networks and their Electro{\ldots}        NaN   
+        4  Stochastic Learning Networks and their Electro{\ldots}        NaN   
+        
+                                                    pdf\_name          abstract  \textbackslash{}
+        0                 63-connectivity-versus-entropy.pdf  Abstract Missing   
+        1  80-stochastic-learning-networks-and-their-elec{\ldots}  Abstract Missing   
+        2  80-stochastic-learning-networks-and-their-elec{\ldots}  Abstract Missing   
+        3  80-stochastic-learning-networks-and-their-elec{\ldots}  Abstract Missing   
+        4  80-stochastic-learning-networks-and-their-elec{\ldots}  Abstract Missing   
+        
+                                                  paper\_text  
+        0  1\textbackslash{}n\textbackslash{}nCONNECTIVITY VERSUS ENTROPY\textbackslash{}nYaser S. Abu{\ldots}  
+        1  9\textbackslash{}n\textbackslash{}nStochastic Learning Networks and their El{\ldots}  
+        2  9\textbackslash{}n\textbackslash{}nStochastic Learning Networks and their El{\ldots}  
+        3  9\textbackslash{}n\textbackslash{}nStochastic Learning Networks and their El{\ldots}  
+        4  9\textbackslash{}n\textbackslash{}nStochastic Learning Networks and their El{\ldots}  
+\end{Verbatim}
+            
+    \subsection{Exploratory Analysis}\label{exploratory-analysis}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} note the matthew principle for author output}
+        \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)} \PY{o}{/} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{title}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+        \PY{n}{\PYZus{}}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{barh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Paper Author}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Percentage of Total Papers Published}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NIPS Author Output}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{class} \PY{n+nc}{TextCleaner}\PY{p}{(}\PY{n}{TransformerMixin}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Text cleaning to slot into sklearn interface\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{remove\PYZus{}stopwords}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{remove\PYZus{}urls}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                         \PY{n}{remove\PYZus{}puncts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{lemmatize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{extra\PYZus{}punct}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{custom\PYZus{}stopwords}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{custom\PYZus{}non\PYZus{}stopwords}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{parser}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{big}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{        INPUT: remove\PYZus{}stopwords \PYZhy{} bool \PYZhy{} remove is, there, he etc...}
+        \PY{l+s+sd}{               remove\PYZus{}urls \PYZhy{} bool \PYZhy{} \PYZsq{}t www.monkey.com t\PYZsq{} \PYZhy{}\PYZhy{}\PYZgt{} \PYZsq{}t com t\PYZsq{}}
+        \PY{l+s+sd}{               remove\PYZus{}punct \PYZhy{} bool \PYZhy{} all punct and digits gone}
+        \PY{l+s+sd}{               lemmatize \PYZhy{} bool \PYZhy{} whether to apply lemmtization}
+        \PY{l+s+sd}{               extra\PYZus{}punct \PYZhy{} str \PYZhy{} other characters to remove}
+        \PY{l+s+sd}{               custom\PYZus{}stopwords \PYZhy{} list \PYZhy{} add to standard stops}
+        \PY{l+s+sd}{               custom\PYZus{}non\PYZus{}stopwords \PYZhy{} list \PYZhy{} make sure are kept}
+        \PY{l+s+sd}{               verbose \PYZhy{} bool \PYZhy{} whether to print progress statements}
+        \PY{l+s+sd}{               parser \PYZhy{} str \PYZhy{} \PYZsq{}big\PYZsq{} or small, one keeps more, and is slower}
+        \PY{l+s+sd}{        OUTPUT: self \PYZhy{} **due to other method, not this one}
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{c+c1}{\PYZsh{} Initialize passed Attributes to specify operations}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{remove\PYZus{}stopwords} \PY{o}{=} \PY{n}{remove\PYZus{}stopwords}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{remove\PYZus{}urls} \PY{o}{=} \PY{n}{remove\PYZus{}urls}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{remove\PYZus{}puncts} \PY{o}{=} \PY{n}{remove\PYZus{}puncts}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lemmatize} \PY{o}{=} \PY{n}{lemmatize}
+        
+                \PY{c+c1}{\PYZsh{} Change how operations work}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{custom\PYZus{}stopwords} \PY{o}{=} \PY{n}{custom\PYZus{}stopwords}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{custom\PYZus{}non\PYZus{}stopwords} \PY{o}{=} \PY{n}{custom\PYZus{}non\PYZus{}stopwords}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose} \PY{o}{=} \PY{n}{verbose}
+        
+                \PY{c+c1}{\PYZsh{} Set up punctation tranlation table}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{removals} \PY{o}{=} \PY{n}{string}\PY{o}{.}\PY{n}{punctuation} \PY{o}{+} \PY{n}{string}\PY{o}{.}\PY{n}{digits} \PY{o}{+} \PY{n}{extra\PYZus{}punct}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{trans\PYZus{}table} \PY{o}{=} \PY{n+nb}{str}\PY{o}{.}\PY{n}{maketrans}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{key}\PY{p}{:} \PY{k+kc}{None} \PY{k}{for} \PY{n}{key} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{removals}\PY{p}{\PYZcb{}}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{}Load nlp model for parsing usage later}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{parser} \PY{o}{=} \PY{n}{spacy}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{en\PYZus{}core\PYZus{}web\PYZus{}sm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                         \PY{n}{disable}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{parser}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{textcat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}from spacy.lang.en import English}
+                \PY{k}{if} \PY{n}{parser} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{small}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{parser} \PY{o}{=} \PY{n}{spacy}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{en}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{c+c1}{\PYZsh{}English()}
+        
+                \PY{c+c1}{\PYZsh{}Add custom stop words to nlp}
+                \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{custom\PYZus{}stopwords}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{parser}\PY{o}{.}\PY{n}{vocab}\PY{p}{[}\PY{n}{word}\PY{p}{]}\PY{o}{.}\PY{n}{is\PYZus{}stop} \PY{o}{=} \PY{k+kc}{True}
+        
+                \PY{c+c1}{\PYZsh{}Set custom nlp words to be kept}
+                \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{custom\PYZus{}non\PYZus{}stopwords}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{parser}\PY{o}{.}\PY{n}{vocab}\PY{p}{[}\PY{n}{word}\PY{p}{]}\PY{o}{.}\PY{n}{is\PYZus{}stop} \PY{o}{=} \PY{k+kc}{False}
+        
+        
+            \PY{k}{def} \PY{n+nf}{transform}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}take array of docs to clean array of docs\PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{c+c1}{\PYZsh{} Potential replace urls with tld ie www.monkey.com to com}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{remove\PYZus{}urls}\PY{p}{:}
+                    \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CHANGING URLS to TLDS...  }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    \PY{n}{X} \PY{o}{=} \PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{remove\PYZus{}url}\PY{p}{(}\PY{n}{doc}\PY{p}{)} \PY{k}{for} \PY{n}{doc} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{time() \PYZhy{} start\PYZus{}time:.0f\PYZcb{} seconds}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} Potentially remove punctuation}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{remove\PYZus{}puncts}\PY{p}{:}
+                    \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{REMOVING PUNCTUATION AND DIGITS... }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    \PY{n}{X} \PY{o}{=} \PY{p}{[}\PY{n}{doc}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{translate}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{trans\PYZus{}table}\PY{p}{)} \PY{k}{for} \PY{n}{doc} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{time() \PYZhy{} start\PYZus{}time:.0f\PYZcb{} seconds}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} Using Spacy to parse text}
+                \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PARSING TEXT WITH SPACY... }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    
+                \PY{n}{X} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{parser}\PY{o}{.}\PY{n}{pipe}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{time() \PYZhy{} start\PYZus{}time:.0f\PYZcb{} seconds}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} Potential stopword removal}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{remove\PYZus{}stopwords}\PY{p}{:}
+                    \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{REMOVING STOP WORDS FROM DOCUMENTS... }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    \PY{n}{X} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{word} \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{doc} \PY{k}{if} \PY{o+ow}{not} \PY{n}{word}\PY{o}{.}\PY{n}{is\PYZus{}stop}\PY{p}{]} \PY{k}{for} \PY{n}{doc} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{time() \PYZhy{} start\PYZus{}time:.0f\PYZcb{} seconds}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        
+                \PY{c+c1}{\PYZsh{} Potential Lemmatization}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lemmatize}\PY{p}{:}
+                    \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LEMMATIZING WORDS... }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    \PY{n}{X} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{word}\PY{o}{.}\PY{n}{lemma\PYZus{}} \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{doc}\PY{p}{]} \PY{k}{for} \PY{n}{doc} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{time() \PYZhy{} start\PYZus{}time:.0f\PYZcb{} seconds}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} Put back to normal if no lemmatizing happened}
+                \PY{k}{if} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lemmatize}\PY{p}{:}
+                    \PY{n}{X} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{word}\PY{p}{)}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{doc}\PY{p}{]} \PY{k}{for} \PY{n}{doc} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}
+        
+                \PY{c+c1}{\PYZsh{} Join Back up}
+                \PY{k}{return} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{lst}\PY{p}{)} \PY{k}{for} \PY{n}{lst} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}
+        
+        
+            \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}interface conforming, and allows use of fit\PYZus{}transform\PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{k}{return} \PY{n+nb+bp}{self}
+        
+        
+            \PY{n+nd}{@staticmethod}
+            \PY{k}{def} \PY{n+nf}{remove\PYZus{}url}\PY{p}{(}\PY{n}{text}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{        DESCR: given a url string find urls and replace with top level domain}
+        \PY{l+s+sd}{               a bit lazy in that if there are multiple all are replaced by first}
+        \PY{l+s+sd}{        INPUT: text \PYZhy{} str \PYZhy{} \PYZsq{}this is www.monky.com in text\PYZsq{}}
+        \PY{l+s+sd}{        OUTPIT: str \PYZhy{} \PYZsq{}this is \PYZlt{}com\PYZgt{} in text\PYZsq{}}
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{c+c1}{\PYZsh{} Define string to match urls}
+                \PY{n}{url\PYZus{}re} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{((?:www|https?)(://)?[\PYZca{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{s]+)}\PY{l+s+s1}{\PYZsq{}}
+        
+                \PY{c+c1}{\PYZsh{} Find potential things to replace}
+                \PY{n}{matches} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{n}{url\PYZus{}re}\PY{p}{,} \PY{n}{text}\PY{p}{)}
+                \PY{k}{if} \PY{n}{matches} \PY{o}{==} \PY{p}{[}\PY{p}{]}\PY{p}{:}
+                    \PY{k}{return} \PY{n}{text}
+        
+                \PY{c+c1}{\PYZsh{} Get tld of first match}
+                \PY{n}{match} \PY{o}{=} \PY{n}{matches}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{k}{try}\PY{p}{:}
+                    \PY{n}{tld} \PY{o}{=} \PY{n}{get\PYZus{}tld}\PY{p}{(}\PY{n}{match}\PY{p}{,} \PY{n}{fail\PYZus{}silently}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{fix\PYZus{}protocol}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                \PY{k}{except} \PY{n+ne}{ValueError}\PY{p}{:}
+                    \PY{n}{tld} \PY{o}{=} \PY{k+kc}{None}
+        
+                \PY{c+c1}{\PYZsh{} failures return none so change to empty}
+                \PY{k}{if} \PY{n}{tld} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                    \PY{n}{tld} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
+        
+                \PY{c+c1}{\PYZsh{} make this obvsiouyly an odd tag}
+                \PY{n}{tld} \PY{o}{=} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}}\PY{l+s+si}{\PYZob{}tld\PYZcb{}}\PY{l+s+s2}{\PYZgt{}}\PY{l+s+s2}{\PYZdq{}}
+        
+                \PY{c+c1}{\PYZsh{} Make replacements and return}
+                \PY{k}{return} \PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{n}{url\PYZus{}re}\PY{p}{,} \PY{n}{tld}\PY{p}{,} \PY{n}{text}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Clean Text}\label{clean-text}
+
+\subsection{Clean Titles of Papers}\label{clean-titles-of-papers}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{custom\PYZus{}stopwords} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{et}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{al}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                           \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{model}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predict}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{machine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{datum}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{cleaner} \PY{o}{=} \PY{n}{TextCleaner}\PY{p}{(}\PY{n}{custom\PYZus{}stopwords}\PY{o}{=}\PY{n}{custom\PYZus{}stopwords}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} transform with }
+        \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cleaned\PYZus{}title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cleaner}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{title}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CHANGING URLS to TLDS{\ldots}  0 seconds
+REMOVING PUNCTUATION AND DIGITS{\ldots} 0 seconds
+PARSING TEXT WITH SPACY{\ldots} 7 seconds
+REMOVING STOP WORDS FROM DOCUMENTS{\ldots} 0 seconds
+LEMMATIZING WORDS{\ldots} 0 seconds
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cleaned\PYZus{}title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}                                                 title  \textbackslash{}
+        0                         Connectivity Versus Entropy   
+        1   Stochastic Learning Networks and their Electro{\ldots}   
+        2   Stochastic Learning Networks and their Electro{\ldots}   
+        3   Stochastic Learning Networks and their Electro{\ldots}   
+        4   Stochastic Learning Networks and their Electro{\ldots}   
+        5                       Learning on a General Network   
+        6   An Artificial Neural Network for Spatio-Tempor{\ldots}   
+        7   An Artificial Neural Network for Spatio-Tempor{\ldots}   
+        8   An Artificial Neural Network for Spatio-Tempor{\ldots}   
+        9   On Properties of Networks of Neuron-Like Elements   
+        10  On Properties of Networks of Neuron-Like Elements   
+        11  Supervised Learning of Probability Distributio{\ldots}   
+        12  Supervised Learning of Probability Distributio{\ldots}   
+        13  Centric Models of the Orientation Map in Prima{\ldots}   
+        14  Centric Models of the Orientation Map in Prima{\ldots}   
+        15  Analysis and Comparison of Different Learning {\ldots}   
+        16  Simulations Suggest Information Processing Rol{\ldots}   
+        17                Optimal Neural Spike Classification   
+        18                Optimal Neural Spike Classification   
+        19  Neural Networks for Template Matching: Applica{\ldots}   
+        
+                                                cleaned\_title  
+        0                         connectivity versus entropy  
+        1        stochastic network electronic implementation  
+        2        stochastic network electronic implementation  
+        3        stochastic network electronic implementation  
+        4        stochastic network electronic implementation  
+        5                                     general network  
+        6   artificial neural network spatiotemporal bipol{\ldots}  
+        7   artificial neural network spatiotemporal bipol{\ldots}  
+        8   artificial neural network spatiotemporal bipol{\ldots}  
+        9                 property network neuronlike element  
+        10                property network neuronlike element  
+        11  supervised probability distribution neural net{\ldots}  
+        12  supervised probability distribution neural net{\ldots}  
+        13  centric model orientation map primary visual c{\ldots}  
+        14  centric model orientation map primary visual c{\ldots}  
+        15  analysis comparison different algorithm patter{\ldots}  
+        16  simulation suggest information processing role{\ldots}  
+        17                optimal neural spike classification  
+        18                optimal neural spike classification  
+        19  neural network template matching application r{\ldots}  
+\end{Verbatim}
+            
+    \subsection{Clean Text of Papers}\label{clean-text-of-papers}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length\PYZus{}paper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{paper\PYZus{}text}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n+nb}{len}\PY{p}{)}
+        
+        \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length\PYZus{}paper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length of paper (words)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{8}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length\PYZus{}paper}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{3}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Histogram of Length of Papers for NIPS Proceedings}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Length of Papers in Words (binned)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} Text(0,0.5,'Count')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{)}
+        \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{4}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time Series of Number of NIPS Papers by Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Papers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Use first 2000 words in each paper to build models (for
+memory-related
+issues)}\label{use-first-2000-words-in-each-paper-to-build-models-for-memory-related-issues}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{first\PYZus{}n} \PY{o}{=} \PY{l+m+mi}{2000}
+         
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{text} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{paper\PYZus{}text}\PY{p}{)}\PY{p}{:}
+             \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cleaned\PYZus{}text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{text}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{n}{first\PYZus{}n}\PY{p}{]}\PY{p}{)}
+             
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cleaned\PYZus{}text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{cleaner}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cleaned\PYZus{}text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{paper\PYZus{}text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cleaned\PYZus{}text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+CHANGING URLS to TLDS{\ldots}  4 seconds
+REMOVING PUNCTUATION AND DIGITS{\ldots} 1 seconds
+PARSING TEXT WITH SPACY{\ldots} 1486 seconds
+REMOVING STOP WORDS FROM DOCUMENTS{\ldots} 25 seconds
+LEMMATIZING WORDS{\ldots} 25 seconds
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}                                            paper\_text  \textbackslash{}
+         0   1\textbackslash{}n\textbackslash{}nCONNECTIVITY VERSUS ENTROPY\textbackslash{}nYaser S. Abu{\ldots}   
+         1   9\textbackslash{}n\textbackslash{}nStochastic Learning Networks and their El{\ldots}   
+         2   9\textbackslash{}n\textbackslash{}nStochastic Learning Networks and their El{\ldots}   
+         3   9\textbackslash{}n\textbackslash{}nStochastic Learning Networks and their El{\ldots}   
+         4   9\textbackslash{}n\textbackslash{}nStochastic Learning Networks and their El{\ldots}   
+         5   22\textbackslash{}n\textbackslash{}nLEARNING ON A GENERAL NETWORK\textbackslash{}n\textbackslash{}nAmir F{\ldots}   
+         6   31\textbackslash{}n\textbackslash{}nAN ARTIFICIAL NEURAL NETWORK FOR SPATIOT{\ldots}   
+         7   31\textbackslash{}n\textbackslash{}nAN ARTIFICIAL NEURAL NETWORK FOR SPATIOT{\ldots}   
+         8   31\textbackslash{}n\textbackslash{}nAN ARTIFICIAL NEURAL NETWORK FOR SPATIOT{\ldots}   
+         9   41\textbackslash{}n\textbackslash{}nON PROPERTIES OF NETWORKS\textbackslash{}nOF NEURON-LIK{\ldots}   
+         10  41\textbackslash{}n\textbackslash{}nON PROPERTIES OF NETWORKS\textbackslash{}nOF NEURON-LIK{\ldots}   
+         11  52\textbackslash{}n\textbackslash{}nSupervised Learning of Probability Distr{\ldots}   
+         12  52\textbackslash{}n\textbackslash{}nSupervised Learning of Probability Distr{\ldots}   
+         13  62\textbackslash{}n\textbackslash{}nCentric Models of the Orientation Map in{\ldots}   
+         14  62\textbackslash{}n\textbackslash{}nCentric Models of the Orientation Map in{\ldots}   
+         15  72\textbackslash{}n\textbackslash{}nANALYSIS AND COMPARISON OF DIFFERENT LEA{\ldots}   
+         16  82\textbackslash{}n\textbackslash{}nSIMULATIONS SUGGEST\textbackslash{}nINFORMATION PROCESS{\ldots}   
+         17  95\textbackslash{}n\textbackslash{}nOPTIMAL NEURAL SPIKE CLASSIFICATION\textbackslash{}nAmi{\ldots}   
+         18  95\textbackslash{}n\textbackslash{}nOPTIMAL NEURAL SPIKE CLASSIFICATION\textbackslash{}nAmi{\ldots}   
+         19  103\textbackslash{}n\textbackslash{}nNEURAL NETWORKS FOR TEMPLATE MATCHING:\textbackslash{}{\ldots}   
+         
+                                                  cleaned\_text  
+         0     connectivity versus entropy yaser s abumosta{\ldots}  
+         1     stochastic network electronic implementation{\ldots}  
+         2     stochastic network electronic implementation{\ldots}  
+         3     stochastic network electronic implementation{\ldots}  
+         4     stochastic network electronic implementation{\ldots}  
+         5     general network amir f atiya department elec{\ldots}  
+         6     artificial neural network spatiotemporal bip{\ldots}  
+         7     artificial neural network spatiotemporal bip{\ldots}  
+         8     artificial neural network spatiotemporal bip{\ldots}  
+         9     property network neuronlike element pierre b{\ldots}  
+         10    property network neuronlike element pierre b{\ldots}  
+         11    supervise probability distribution neural ne{\ldots}  
+         12    supervise probability distribution neural ne{\ldots}  
+         13    centric model orientation map primary visual{\ldots}  
+         14    centric model orientation map primary visual{\ldots}  
+         15    analysis comparison different algorithm patt{\ldots}  
+         16    simulation suggest information processing ro{\ldots}  
+         17    optimal neural spike classification amir f a{\ldots}  
+         18    optimal neural spike classification amir f a{\ldots}  
+         19    neural network template matching application{\ldots}  
+\end{Verbatim}
+            
+    \subsubsection{Write to disk \& re-read if
+necessary}\label{write-to-disk-re-read-if-necessary}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} df.to\PYZus{}csv(\PYZsq{}data/cleaned\PYZus{}data.csv\PYZsq{}, index=True)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} df = pd.read\PYZus{}csv(\PYZsq{}data/cleaned\PYZus{}data.csv\PYZsq{})}
+         \PY{c+c1}{\PYZsh{} del df[\PYZsq{}Unnamed: 0\PYZsq{}]}
+         \PY{c+c1}{\PYZsh{} df.head()}
+\end{Verbatim}
+
+
+    \subsubsection{Combine Text \& Title, Weighting Title More
+Heavily}\label{combine-text-title-weighting-title-more-heavily}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} df[\PYZsq{}combined\PYZus{}cleaned\PYZus{}text\PYZsq{}] = }
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training\PYZus{}text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{cleaned\PYZus{}title}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{df}\PY{o}{.}\PY{n}{cleaned\PYZus{}text}
+         \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training\PYZus{}text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{200}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} 'general network general network   general network amir f atiya department electrical engineering california institute technology   abstract paper generalize backpropagation method general network cont'
+\end{Verbatim}
+            
+    \section{\texorpdfstring{Test \texttt{LatentDirichletAllocation} with
+\texttt{CountVectorizer}}{Test LatentDirichletAllocation with CountVectorizer}}\label{test-latentdirichletallocation-with-countvectorizer}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{print\PYZus{}top\PYZus{}words}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{feature\PYZus{}names}\PY{p}{,} \PY{n}{n\PYZus{}top\PYZus{}words}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}from sklearn example website for LDA\PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{k}{for} \PY{n}{topic\PYZus{}idx}\PY{p}{,} \PY{n}{topic} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{components\PYZus{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{message} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Topic \PYZsh{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{topic\PYZus{}idx}
+                 \PY{n}{message} \PY{o}{+}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{|}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{p}{[}\PY{n}{feature\PYZus{}names}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                                      \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{topic}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{n}{n\PYZus{}top\PYZus{}words} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{message}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{count\PYZus{}vectorizer\PYZus{}lda}\PY{p}{(}\PY{n}{data\PYZus{}samples}\PY{p}{,} \PY{n}{n\PYZus{}features}\PY{p}{,} \PY{n}{n\PYZus{}components}\PY{p}{,} \PY{n}{n\PYZus{}top\PYZus{}words}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}adapted from sklearn example website for LDA\PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{c+c1}{\PYZsh{} Use tf (raw term count) features for LDA.}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Extracting tf features for LDA...}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{tf\PYZus{}vectorizer} \PY{o}{=} \PY{n}{CountVectorizer}\PY{p}{(}\PY{n}{max\PYZus{}df}\PY{o}{=}\PY{l+m+mf}{0.95}\PY{p}{,} 
+                                             \PY{n}{min\PYZus{}df}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{05}\PY{p}{,}
+                                             \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{n}{n\PYZus{}features}\PY{p}{,}
+                                             \PY{n}{stop\PYZus{}words}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{english}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                             \PY{n}{ngram\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+             \PY{n}{t0} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+             \PY{n}{tf} \PY{o}{=} \PY{n}{tf\PYZus{}vectorizer}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{data\PYZus{}samples}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{done in }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s2}{s.}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{t0}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fitting LDA models with tf features}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{lda} \PY{o}{=} \PY{n}{LatentDirichletAllocation}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{n}{n\PYZus{}components}\PY{p}{,}
+                                             \PY{n}{learning\PYZus{}method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{online}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                             \PY{n}{learning\PYZus{}offset}\PY{o}{=}\PY{l+m+mf}{50.}\PY{p}{,}
+                                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{77}\PY{p}{,}
+                                             \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}
+                                             \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{)}
+             \PY{n}{t0} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+             \PY{n}{lda}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{tf}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{done in }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s2}{s.}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{t0}\PY{p}{)}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Topics in LDA model:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{tf\PYZus{}feature\PYZus{}names} \PY{o}{=} \PY{n}{tf\PYZus{}vectorizer}\PY{o}{.}\PY{n}{get\PYZus{}feature\PYZus{}names}\PY{p}{(}\PY{p}{)}
+             \PY{n}{print\PYZus{}top\PYZus{}words}\PY{p}{(}\PY{n}{lda}\PY{p}{,} \PY{n}{tf\PYZus{}feature\PYZus{}names}\PY{p}{,} \PY{n}{n\PYZus{}top\PYZus{}words}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{lda}\PY{p}{,} \PY{n}{tf\PYZus{}feature\PYZus{}names}
+             
+         
+         \PY{n}{n\PYZus{}features} \PY{o}{=} \PY{l+m+mi}{1000}
+         \PY{n}{n\PYZus{}components} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{n\PYZus{}top\PYZus{}words} \PY{o}{=} \PY{l+m+mi}{10}
+         
+         \PY{n}{lda}\PY{p}{,} \PY{n}{feature\PYZus{}names} \PY{o}{=} \PY{n}{count\PYZus{}vectorizer\PYZus{}lda}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training\PYZus{}text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                                                   \PY{n}{n\PYZus{}features}\PY{p}{,} \PY{n}{n\PYZus{}components}\PY{p}{,} \PY{n}{n\PYZus{}top\PYZus{}words}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Extracting tf features for LDA{\ldots}
+done in 89.347s.
+
+Fitting LDA models with tf features
+done in 608.392s.
+
+Topics in LDA model:
+Topic \#0: neuron|spike|response|cell|stimulus|activity|neural|pattern|input|brain
+Topic \#1: set|label|loss|algorithm|training|class|example|classification|function|classifier
+Topic \#2: algorithm|gradient|method|xt|function|stochastic|update|convergence|optimization|parameter
+Topic \#3: task|time|signal|model|source|human|target|filter|sequence|motion
+Topic \#4: image|feature|object|cluster|graph|set|representation|point|approach|method
+Topic \#5: state|policy|action|algorithm|function|problem|reward|value|set|agent
+Topic \#6: matrix|problem|function|algorithm|kernel|method|vector|set|linear|result
+Topic \#7: distribution|model|variable|inference|sample|parameter|gaussian|probability|prior|latent
+Topic \#8: time|input|memory|weight|figure|output|rule|circuit|number|event
+Topic \#9: network|neural|layer|input|neural network|output|training|train|deep|unit
+
+
+    \end{Verbatim}
+
+    \section{\texorpdfstring{Test \texttt{LatentDirichletAllocation} with
+\texttt{TfidfVectorizer}}{Test LatentDirichletAllocation with TfidfVectorizer}}\label{test-latentdirichletallocation-with-tfidfvectorizer}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{k}{def} \PY{n+nf}{tfidf\PYZus{}vectorizer\PYZus{}lda}\PY{p}{(}\PY{n}{data\PYZus{}samples}\PY{p}{,} \PY{n}{n\PYZus{}features}\PY{p}{,} \PY{n}{n\PYZus{}components}\PY{p}{,} \PY{n}{n\PYZus{}top\PYZus{}words}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}adapted from sklearn example website for LDA\PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{c+c1}{\PYZsh{} Use tf\PYZhy{}idf features for LDA.}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Extracting tf\PYZhy{}idf features for LDA...}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{tfidf\PYZus{}vectorizer} \PY{o}{=} \PY{n}{TfidfVectorizer}\PY{p}{(}\PY{n}{max\PYZus{}df}\PY{o}{=}\PY{l+m+mf}{0.95}\PY{p}{,} 
+                                                \PY{n}{min\PYZus{}df}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{05}\PY{p}{,}
+                                                \PY{n}{max\PYZus{}features}\PY{o}{=}\PY{n}{n\PYZus{}features}\PY{p}{,}
+                                                \PY{n}{stop\PYZus{}words}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{english}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                                \PY{n}{ngram\PYZus{}range}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+             \PY{n}{t0} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+             \PY{n}{tf} \PY{o}{=} \PY{n}{tfidf\PYZus{}vectorizer}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{data\PYZus{}samples}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{done in }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s2}{s.}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{t0}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fitting LDA models with tf\PYZhy{}idf features}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{lda} \PY{o}{=} \PY{n}{LatentDirichletAllocation}\PY{p}{(}\PY{n}{n\PYZus{}components}\PY{o}{=}\PY{n}{n\PYZus{}components}\PY{p}{,}
+                                             \PY{n}{learning\PYZus{}method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{online}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                             \PY{n}{learning\PYZus{}offset}\PY{o}{=}\PY{l+m+mf}{50.}\PY{p}{,}
+                                             \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{77}\PY{p}{,}
+                                             \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}
+                                             \PY{n}{max\PYZus{}iter}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{)}
+             \PY{n}{t0} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+             \PY{n}{lda}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{tf}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{done in }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s2}{s.}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{t0}\PY{p}{)}\PY{p}{)}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Topics in LDA model:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n}{tfidf\PYZus{}feature\PYZus{}names} \PY{o}{=} \PY{n}{tfidf\PYZus{}vectorizer}\PY{o}{.}\PY{n}{get\PYZus{}feature\PYZus{}names}\PY{p}{(}\PY{p}{)}
+             \PY{n}{print\PYZus{}top\PYZus{}words}\PY{p}{(}\PY{n}{lda}\PY{p}{,} \PY{n}{tfidf\PYZus{}feature\PYZus{}names}\PY{p}{,} \PY{n}{n\PYZus{}top\PYZus{}words}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{lda}\PY{p}{,} \PY{n}{tfidf\PYZus{}feature\PYZus{}names}
+             
+         
+         \PY{n}{n\PYZus{}features} \PY{o}{=} \PY{l+m+mi}{1000}
+         \PY{n}{n\PYZus{}components} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{n\PYZus{}top\PYZus{}words} \PY{o}{=} \PY{l+m+mi}{10}
+         
+         \PY{n}{tfidf\PYZus{}lda}\PY{p}{,} \PY{n}{tfidf\PYZus{}feature\PYZus{}names} \PY{o}{=} \PY{n}{tfidf\PYZus{}vectorizer\PYZus{}lda}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training\PYZus{}text}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+                                                               \PY{n}{n\PYZus{}features}\PY{p}{,} \PY{n}{n\PYZus{}components}\PY{p}{,} \PY{n}{n\PYZus{}top\PYZus{}words}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Extracting tf-idf features for LDA{\ldots}
+done in 92.464s.
+
+Fitting LDA models with tf-idf features
+done in 306.209s.
+
+Topics in LDA model:
+Topic \#0: network|image|neuron|neural|input|layer|object|spike|feature|neural network
+Topic \#1: lemma|patch|spike|transformation|nonzero|column|sequential|pose|entire|feedforward
+Topic \#2: algorithm|policy|problem|function|reward|action|matrix|gradient|state|method
+Topic \#3: lemma|patch|spike|transformation|nonzero|column|sequential|pose|entire|feedforward
+Topic \#4: classifier|label|loss|risk|classification|margin|error|training|hypothesis|class
+Topic \#5: lemma|patch|spike|transformation|nonzero|column|sequential|pose|entire|feedforward
+Topic \#6: lemma|patch|spike|transformation|nonzero|column|sequential|pose|entire|feedforward
+Topic \#7: circuit|analog|lemma|implementation|technology|current|implement|operation|rl|differential
+Topic \#8: lemma|patch|spike|transformation|nonzero|column|sequential|pose|entire|feedforward
+Topic \#9: distribution|graph|kernel|algorithm|model|function|matrix|variable|cluster|inference
+
+
+    \end{Verbatim}
+
+    \section{\texorpdfstring{Test \texttt{apriori} with
+\texttt{TransactionEncoder}}{Test apriori with TransactionEncoder}}\label{test-apriori-with-transactionencoder}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{oht} \PY{o}{=} \PY{n}{TransactionEncoder}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ls} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{cleaned\PYZus{}title}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}oht.fit(ls)}
+         \PY{n}{oht\PYZus{}ary} \PY{o}{=} \PY{n}{oht}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{ls}\PY{p}{)}
+         \PY{n}{oht\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{oht\PYZus{}ary}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{oht}\PY{o}{.}\PY{n}{columns\PYZus{}}\PY{p}{)}
+         \PY{n}{oht\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}    -PRON-  abandon  ability  absence  absolute  absorb  abstention  abstract  \textbackslash{}
+         0   False    False    False    False     False   False       False     False   
+         1   False    False    False    False     False   False       False     False   
+         2   False    False    False    False     False   False       False     False   
+         3   False    False    False    False     False   False       False     False   
+         4   False    False    False    False     False   False       False     False   
+         
+            abstraction  accelerate  {\ldots}    zerocrossing  zeroone  zeroorder  zeroshot  \textbackslash{}
+         0        False       False  {\ldots}           False    False      False     False   
+         1        False       False  {\ldots}           False    False      False     False   
+         2        False       False  {\ldots}           False    False      False     False   
+         3        False       False  {\ldots}           False    False      False     False   
+         4        False       False  {\ldots}           False    False      False     False   
+         
+            zerosum  zerothorder   zeta  zforc  zigzag    zip  
+         0    False        False  False  False   False  False  
+         1    False        False  False  False   False  False  
+         2    False        False  False  False   False  False  
+         3    False        False  False  False   False  False  
+         4    False        False  False  False   False  False  
+         
+         [5 rows x 5641 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} check itemsets that appear in at least min\PYZus{}support\PYZpc{} of baskets}
+         \PY{n}{freq\PYZus{}itemsets} \PY{o}{=} \PY{n}{apriori}\PY{p}{(}\PY{n}{oht\PYZus{}df}\PY{p}{,} \PY{n}{min\PYZus{}support}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{005}\PY{p}{,} \PY{n}{use\PYZus{}colnames}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{freq\PYZus{}itemsets}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{freq\PYZus{}itemsets}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{itemsets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         \PY{n}{freq\PYZus{}itemsets}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{support}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:}       support           itemsets  length
+         131  0.115541          (network)       1
+         132  0.088623           (neural)       1
+         122  0.077396            (model)       1
+         237  0.056523  (neural, network)       2
+         6    0.043088        (algorithm)       1
+         15   0.038962         (bayesian)       1
+         92   0.036706        (inference)       1
+         157  0.034643          (process)       1
+         45   0.034355             (deep)       1
+         97   0.033396           (kernel)       1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{freq\PYZus{}itemsets}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{freq\PYZus{}itemsets}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{freq\PYZus{}itemsets}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{support}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{o}{.}\PY{l+m+mi}{005}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{support}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}       support                      itemsets  length
+         237  0.056523             (neural, network)       2
+         231  0.016746           (process, gaussian)       2
+         226  0.011708               (network, deep)       2
+         238  0.011516          (recurrent, network)       2
+         233  0.009309            (model, graphical)       2
+         234  0.008541            (model, inference)       2
+         225  0.007965      (network, convolutional)       2
+         242  0.007917             (support, vector)       2
+         235  0.007581      (variational, inference)       2
+         239  0.007437           (recurrent, neural)       2
+         244  0.006813  (recurrent, neural, network)       3
+         227  0.006670                (neural, deep)       2
+         222  0.006286         (bayesian, inference)       2
+         240  0.006142    (stochastic, optimization)       2
+         232  0.006094        (stochastic, gradient)       2
+         241  0.005998         (speech, recognition)       2
+         221  0.005902         (analysis, component)       2
+         224  0.005806                (carlo, monte)       2
+         243  0.005806       (neural, network, deep)       3
+         223  0.005758             (model, bayesian)       2
+         229  0.005662            (network, dynamic)       2
+         228  0.005470           (descent, gradient)       2
+         236  0.005422               (model, neural)       2
+         230  0.005182             (model, gaussian)       2
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{association\PYZus{}rules}\PY{p}{(}
+             \PY{n}{freq\PYZus{}itemsets}\PY{p}{,} \PY{n}{metric}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{confidence}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{min\PYZus{}threshold}\PY{o}{=}\PY{l+m+mf}{0.2}
+         \PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{consequent support}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}              antecedents        consequents  antecedent support  \textbackslash{}
+         16              (neural)          (network)            0.088623   
+         3        (convolutional)          (network)            0.009980   
+         4                 (deep)          (network)            0.034355   
+         28   (recurrent, neural)          (network)            0.007437   
+         7              (dynamic)          (network)            0.026726   
+         26        (neural, deep)          (network)            0.006670   
+         18           (recurrent)          (network)            0.016122   
+         29  (recurrent, network)           (neural)            0.011516   
+         27       (network, deep)           (neural)            0.011708   
+         19           (recurrent)           (neural)            0.016122   
+         17             (network)           (neural)            0.115541   
+         12           (graphical)            (model)            0.012188   
+         13           (inference)            (model)            0.036706   
+         30           (recurrent)  (neural, network)            0.016122   
+         14         (variational)        (inference)            0.017801   
+         9             (gaussian)          (process)            0.026678   
+         0            (component)         (analysis)            0.008157   
+         20          (stochastic)     (optimization)            0.026438   
+         8              (process)         (gaussian)            0.034643   
+         11            (gradient)       (stochastic)            0.019769   
+         21        (optimization)       (stochastic)            0.030661   
+         22              (speech)      (recognition)            0.009836   
+         10          (stochastic)         (gradient)            0.026438   
+         5              (descent)         (gradient)            0.009644   
+         15           (inference)      (variational)            0.036706   
+         24             (support)           (vector)            0.009692   
+         23         (recognition)           (speech)            0.022648   
+         25              (vector)          (support)            0.013435   
+         6             (gradient)          (descent)            0.019769   
+         1                (carlo)            (monte)            0.005806   
+         2                (monte)            (carlo)            0.005806   
+         
+             consequent support   support  confidence        lift  leverage  conviction  
+         16            0.115541  0.056523    0.637791    5.520018  0.046284    2.441846  
+         3             0.115541  0.007965    0.798077    6.907276  0.006812    4.380176  
+         4             0.115541  0.011708    0.340782    2.949435  0.007738    1.341679  
+         28            0.115541  0.006813    0.916129    7.929005  0.005954   10.545467  
+         7             0.115541  0.005662    0.211849    1.833534  0.002574    1.122195  
+         26            0.115541  0.005806    0.870504    7.534122  0.005035    6.829985  
+         18            0.115541  0.011516    0.714286    6.182072  0.009653    3.095605  
+         29            0.088623  0.006813    0.591667    6.676191  0.005793    2.231943  
+         27            0.088623  0.005806    0.495902    5.595607  0.004768    1.807934  
+         19            0.088623  0.007437    0.461310    5.205280  0.006008    1.691837  
+         17            0.088623  0.056523    0.489203    5.520018  0.046284    1.784223  
+         12            0.077396  0.009309    0.763780    9.868524  0.008365    3.905692  
+         13            0.077396  0.008541    0.232680    3.006372  0.005700    1.202372  
+         30            0.056523  0.006813    0.422619    7.476913  0.005902    1.634063  
+         14            0.036706  0.007581    0.425876   11.602199  0.006928    1.677849  
+         9             0.034643  0.016746    0.627698   18.118907  0.015822    2.592939  
+         0             0.033108  0.005902    0.723529   21.853734  0.005632    3.497270  
+         20            0.030661  0.006142    0.232305    7.576630  0.005331    1.262662  
+         8             0.026678  0.016746    0.483380   18.118907  0.015822    1.884017  
+         11            0.026438  0.006094    0.308252   11.659326  0.005571    1.407394  
+         21            0.026438  0.006142    0.200313    7.576630  0.005331    1.217428  
+         22            0.022648  0.005998    0.609756   26.923574  0.005775    2.504465  
+         10            0.019769  0.006094    0.230490   11.659326  0.005571    1.273838  
+         5             0.019769  0.005470    0.567164   28.689972  0.005279    2.264672  
+         15            0.017801  0.007581    0.206536   11.602199  0.006928    1.237861  
+         24            0.013435  0.007917    0.816832   60.798533  0.007787    5.386111  
+         23            0.009836  0.005998    0.264831   26.923574  0.005775    1.346851  
+         25            0.009692  0.007917    0.589286   60.798533  0.007787    2.411184  
+         6             0.009644  0.005470    0.276699   28.689972  0.005279    1.369216  
+         1             0.005806  0.005806    1.000000  172.239669  0.005772         inf  
+         2             0.005806  0.005806    1.000000  172.239669  0.005772         inf  
+\end{Verbatim}
+            
+    \section{\texorpdfstring{Test
+\texttt{gensim.Word2Vec}}{Test gensim.Word2Vec}}\label{test-gensim.word2vec}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} gather sentences split by words}
+         \PY{n}{sentences} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{txt} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{training\PYZus{}text}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{sentences}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{txt}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} train model }
+         \PY{n}{model} \PY{o}{=} \PY{n}{Word2Vec}\PY{p}{(}\PY{n+nb}{iter}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{min\PYZus{}count}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{150}\PY{p}{,} \PY{n}{workers}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{build\PYZus{}vocab}\PY{p}{(}\PY{n}{sentences}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{sentences}\PY{p}{,} \PY{n}{total\PYZus{}examples}\PY{o}{=}\PY{n}{model}\PY{o}{.}\PY{n}{corpus\PYZus{}count}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{n}{model}\PY{o}{.}\PY{n}{epochs}\PY{p}{)}
+         
+         \PY{n}{topn} \PY{o}{=} \PY{l+m+mi}{200}
+         \PY{n}{test\PYZus{}words} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{neural}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{dat} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{most\PYZus{}similar}\PY{p}{(}\PY{n}{test\PYZus{}words}\PY{p}{,} \PY{n}{topn}\PY{o}{=}\PY{n}{topn}\PY{p}{)}
+         \PY{n}{\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{dat}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{word}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{k+kn}{import} \PY{n+nn}{wordcloud}
+         \PY{k+kn}{from} \PY{n+nn}{wordcloud} \PY{k}{import} \PY{n}{WordCloud}
+         \PY{k+kn}{import} \PY{n+nn}{os}
+         \PY{k+kn}{import} \PY{n+nn}{glob}
+         
+         \PY{k}{def} \PY{n+nf}{generate\PYZus{}wordcloud}\PY{p}{(}\PY{n}{words}\PY{p}{,} \PY{n}{values}\PY{p}{,} \PY{n}{savefig}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{    Inputs:}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{     words: np.array of words to be plotted}
+         \PY{l+s+sd}{     values: np.array of corresponding weights/sizes of text}
+         \PY{l+s+sd}{     }
+         \PY{l+s+sd}{    Outputs:}
+         \PY{l+s+sd}{    \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+         \PY{l+s+sd}{     None: prints matplotlib}
+         \PY{l+s+sd}{    \PYZsq{}\PYZsq{}\PYZsq{}}
+             \PY{n}{word\PYZus{}dict} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{words}\PY{p}{,} \PY{n}{values}\PY{p}{)}\PY{p}{)}
+         
+             \PY{n}{cloud} \PY{o}{=} \PY{n}{WordCloud}\PY{p}{(}\PY{n}{background\PYZus{}color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{white}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                               \PY{n}{max\PYZus{}words}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,}
+                               \PY{n}{max\PYZus{}font\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,}
+                               \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{,}
+                               \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{900}\PY{p}{,}
+                               \PY{n}{height}\PY{o}{=}\PY{l+m+mi}{600}\PY{p}{)}\PY{o}{.}\PY{n}{generate\PYZus{}from\PYZus{}frequencies}\PY{p}{(}\PY{n}{frequencies}\PY{o}{=}\PY{n}{word\PYZus{}dict}\PY{p}{)}
+         
+             \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{cloud}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} remove old images}
+             \PY{k}{for} \PY{n}{filename} \PY{o+ow}{in} \PY{n}{glob}\PY{o}{.}\PY{n}{glob}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{img/image\PYZus{}*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{os}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{n}{filename}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} save image without white borders}
+             \PY{n}{img\PYZus{}path} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{img/image\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{999}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.jpeg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{;} \PY{n+nb}{print}\PY{p}{(}\PY{n}{img\PYZus{}path}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{savefig}\PY{p}{(}\PY{n}{img\PYZus{}path}\PY{p}{,} \PY{n}{bbox\PYZus{}inches}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{k}{return} \PY{n}{img\PYZus{}path}
+         
+         \PY{n}{words} \PY{o}{=} \PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{values}
+         \PY{n}{values} \PY{o}{=} \PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{prob}
+         \PY{n}{generate\PYZus{}wordcloud}\PY{p}{(}\PY{n}{words}\PY{p}{,} \PY{n}{values}\PY{p}{,} \PY{n}{savefig}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/pmw/anaconda/lib/python3.6/site-packages/ipykernel\_launcher.py:15: DeprecationWarning: Call to deprecated `most\_similar` (Method will be removed in 4.0.0, use self.wv.most\_similar() instead).
+  from ipykernel import kernelapp as app
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+img/image\_850.jpeg
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} 'img/image\_850.jpeg'
+\end{Verbatim}
+            
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \section{Final Approach - Steps to
+Develop}\label{final-approach---steps-to-develop}
+
+\subsection{\texorpdfstring{Group data by year \& Perform
+\texttt{TransactionEncoder} \texttt{apriori} Frequent
+Itemsets}{Group data by year \& Perform TransactionEncoder apriori Frequent Itemsets}}\label{group-data-by-year-perform-transactionencoder-apriori-frequent-itemsets}
+
+The resulting support scores from iteratively applying \texttt{apriori}
+to each year's papers are cached to a \texttt{DataFrame} that is indexed
+by year and itemset. This enables subsequent analysis of the support
+that a given "topic" received during a period. Identification of growing
+itemsets is also enabled since temporal resolution is achieved using
+this method. To scale the measurements by the growth of the conference
+each support score was multiplied by 100 (to discourage underflow), then
+the sum total number of (unique) papers for the entire year is
+multiplied by each adjusted support score. This methodology was not
+necessarily mathematically inspired, nor theoretically driven. It was
+merely a convenient heuristic for adjusting the data, and it likely has
+many flaws.
+
+\subsubsection{Observe which topics have the highest average support
+(but are not necessarily
+growing)}\label{observe-which-topics-have-the-highest-average-support-but-are-not-necessarily-growing}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k}{def} \PY{n+nf}{transaction\PYZus{}encoder\PYZus{}apriori\PYZus{}frequent\PYZus{}itemsets}\PY{p}{(}\PY{n}{ls}\PY{p}{,} \PY{n}{min\PYZus{}support}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{005}\PY{p}{)}\PY{p}{:}
+             \PY{c+c1}{\PYZsh{} instantiate TransactionEncoder}
+             \PY{n}{oht} \PY{o}{=} \PY{n}{TransactionEncoder}\PY{p}{(}\PY{p}{)}
+             \PY{n}{oht\PYZus{}ary} \PY{o}{=} \PY{n}{oht}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{ls}\PY{p}{)}
+             \PY{n}{oht\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{oht\PYZus{}ary}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{oht}\PY{o}{.}\PY{n}{columns\PYZus{}}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{} check itemsets that appear in at least min\PYZus{}support\PYZpc{} of baskets}
+             \PY{n}{freq\PYZus{}itemsets} \PY{o}{=} \PY{n}{apriori}\PY{p}{(}\PY{n}{oht\PYZus{}df}\PY{p}{,} \PY{n}{min\PYZus{}support}\PY{o}{=}\PY{n}{min\PYZus{}support}\PY{p}{,} \PY{n}{use\PYZus{}colnames}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{freq\PYZus{}itemsets}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{freq\PYZus{}itemsets}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{itemsets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{freq\PYZus{}itemsets}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{support}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{fis\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{year}\PY{p}{,} \PY{n}{\PYZus{}df} \PY{o+ow}{in} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+             \PY{n}{text\PYZus{}lists} \PY{o}{=} \PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{cleaned\PYZus{}title}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+             \PY{n}{frequent\PYZus{}itemsets} \PY{o}{=} \PY{n}{transaction\PYZus{}encoder\PYZus{}apriori\PYZus{}frequent\PYZus{}itemsets}\PY{p}{(}\PY{n}{text\PYZus{}lists}\PY{p}{)}
+             \PY{n}{frequent\PYZus{}itemsets}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{year}
+             \PY{n}{frequent\PYZus{}itemsets}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{itemsets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} derive number of papers for that year}
+             \PY{n}{n\PYZus{}papers} \PY{o}{=} \PY{n}{\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cleaned\PYZus{}title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}
+             \PY{n}{frequent\PYZus{}itemsets}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}unique\PYZus{}papers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{n\PYZus{}papers}
+             \PY{n}{fis\PYZus{}df} \PY{o}{=} \PY{n}{fis\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{frequent\PYZus{}itemsets}\PY{p}{)}
+             
+         \PY{c+c1}{\PYZsh{} bring row index to columns}
+         \PY{n}{fis\PYZus{}df} \PY{o}{=} \PY{n}{fis\PYZus{}df}\PY{o}{.}\PY{n}{unstack}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} fill na and sort dataframe by support}
+         \PY{n}{fis\PYZus{}df} \PY{o}{=} \PY{n}{fis\PYZus{}df}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{fis\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}support}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{fis\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{support}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} sort by the average support of each topic}
+         \PY{n}{fis\PYZus{}df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}support}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} display top 10 itemsets}
+         \PY{n}{top\PYZus{}n} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Top }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s1}{ Itemsets}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{top\PYZus{}n})
+         \PY{n}{fis\PYZus{}df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}support}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{n}{top\PYZus{}n}\PY{p}{)}\PY{p}{;} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} isolate just the support dataframe by its MultiIndex}
+         \PY{c+c1}{\PYZsh{} the data is already sorted}
+         \PY{n}{fis\PYZus{}support\PYZus{}df} \PY{o}{=} \PY{n}{fis\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{support}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{T}
+         
+         \PY{n}{fis\PYZus{}support\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Top 10 Itemsets
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} itemsets  (network)  (neural)  (neural, network)   (model)  (algorithm)  \textbackslash{}
+         year                                                                      
+         1987       0.519774  0.446328           0.344633  0.039548     0.016949   
+         1988       0.417040  0.412556           0.255605  0.062780     0.026906   
+         1989       0.438596  0.302632           0.236842  0.021930     0.083333   
+         1990       0.412308  0.320000           0.280000  0.021538     0.027692   
+         1991       0.350000  0.241176           0.179412  0.058824     0.011765   
+         
+         itemsets  (bayesian)  (recognition)  (classification)  (analysis)  (kernel)  \textbackslash{}
+         year                                                                          
+         1987        0.000000       0.016949          0.056497    0.028249  0.000000   
+         1988        0.000000       0.017937          0.026906    0.013453  0.000000   
+         1989        0.008772       0.083333          0.030702    0.021930  0.000000   
+         1990        0.000000       0.120000          0.033846    0.012308  0.000000   
+         1991        0.014706       0.152941          0.017647    0.020588  0.005882   
+         
+         itemsets          {\ldots}           (informationtheoretic, optimization, bound)  \textbackslash{}
+         year              {\ldots}                                                         
+         1987              {\ldots}                                                   0.0   
+         1988              {\ldots}                                                   0.0   
+         1989              {\ldots}                                                   0.0   
+         1990              {\ldots}                                                   0.0   
+         1991              {\ldots}                                                   0.0   
+         
+         itemsets  (classification, hierarchical, uncover)  \textbackslash{}
+         year                                                
+         1987                                          0.0   
+         1988                                          0.0   
+         1989                                          0.0   
+         1990                                          0.0   
+         1991                                          0.0   
+         
+         itemsets  (informationtheoretic, oracle, bound)  (low, optimization, bound)  \textbackslash{}
+         year                                                                          
+         1987                                        0.0                         0.0   
+         1988                                        0.0                         0.0   
+         1989                                        0.0                         0.0   
+         1990                                        0.0                         0.0   
+         1991                                        0.0                         0.0   
+         
+         itemsets  (random, conditional, sequence)  \textbackslash{}
+         year                                        
+         1987                                  0.0   
+         1988                                  0.0   
+         1989                                  0.0   
+         1990                                  0.0   
+         1991                                  0.0   
+         
+         itemsets  (unsupervised, convolutional, belief)  \textbackslash{}
+         year                                              
+         1987                                        0.0   
+         1988                                        0.0   
+         1989                                        0.0   
+         1990                                        0.0   
+         1991                                        0.0   
+         
+         itemsets  (random, semisupervised, conditional)  \textbackslash{}
+         year                                              
+         1987                                        0.0   
+         1988                                        0.0   
+         1989                                        0.0   
+         1990                                        0.0   
+         1991                                        0.0   
+         
+         itemsets  (labeling, conditional, sequence)  \textbackslash{}
+         year                                          
+         1987                                    0.0   
+         1988                                    0.0   
+         1989                                    0.0   
+         1990                                    0.0   
+         1991                                    0.0   
+         
+         itemsets  (region, classification, hierarchical)  (model, coreference)  
+         year                                                                    
+         1987                                         0.0                   0.0  
+         1988                                         0.0                   0.0  
+         1989                                         0.0                   0.0  
+         1990                                         0.0                   0.0  
+         1991                                         0.0                   0.0  
+         
+         [5 rows x 299160 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} fis\PYZus{}df[\PYZsq{}support\PYZus{}*\PYZus{}npapers\PYZsq{}] = np.multiply(fis\PYZus{}df[\PYZsq{}support\PYZsq{}], fis\PYZus{}df[\PYZsq{}n\PYZus{}unique\PYZus{}papers\PYZsq{}]) }
+\end{Verbatim}
+
+
+    \subsubsection{Observe number of NIPS papers per
+year}\label{observe-number-of-nips-papers-per-year}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} show number of papers per year \PYZhy{}\PYZhy{} note growing conference}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fis\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}unique\PYZus{}papers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of NIPS Papers per Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} Text(0.5,1,'Number of NIPS Papers per Year')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Adjust for size of
+conference}\label{adjust-for-size-of-conference}
+
+Below each itemset's support score is first multiplied by 100, then it
+is multiplied by the number of papers for that year. This is done as a
+simple way of adjusting for the size of the conference. There are
+undoubtedly better heuristics and methods for doing this.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} id actual n\PYZus{}unique\PYZus{}papers by year (max used for zeros)}
+         \PY{n}{n\PYZus{}papers\PYZus{}by\PYZus{}year} \PY{o}{=} \PY{n}{fis\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}unique\PYZus{}papers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{T} \PY{c+c1}{\PYZsh{} max used bc 0 shows up in matrix form, bug?}
+         
+         \PY{c+c1}{\PYZsh{} iterate over columns in un\PYZhy{}adjusted df to get adjusted df}
+         \PY{c+c1}{\PYZsh{} by first multiplying the score by 100 then muliplying it again by the n\PYZus{}papers\PYZus{}by\PYZus{}year}
+         \PY{n}{fis\PYZus{}adj\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{fis\PYZus{}support\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{500}\PY{p}{]}\PY{p}{:}
+             \PY{n}{fis\PYZus{}adj\PYZus{}df}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{n}{fis\PYZus{}support\PYZus{}df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)} 
+             \PY{n}{fis\PYZus{}adj\PYZus{}df}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{multiply}\PY{p}{(}\PY{n}{fis\PYZus{}adj\PYZus{}df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{p}{,} \PY{n}{n\PYZus{}papers\PYZus{}by\PYZus{}year}\PY{p}{)}
+             
+         \PY{n}{fis\PYZus{}adj\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}         (network)     (neural)  (neural, network)     (model)  (algorithm)  \textbackslash{}
+         year                                                                         
+         1987  4677.966102  4016.949153        3101.694915  355.932203   152.542373   
+         1988  3920.179372  3878.026906        2402.690583  590.134529   252.914798   
+         1989  4429.824561  3056.578947        2392.105263  221.491228   841.666667   
+         1990  5896.000000  4576.000000        4004.000000  308.000000   396.000000   
+         1991  5040.000000  3472.941176        2583.529412  847.058824   169.411765   
+         
+               (bayesian)  (recognition)  (classification)  (analysis)   (kernel)  \textbackslash{}
+         year                                                                       
+         1987    0.000000     152.542373        508.474576  254.237288   0.000000   
+         1988    0.000000     168.609865        252.914798  126.457399   0.000000   
+         1989   88.596491     841.666667        310.087719  221.491228   0.000000   
+         1990    0.000000    1716.000000        484.000000  176.000000   0.000000   
+         1991  211.764706    2202.352941        254.117647  296.470588  84.705882   
+         
+                         {\ldots}             (neural, approach, network)   (storage)  \textbackslash{}
+         year            {\ldots}                                                       
+         1987            {\ldots}                              203.389831  305.084746   
+         1988            {\ldots}                               84.304933  126.457399   
+         1989            {\ldots}                                0.000000   88.596491   
+         1990            {\ldots}                              352.000000  132.000000   
+         1991            {\ldots}                                0.000000    0.000000   
+         
+               (code, neural)  (principle)  (ica)  (model, recognition)  (expression)  \textbackslash{}
+         year                                                                           
+         1987        0.000000   101.694915    0.0              0.000000           0.0   
+         1988      379.372197    84.304933    0.0              0.000000           0.0   
+         1989      177.192982    88.596491    0.0              0.000000           0.0   
+         1990        0.000000   132.000000    0.0            132.000000           0.0   
+         1991        0.000000     0.000000    0.0            127.058824           0.0   
+         
+               (network, multilayer)  (neighbor)  (multilayer, perceptron)  
+         year                                                               
+         1987               0.000000         0.0                  0.000000  
+         1988             252.914798         0.0                252.914798  
+         1989               0.000000         0.0                  0.000000  
+         1990               0.000000         0.0                440.000000  
+         1991              84.705882         0.0                  0.000000  
+         
+         [5 rows x 500 columns]
+\end{Verbatim}
+            
+    \subsubsection{Review preliminary
+results}\label{review-preliminary-results}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} plot what it looks like topic\PYZhy{}wise}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+         \PY{n}{top\PYZus{}10\PYZus{}topics} \PY{o}{=} \PY{n}{fis\PYZus{}adj\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}
+         \PY{n}{fis\PYZus{}adj\PYZus{}df}\PY{p}{[}\PY{n}{top\PYZus{}10\PYZus{}topics}\PY{p}{]}\PY{o}{.}\PY{n}{rolling}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{min\PYZus{}periods}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{center}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ADJUSTED Topic Support Over Time}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Top 10 Highest Supported Topics by Magnitude of Support Score (Not Growth)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                      \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{semilogy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Topic Support (log scale)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Identification of growing frequent
+itemsets}\label{identification-of-growing-frequent-itemsets}
+
+Using the \texttt{pd.DataFrame.diff()} method to derive time-series
+differences, then summing those differences, it is possible to determine
+which topics overall had positive support. An arbitrary cutoff of 0.01
+was used, then frequent itemsets longer than two words are selected in
+order to identify phrase-like itemsets that may be indicative of the
+next hot topic in ML.
+
+Plotted below is a cumulative sum of the sequential temporal differences
+in support for all itemsets of length greater than or equal to two
+words. The concepts of deep learning \& neural networks are certainly of
+interest to the community, as evidenced by the many terms related to
+deep learning itemsets dominating the in the top 10. In future
+iterations on this problem an investigator could remove some stop-words
+that are all-too-common in the results thus far and see if it sifts
+through the noise better. A potential issue in removing such stop-words
+could arise from the fact that some of these words are \emph{bridge}
+words (such as "neural") that tie together multiple others in a
+meaningful way.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} id filters for growing itemsets and 2+ words itemsets}
+         \PY{n}{growing\PYZus{}itemsets} \PY{o}{=} \PY{n}{fis\PYZus{}adj\PYZus{}df}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.01}
+         \PY{n}{length\PYZus{}gte2} \PY{o}{=} \PY{n}{fis\PYZus{}adj\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{len}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{2}
+         
+         \PY{c+c1}{\PYZsh{} show itemsets growing more than .01 and topics \PYZgt{}= 2 words}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fis\PYZus{}adj\PYZus{}df}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{n}{growing\PYZus{}itemsets} \PY{o}{\PYZam{}} \PY{n}{length\PYZus{}gte2}\PY{p}{]}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{kind}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequent Itemsets}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sum delta(Support\PYZus{}t)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Growing Frequent Itemsets of Length \PYZgt{}= 2 Words}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Sum of the Total Period Differences in Support Over Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Look at growing itemsets regardless of
+length}\label{look-at-growing-itemsets-regardless-of-length}
+
+As mentioned above, the top growing itemsets (regardless of the number
+of words that comprise it) contain such bridge words as "model",
+"algorithm", and "function". These words on their own are not
+particularly meaningful. Shown below are the top 10 itemsets, then their
+time-series of support is plotted.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{growing\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{n}{col} \PY{k}{for} \PY{p}{(}\PY{n}{col}\PY{p}{,}\PY{n}{b}\PY{p}{)} \PY{o+ow}{in} \PY{n}{growing\PYZus{}itemsets}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n}{b}\PY{o}{==}\PY{k+kc}{True}\PY{p}{]}
+         \PY{n}{growing\PYZus{}cols}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:} [frozenset(\{'network'\}),
+          frozenset(\{'neural'\}),
+          frozenset(\{'network', 'neural'\}),
+          frozenset(\{'model'\}),
+          frozenset(\{'algorithm'\}),
+          frozenset(\{'bayesian'\}),
+          frozenset(\{'recognition'\}),
+          frozenset(\{'classification'\}),
+          frozenset(\{'analysis'\}),
+          frozenset(\{'kernel'\})]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} plot what it looks like topic\PYZhy{}wise}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fis\PYZus{}adj\PYZus{}df}\PY{p}{[}\PY{n}{growing\PYZus{}cols}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{rolling}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{min\PYZus{}periods}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{center}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Longer Phrases ADJUSTED Topic Support Over Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Topic Support}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}ax.semilogy()}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \section{Final Approach - Results}\label{final-approach---results}
+
+\subsection{Review the long and growing
+itemsets}\label{review-the-long-and-growing-itemsets}
+
+Below all itemsets that are (1) greater than or equal to 2 words in
+length and (2) are growing are isolated, then plotted against time. It
+is observed that the concept of "neural networks" is dominating the
+signal here, and in future iterations steps should be taken to remove
+such dominance.
+
+As an aside, both \texttt{MinMaxScaler} and \texttt{StandardScaler} were
+tested and subsequently plotted, but the distortions that are created
+served more to confuse than to enlighten. For this reason the approach
+was not used.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} filter for length of items in itemset}
+         \PY{n}{growing\PYZus{}and\PYZus{}gte2} \PY{o}{=} \PY{p}{[}\PY{n}{col} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{growing\PYZus{}cols} \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{col}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{2}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} use rolling 5 period mean for all growing vectors gte len 2}
+         \PY{n}{long\PYZus{}and\PYZus{}growing} \PY{o}{=} \PY{n}{fis\PYZus{}adj\PYZus{}df}\PY{p}{[}\PY{n}{growing\PYZus{}and\PYZus{}gte2}\PY{p}{]}\PY{o}{.}\PY{n}{rolling}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{min\PYZus{}periods}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{center}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} \PYZsh{} normalize}
+         \PY{c+c1}{\PYZsh{} from sklearn.preprocessing import MinMaxScaler}
+         \PY{c+c1}{\PYZsh{} long\PYZus{}and\PYZus{}growing = pd.DataFrame(MinMaxScaler().fit\PYZus{}transform(long\PYZus{}and\PYZus{}growing), }
+         \PY{c+c1}{\PYZsh{}                                 index=long\PYZus{}and\PYZus{}growing.index,}
+         \PY{c+c1}{\PYZsh{}                                 columns=long\PYZus{}and\PYZus{}growing.columns)}
+         
+         \PY{c+c1}{\PYZsh{} plot what it looks like topic\PYZhy{}wise}
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+         \PY{n}{long\PYZus{}and\PYZus{}growing}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Longer Phrases ADJUSTED Topic Support Over Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{16}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Topic Support}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Stillborn ideas \PYZhy{}\PYZhy{} ideas time didn\PYZsq{}t allow to come to fruition}
+         
+         \PY{c+c1}{\PYZsh{} test earth mover distance}
+         \PY{c+c1}{\PYZsh{} check out ToPMINE \PYZhy{}\PYZhy{} no python library}
+         \PY{c+c1}{\PYZsh{} account for perplexity and coherence scores \PYZhy{} interpret them }
+         \PY{c+c1}{\PYZsh{} choose N topics using them with apriori distributions}
+         \PY{c+c1}{\PYZsh{} Loop through by year and perform gensim wordcloud aganist each term}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
