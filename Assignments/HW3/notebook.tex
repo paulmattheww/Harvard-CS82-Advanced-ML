@@ -1,0 +1,1615 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{WashburnPaulHW3}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsubsection{CSCI E-82 Homework 3}\label{csci-e-82-homework-3}
+
+\subsubsection{Due by 10/22/18 at 11:59pm EST to the Canvas
+dropbox}\label{due-by-102218-at-1159pm-est-to-the-canvas-dropbox}
+
+\subsection{This is an individual homework so there should be no
+collaboration for this
+homework.}\label{this-is-an-individual-homework-so-there-should-be-no-collaboration-for-this-homework.}
+
+\subsection{\#\#\# Under each problem, we have a place for you to write
+the answer, or write runnable code that will produce the answer. Show
+your
+work.}\label{under-each-problem-we-have-a-place-for-you-to-write-the-answer-or-write-runnable-code-that-will-produce-the-answer.-show-your-work.}
+
+    \subsection{Your Name:}\label{your-name}
+
+    Paul Washburn
+
+    \subsection{Problem 1 Climate Change (30
+points)}\label{problem-1-climate-change-30-points}
+
+Scientists and politicians are often at odds on the topic of whether
+global warming is real and debate the various causes. This problem uses
+"globalWarm3.csv" data. This is a real data set.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt} 
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{base} \PY{k}{import} \PY{n}{BaseEstimator}\PY{p}{,} \PY{n}{TransformerMixin}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{Pipeline}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{r2\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{PolynomialFeatures}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+        \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{graphics}\PY{n+nn}{.}\PY{n+nn}{gofplots} \PY{k}{import} \PY{n}{qqplot}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{yellowbrick}\PY{n+nn}{.}\PY{n+nn}{regressor} \PY{k}{import} \PY{n}{ResidualsPlot}
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{tsa}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{smt}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{tsa}\PY{n+nn}{.}\PY{n+nn}{seasonal} \PY{k}{import} \PY{n}{seasonal\PYZus{}decompose}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{colors} \PY{k}{import} \PY{n}{ListedColormap}
+        \PY{k+kn}{import} \PY{n+nn}{itertools}
+        \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{tsa}\PY{n+nn}{.}\PY{n+nn}{stattools} \PY{k}{import} \PY{n}{adfuller}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{k}{def} \PY{n+nf}{set\PYZus{}mpl\PYZus{}preferences}\PY{p}{(}\PY{n}{ax}\PY{p}{)}\PY{p}{:}
+            \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{4}\PY{p}{)}
+            \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+            
+        \PY{k}{def} \PY{n+nf}{tsplot}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{lags}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            
+            \PY{n}{q}\PY{p}{,} \PY{n}{p} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{diagnostic}\PY{o}{.}\PY{n}{acorr\PYZus{}ljungbox}\PY{p}{(}\PY{n}{y}\PY{p}{,}\PY{n}{lags}\PY{p}{)}
+            \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{n}{figsize}\PY{p}{)}
+            \PY{n}{layout} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{ts\PYZus{}ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot2grid}\PY{p}{(}\PY{n}{layout}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{colspan}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+            \PY{n}{acf\PYZus{}ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot2grid}\PY{p}{(}\PY{n}{layout}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+            \PY{n}{pacf\PYZus{}ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot2grid}\PY{p}{(}\PY{n}{layout}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{qq\PYZus{}ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot2grid}\PY{p}{(}\PY{n}{layout}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{colspan}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{QQ plot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{lbox\PYZus{}ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplot2grid}\PY{p}{(}\PY{n}{layout}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{colspan}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ljung\PYZhy{}Box statistic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+            \PY{n}{y}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ts\PYZus{}ax}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Given}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{smt}\PY{o}{.}\PY{n}{graphics}\PY{o}{.}\PY{n}{plot\PYZus{}acf}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{lags}\PY{o}{=}\PY{n}{lags}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{acf\PYZus{}ax}\PY{p}{)}
+            \PY{n}{smt}\PY{o}{.}\PY{n}{graphics}\PY{o}{.}\PY{n}{plot\PYZus{}pacf}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{lags}\PY{o}{=}\PY{n}{lags}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{pacf\PYZus{}ax}\PY{p}{)}
+        
+            \PY{n}{qqplot}\PY{p}{(}\PY{n}{y}\PY{p}{,}  \PY{n}{line}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{q}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{qq\PYZus{}ax}\PY{p}{,} \PY{n}{fit}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+            \PY{k}{if} \PY{n}{np}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{n}{p}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.05}\PY{p}{:}
+                \PY{n}{lbox\PYZus{}ax}\PY{o}{.}\PY{n}{axhline}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{l+m+mf}{0.05}\PY{p}{,} \PY{n}{xmin}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{xmax}\PY{o}{=}\PY{n}{lags}\PY{p}{,} \PY{n}{c} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{lbox\PYZus{}ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{p}\PY{p}{)}
+            \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+            \PY{k}{return} \PY{n}{ts\PYZus{}ax}\PY{p}{,} \PY{n}{acf\PYZus{}ax}\PY{p}{,} \PY{n}{pacf\PYZus{}ax}\PY{p}{,} \PY{n}{lbox\PYZus{}ax}
+            
+        \PY{n}{dark2\PYZus{}colors} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{l+m+mf}{0.10588235294117647}\PY{p}{,} \PY{l+m+mf}{0.6196078431372549}\PY{p}{,} \PY{l+m+mf}{0.4666666666666667}\PY{p}{)}\PY{p}{,}
+                        \PY{p}{(}\PY{l+m+mf}{0.9058823529411765}\PY{p}{,} \PY{l+m+mf}{0.1607843137254902}\PY{p}{,} \PY{l+m+mf}{0.5411764705882353}\PY{p}{)}\PY{p}{,}
+                        \PY{p}{(}\PY{l+m+mf}{0.8509803921568627}\PY{p}{,} \PY{l+m+mf}{0.37254901960784315}\PY{p}{,} \PY{l+m+mf}{0.00784313725490196}\PY{p}{)}\PY{p}{,}
+                        \PY{p}{(}\PY{l+m+mf}{0.4588235294117647}\PY{p}{,} \PY{l+m+mf}{0.4392156862745098}\PY{p}{,} \PY{l+m+mf}{0.7019607843137254}\PY{p}{)}\PY{p}{,}            
+                        \PY{p}{(}\PY{l+m+mf}{0.4}\PY{p}{,} \PY{l+m+mf}{0.6509803921568628}\PY{p}{,} \PY{l+m+mf}{0.11764705882352941}\PY{p}{)}\PY{p}{,}
+                        \PY{p}{(}\PY{l+m+mf}{0.9019607843137255}\PY{p}{,} \PY{l+m+mf}{0.6705882352941176}\PY{p}{,} \PY{l+m+mf}{0.00784313725490196}\PY{p}{)}\PY{p}{,}
+                        \PY{p}{(}\PY{l+m+mf}{0.6509803921568628}\PY{p}{,} \PY{l+m+mf}{0.4627450980392157}\PY{p}{,} \PY{l+m+mf}{0.11372549019607843}\PY{p}{)}\PY{p}{]}
+        
+        \PY{n}{cmap\PYZus{}set1} \PY{o}{=} \PY{n}{ListedColormap}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}e41a1c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}377eb8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}4daf4a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{dark2\PYZus{}cmap}\PY{o}{=}\PY{n}{ListedColormap}\PY{p}{(}\PY{n}{dark2\PYZus{}colors}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} read in gw data}
+        \PY{n}{gw} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/globalWarm3.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{gw}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} get log }
+        \PY{n}{gw}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log\PYZus{}temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{gw}\PY{o}{.}\PY{n}{Temp}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} fill na}
+        \PY{n}{not\PYZus{}missing} \PY{o}{=} \PY{o}{\PYZti{}}\PY{n}{gw}\PY{o}{.}\PY{n}{Transmission}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}
+        \PY{n}{gw}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{not\PYZus{}missing}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Transmission}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{gw}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{not\PYZus{}missing}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Transmission}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n}{gw}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}       Temp     CO2    Solar  Transmission  IceShelf  log\_temp
+        Year                                                         
+        1980    19  338.57  1366.51      0.929667      7.85  2.944439
+        1981    26  339.92  1366.51      0.929767      7.25  3.258097
+        1982     4  341.30  1366.16      0.853067      7.45  1.386294
+        1983    25  342.71  1366.18      0.897717      7.52  3.218876
+        1984     9  344.24  1365.71      0.916492      7.17  2.197225
+\end{Verbatim}
+            
+    \subsubsection{Problem 1a}\label{problem-1a}
+
+Plot a scatter plot of the following variables in a lattice: Temp, CO2,
+Solar, Transmission, and IceShelf.
+
+The variables represent the following: - Temp = annual surface
+temperature measured in \(1/100^{\circ} C\) over the 1950-1980 mean. -
+Solar = annual mean intensity of sunlight piercing the atmosphere - CO2
+= annual average fraction CO2 in atmosphere (\#molecules/\#molecules of
+dry air) - IceShelf = sea ice in 1MM square miles hypothesized to
+reflect heat - Transmission = volcanic MLO transmission data where
+eruptions release greenhouse gases but also decrease the temperature
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{pd}\PY{o}{.}\PY{n}{plotting}\PY{o}{.}\PY{n}{scatter\PYZus{}matrix}\PY{p}{(}\PY{n}{gw}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{)}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                         \PY{n}{hist\PYZus{}kwds}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bins}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{20}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{s}\PY{o}{=}\PY{l+m+mi}{60}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{8}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Problem 1b}\label{problem-1b}
+
+Compute a multiple linear regression model of log(Temp) against the
+other variables. Note that since there are limited number of annual
+measurements, you cannot run all combinations of variables. In fact, you
+can only do complete pairwise interactions. Be sure to remove the
+non-significant variables while still maintaining the hierarchy
+principle in your final model. You do not need to show full diagnostics
+for the different models that you try, but do show the equations that
+you tried.
+
+    \paragraph{\texorpdfstring{Isolate \texttt{X} \& \texttt{y} and Add
+Interaction
+Terms}{Isolate X \& y and Add Interaction Terms}}\label{isolate-x-y-and-add-interaction-terms}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{X\PYZus{}cols} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CO2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Solar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Transmission}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IceShelf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{gw}\PY{p}{[}\PY{n}{X\PYZus{}cols}\PY{p}{]}\PY{p}{,} \PY{n}{gw}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log\PYZus{}temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} fit polynomial features}
+        \PY{n}{poly} \PY{o}{=} \PY{n}{PolynomialFeatures}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{include\PYZus{}bias}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{poly}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{poly}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{poly}\PY{o}{.}\PY{n}{get\PYZus{}feature\PYZus{}names}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} preview}
+        \PY{n}{X}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}       CO2    Solar  Transmission  IceShelf        CO2\^{}2    CO2 Solar  \textbackslash{}
+        0  338.57  1366.51      0.929667      7.85  114629.6449  462659.2907   
+        1  339.92  1366.51      0.929767      7.25  115545.6064  464504.0792   
+        2  341.30  1366.16      0.853067      7.45  116485.6900  466270.4080   
+        3  342.71  1366.18      0.897717      7.52  117450.1441  468203.5478   
+        4  344.24  1365.71      0.916492      7.17  118501.1776  470132.0104   
+        
+           CO2 Transmission  CO2 IceShelf       Solar\^{}2  Solar Transmission  \textbackslash{}
+        0        314.757243     2657.7745  1.867350e+06         1270.398797   
+        1        316.046285     2464.4200  1.867350e+06         1270.535448   
+        2        291.151653     2542.6850  1.866393e+06         1165.425558   
+        3        307.656479     2577.1792  1.866448e+06         1226.442556   
+        4        315.493091     2468.2008  1.865164e+06         1251.661835   
+        
+           Solar IceShelf  Transmission\^{}2  Transmission IceShelf  IceShelf\^{}2  
+        0      10727.1035        0.864280               7.297883     61.6225  
+        1       9907.1975        0.864466               6.740808     52.5625  
+        2      10177.8920        0.727723               6.355347     55.5025  
+        3      10273.6736        0.805895               6.750829     56.5504  
+        4       9792.1407        0.839957               6.571245     51.4089  
+\end{Verbatim}
+            
+    \paragraph{Fit Model with All Variables and
+Interactions}\label{fit-model-with-all-variables-and-interactions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} fit using statsmodels to get access to more metrics}
+        \PY{c+c1}{\PYZsh{}X\PYZus{}cols = [\PYZsq{}CO2\PYZsq{}, \PYZsq{}Solar\PYZsq{}, \PYZsq{}Transmission\PYZsq{}, \PYZsq{}IceShelf\PYZsq{}]}
+        
+        \PY{c+c1}{\PYZsh{} scale with standard scaler \PYZam{} add constant}
+        \PY{n}{X} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{n}{X}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+        
+        \PY{n}{lm} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+        \PY{n}{results} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{results}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parameters: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{results}\PY{o}{.}\PY{n}{params}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R2: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{results}.rsquared)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.891
+Model:                            OLS   Adj. R-squared:                  0.795
+Method:                 Least Squares   F-statistic:                     9.306
+Date:                Mon, 22 Oct 2018   Prob (F-statistic):           3.34e-05
+Time:                        19:53:21   Log-Likelihood:                0.13549
+No. Observations:                  31   AIC:                             29.73
+Df Residuals:                      16   BIC:                             51.24
+Df Model:                          14                                         
+Covariance Type:            nonrobust                                         
+=========================================================================================
+                            coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------------
+const                     3.3383      0.060     55.427      0.000       3.211       3.466
+CO2                    1438.1413    536.315      2.682      0.016     301.205    2575.078
+Solar                  1079.1572    998.475      1.081      0.296   -1037.514    3195.829
+Transmission           2891.4229    972.750      2.972      0.009     829.285    4953.561
+IceShelf                694.4330    589.687      1.178      0.256    -555.647    1944.513
+CO2\^{}2                    -6.6612     15.687     -0.425      0.677     -39.916      26.594
+CO2 Solar             -1429.8939    525.945     -2.719      0.015   -2544.847    -314.941
+CO2 Transmission          4.7096      9.947      0.473      0.642     -16.377      25.796
+CO2 IceShelf              1.7116      8.748      0.196      0.847     -16.834      20.257
+Solar\^{}2               -1026.6651    999.880     -1.027      0.320   -3146.316    1092.986
+Solar Transmission    -2868.4520    966.826     -2.967      0.009   -4918.032    -818.872
+Solar IceShelf         -690.5105    583.463     -1.183      0.254   -1927.397     546.376
+Transmission\^{}2          -14.7768      8.791     -1.681      0.112     -33.412       3.858
+Transmission IceShelf    -7.8814      9.841     -0.801      0.435     -28.744      12.981
+IceShelf\^{}2                1.6476      2.580      0.639      0.532      -3.822       7.117
+==============================================================================
+Omnibus:                        1.750   Durbin-Watson:                   2.482
+Prob(Omnibus):                  0.417   Jarque-Bera (JB):                1.060
+Skew:                          -0.451   Prob(JB):                        0.589
+Kurtosis:                       3.089   Cond. No.                     7.78e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 7.78e+04. This might indicate that there are
+strong multicollinearity or other numerical problems. 
+
+Parameters: 
+const                       3.338310
+CO2                      1438.141349
+Solar                    1079.157185
+Transmission             2891.422905
+IceShelf                  694.432992
+CO2\^{}2                      -6.661171
+CO2 Solar               -1429.893859
+CO2 Transmission            4.709600
+CO2 IceShelf                1.711557
+Solar\^{}2                 -1026.665099
+Solar Transmission      -2868.451956
+Solar IceShelf           -690.510488
+Transmission\^{}2            -14.776784
+Transmission IceShelf      -7.881407
+IceShelf\^{}2                  1.647635
+dtype: float64 
+
+R2: 0.891
+
+    \end{Verbatim}
+
+    \paragraph{Observe p-values and Select Significant Variables from Above
+Model}\label{observe-p-values-and-select-significant-variables-from-above-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{p\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{coef}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{results}\PY{o}{.}\PY{n}{params}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p\PYZus{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{results}\PY{o}{.}\PY{n}{pvalues}\PY{p}{\PYZcb{}}\PY{p}{)}
+        \PY{n}{p\PYZus{}df} \PY{o}{=} \PY{n}{p\PYZus{}df}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{f}\PY{p}{:} \PY{n+nb}{round}\PY{p}{(}\PY{n}{f}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+        \PY{n}{p\PYZus{}df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}                            coef  p\_value
+        const                     3.338    0.000
+        CO2                    1438.141    0.016
+        Solar                  1079.157    0.296
+        Transmission           2891.423    0.009
+        IceShelf                694.433    0.256
+        CO2\^{}2                    -6.661    0.677
+        CO2 Solar             -1429.894    0.015
+        CO2 Transmission          4.710    0.642
+        CO2 IceShelf              1.712    0.847
+        Solar\^{}2               -1026.665    0.320
+        Solar Transmission    -2868.452    0.009
+        Solar IceShelf         -690.510    0.254
+        Transmission\^{}2          -14.777    0.112
+        Transmission IceShelf    -7.881    0.435
+        IceShelf\^{}2                1.648    0.532
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{p\PYZus{}df} \PY{o}{=} \PY{n}{p\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{p\PYZus{}df}\PY{o}{.}\PY{n}{p\PYZus{}value} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{o}{.}\PY{l+m+mi}{05}\PY{p}{]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+s1}{Significant Variables}
+        \PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{)}
+        \PY{n}{p\PYZus{}df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Significant Variables
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}                         coef  p\_value
+        const                  3.338    0.000
+        CO2                 1438.141    0.016
+        Transmission        2891.423    0.009
+        CO2 Solar          -1429.894    0.015
+        Solar Transmission -2868.452    0.009
+\end{Verbatim}
+            
+    \paragraph{\texorpdfstring{Isolate \texttt{X} Columns that are
+Significant}{Isolate X Columns that are Significant}}\label{isolate-x-columns-that-are-significant}
+
+\texttt{Solar} is added back in because we cannot have interactions with
+\texttt{Solar} without accounting for it by itself.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{signif\PYZus{}X} \PY{o}{=} \PY{n}{p\PYZus{}df}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Solar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \paragraph{\texorpdfstring{Fit \texttt{sklearn} Version of
+Model}{Fit sklearn Version of Model}}\label{fit-sklearn-version-of-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} re\PYZhy{}specify X with significant columns}
+        \PY{n}{X} \PY{o}{=} \PY{n}{X}\PY{p}{[}\PY{n}{signif\PYZus{}X}\PY{p}{]}
+        
+        \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+            \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{LinearRegression}\PY{p}{(}\PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+        \PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{pipeline}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+        \PY{n}{y\PYZus{}pred} \PY{o}{=} \PY{n}{pipeline}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+        \PY{n}{r2} \PY{o}{=} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+s1}{R2 score = }\PY{l+s+si}{\PYZpc{}.3f}
+        \PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{r2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+R2 score = 0.792
+
+
+    \end{Verbatim}
+
+    \subsubsection{Problem 1c}\label{problem-1c}
+
+Run the diagnostics to determine whether your final model is
+appropriate.
+
+    \paragraph{\texorpdfstring{Fit \texttt{statsmodels.api.OLS} with
+Significant \texttt{X} Columns \& Observe
+Summary}{Fit statsmodels.api.OLS with Significant X Columns \& Observe Summary}}\label{fit-statsmodels.api.ols-with-significant-x-columns-observe-summary}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{lm} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+         \PY{n}{results} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{results}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parameters: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{results}\PY{o}{.}\PY{n}{params}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R2: }\PY{l+s+si}{\PYZpc{}.3f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{results}.rsquared)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.792
+Model:                            OLS   Adj. R-squared:                  0.751
+Method:                 Least Squares   F-statistic:                     19.07
+Date:                Mon, 22 Oct 2018   Prob (F-statistic):           8.19e-08
+Time:                        19:53:21   Log-Likelihood:                -9.8078
+No. Observations:                  31   AIC:                             31.62
+Df Residuals:                      25   BIC:                             40.22
+Df Model:                           5                                         
+Covariance Type:            nonrobust                                         
+======================================================================================
+                         coef    std err          t      P>|t|      [0.025      0.975]
+--------------------------------------------------------------------------------------
+const                  3.3383      0.066     50.273      0.000       3.202       3.475
+CO2                  248.2254    225.959      1.099      0.282    -217.146     713.597
+Transmission        2341.3006    841.312      2.783      0.010     608.586    4074.015
+CO2 Solar           -246.8360    225.129     -1.096      0.283    -710.497     216.825
+Solar Transmission -2334.2245    838.858     -2.783      0.010   -4061.885    -606.564
+Solar                 34.9008     11.714      2.979      0.006      10.775      59.027
+==============================================================================
+Omnibus:                       10.462   Durbin-Watson:                   2.038
+Prob(Omnibus):                  0.005   Jarque-Bera (JB):               10.416
+Skew:                          -0.950   Prob(JB):                      0.00547
+Kurtosis:                       5.111   Cond. No.                     3.09e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.09e+04. This might indicate that there are
+strong multicollinearity or other numerical problems. 
+
+Parameters: 
+const                    3.338310
+CO2                    248.225444
+Transmission          2341.300603
+CO2 Solar             -246.835963
+Solar Transmission   -2334.224511
+Solar                   34.900824
+dtype: float64 
+
+R2: 0.792
+
+    \end{Verbatim}
+
+    \paragraph{Plot QQ Plot}\label{plot-qq-plot}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{res} \PY{o}{=} \PY{n}{results}\PY{o}{.}\PY{n}{resid} 
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{qqplot}\PY{p}{(}\PY{n}{res}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+         \PY{n}{set\PYZus{}mpl\PYZus{}preferences}\PY{p}{(}\PY{n}{ax}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{QQ Plot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Plot Residuals Plot}\label{plot-residuals-plot}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Instantiate the linear model and visualizer}
+         \PY{n}{visualizer} \PY{o}{=} \PY{n}{ResidualsPlot}\PY{p}{(}\PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{visualizer}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Fit the training data to the model}
+         \PY{n}{visualizer}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Evaluate the model on the test data}
+         \PY{n}{visualizer}\PY{o}{.}\PY{n}{poof}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}  
+         \PY{n}{set\PYZus{}mpl\PYZus{}preferences}\PY{p}{(}\PY{n}{ax}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \subsubsection{Problem 1d}\label{problem-1d}
+
+Describe in what way the model diagnostics are appropriate or not. Be
+specific.
+
+    Both \texttt{CO2} and \texttt{CO2\ Solar} became non-significant when
+modeled without the original factors, and may have just introduced some
+noise. We can see by the histogram on the right side of the residuals
+plot that there is not enough data to give it a label of Normal
+distribution. The QQ plot appears reasonable for this model as well,
+despite its lack of data points. According to this model,
+\texttt{Solar}, \texttt{Transmission} and \texttt{Solar\ Transmission}
+are significant predictors of \texttt{log\_temp}.
+
+    \subsubsection{Problem 1e}\label{problem-1e}
+
+Using your knowledge of statistics, what would you conclude about
+climate change?
+
+    I'd conclude that we need some mroe data! I also find it surprising that
+\texttt{CO2} became non-significant when adjusting the
+accounted-for-variables list. Like any good scientist, I wouldn't draw
+any set-in-stone conclusions in particular from this surface analysis of
+a limited dataset.
+
+    \subsection{Problem 2 Matrix model for regression (8
+points)}\label{problem-2-matrix-model-for-regression-8-points}
+
+\subsubsection{Problem 2a}\label{problem-2a}
+
+Using the features that you deemed important in Problem 1, construct the
+matrix forms of the appropriate variables. Specifically you will need a
+matrix X that has the features used in your solution and a Y = logTemp.
+Print the head of each of these.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+s1}{X and y have been segregated, scaled and processed already.}
+         \PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+X and y have been segregated, scaled and processed already.
+
+X: 
+    const       CO2  Transmission  CO2 Solar  Solar Transmission     Solar
+0    1.0 -1.579838      0.446017  -1.575164            0.469142  1.545449
+1    1.0 -1.487757      0.451212  -1.482695            0.474354  1.545449
+2    1.0 -1.393629     -3.533328  -1.394159           -3.534160  0.667996
+3    1.0 -1.297456     -1.213775  -1.297261           -1.207191  0.718136
+4    1.0 -1.193097     -0.238420  -1.200598           -0.245418 -0.460157 
+
+y: 
+ Year
+1980    2.944439
+1981    3.258097
+1982    1.386294
+1983    3.218876
+1984    2.197225
+Name: log\_temp, dtype: float64
+
+    \end{Verbatim}
+
+    \subsubsection{Problem 2b}\label{problem-2b}
+
+Use the matrix calculation for the pseudo-inverse provided in lecture.
+
+    \paragraph{\texorpdfstring{Perform Matrix Calculation to Get \texttt{W}
+Weights for
+Model}{Perform Matrix Calculation to Get W Weights for Model}}\label{perform-matrix-calculation-to-get-w-weights-for-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{W} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{X}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{matmul}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{T}\PY{p}{,} \PY{n}{y}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model coefficients}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{W}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{signif\PYZus{}X}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model coefficients
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} const                    3.338310
+         CO2                    248.225436
+         Transmission          2341.300786
+         CO2 Solar             -246.835955
+         Solar Transmission   -2334.224694
+         Solar                   34.900826
+         dtype: float64
+\end{Verbatim}
+            
+    \paragraph{Observe Errors}\label{observe-errors}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{y\PYZus{}hat} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{W}\PY{p}{)}
+         \PY{n}{e} \PY{o}{=} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}hat}
+         \PY{n}{e}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1c26f938d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{\texorpdfstring{Observe
+\texttt{r2\_score}}{Observe r2\_score}}\label{observe-r2_score}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{y\PYZus{}hat}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} 0.792261177152638
+\end{Verbatim}
+            
+    \subsection{Problem 2c}\label{problem-2c}
+
+How does the answer in Problem 2b compare to that of 1b?
+
+    \paragraph{Comparison of Different Approaches to
+Model}\label{comparison-of-different-approaches-to-model}
+
+The answers are very similar between the models. We can observe that the
+coefficients are different by a very, very small amount (e.g. the first
+3 decimal places are the same for each coefficient, and off by very
+little beyond that). The \(R^2\) value is equal between the two models.
+
+Model coefficients from \texttt{statsmodels} (1b) approach:
+
+\begin{verbatim}
+const                    3.338310
+CO2                    248.225444
+Transmission          2341.300603
+CO2 Solar             -246.835963
+Solar Transmission   -2334.224511
+Solar                   34.900824
+\end{verbatim}
+
+Model coefficients from Matrix (2b) form:
+
+\begin{verbatim}
+const                    3.338310
+CO2                    248.225436
+Transmission          2341.300786
+CO2 Solar             -246.835955
+Solar Transmission   -2334.224694
+Solar                   34.900826
+\end{verbatim}
+
+    \subsection{Problem 3 Time Series Modeling (40
+points)}\label{problem-3-time-series-modeling-40-points}
+
+Use the data timeSeries4.csv for this problem. The data are monthly
+reports of production.
+
+\subsubsection{Problem 3a}\label{problem-3a}
+
+Plot the data and perform an exploratory analysis on the raw time series
+file. Comment on any trends, outliers, seasonality, whether it's
+stationary, etc.
+
+    \paragraph{Read in Time Series Data}\label{read-in-time-series-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{ts\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/timeSeries4.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+         \PY{n}{ts\PYZus{}df}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} 
+         \PY{n}{ts\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}            1
+         0           
+         0  21.684748
+         1  21.622112
+         2  19.583297
+         3  23.290602
+         4  21.729621
+\end{Verbatim}
+            
+    \paragraph{Describe Dataset \& Check Missing
+Values}\label{describe-dataset-check-missing-values}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{There are }\PY{l+s+si}{\PYZpc{}i}\PY{l+s+s1}{ missing values in the dataset}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{ts\PYZus{}df}.isnull().sum())
+         
+         \PY{n}{ts\PYZus{}df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+There are 0 missing values in the dataset
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}    count       mean       std        min        25\%        50\%        75\%  \textbackslash{}
+         1  148.0  24.529022  2.648555  10.521345  22.811038  24.536239  26.703908   
+         
+                 max  
+         1  29.68814  
+\end{Verbatim}
+            
+    \paragraph{Plot TIme Series with 5 Period Moving
+Average}\label{plot-time-series-with-5-period-moving-average}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ts\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{series}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{set\PYZus{}mpl\PYZus{}preferences}\PY{p}{(}\PY{n}{ax}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time Series}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Period}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ts\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{rolling}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rolling 5 moving avg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Plot Histogram}\label{plot-histogram}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ts\PYZus{}df}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightgreen}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{)}
+         \PY{n}{set\PYZus{}mpl\PYZus{}preferences}\PY{p}{(}\PY{n}{ax}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Histogram of Production Time Series}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bins \PYZhy{} Qty Produced}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{axvline}\PY{p}{(}\PY{n}{ts\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_50_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Add months to index to enable plotting
+functions}\label{add-months-to-index-to-enable-plotting-functions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{ts\PYZus{}df}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{date\PYZus{}range}\PY{p}{(}\PY{n}{start}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{01/01/2005}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{periods}\PY{o}{=}\PY{n}{ts\PYZus{}df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{freq}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{\texorpdfstring{Plot \texttt{breakout} Plots
+\texttt{seasonal\_decompose}}{Plot breakout Plots seasonal\_decompose}}\label{plot-breakout-plots-seasonal_decompose}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{k}{def} \PY{n+nf}{breakout\PYZus{}plots}\PY{p}{(}\PY{n}{seas\PYZus{}series}\PY{p}{)}\PY{p}{:}
+             \PY{n}{decomposition} \PY{o}{=} \PY{n}{seasonal\PYZus{}decompose}\PY{p}{(}\PY{n}{seas\PYZus{}series}\PY{p}{)} 
+         
+             \PY{n}{f}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{411}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{seas\PYZus{}series}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{dark2\PYZus{}colors}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{412}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{decomposition}\PY{o}{.}\PY{n}{trend}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Trend}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{dark2\PYZus{}colors}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{413}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{decomposition}\PY{o}{.}\PY{n}{seasonal}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Seasonality}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{dark2\PYZus{}colors}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{414}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{decomposition}\PY{o}{.}\PY{n}{resid}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Residuals}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{dark2\PYZus{}colors}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{decomposition}
+         
+         \PY{n}{decomposition} \PY{o}{=} \PY{n}{breakout\PYZus{}plots}\PY{p}{(}\PY{n}{ts\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_54_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Test Stationarity with Dickey-Fuller
+Test}\label{test-stationarity-with-dickey-fuller-test}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k}{def} \PY{n+nf}{test\PYZus{}stationarity}\PY{p}{(}\PY{n}{timeseries}\PY{p}{)}\PY{p}{:}
+         
+             \PY{c+c1}{\PYZsh{}Determing rolling statistics}
+             \PY{n}{rolmean} \PY{o}{=} \PY{n}{timeseries}\PY{o}{.}\PY{n}{rolling}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{c+c1}{\PYZsh{}pd.rolling\PYZus{}mean(timeseries, window=12)}
+             \PY{n}{rolstd} \PY{o}{=} \PY{n}{timeseries}\PY{o}{.}\PY{n}{rolling}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{)}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{c+c1}{\PYZsh{}pd.rolling\PYZus{}std(timeseries, window=12)}
+         
+             \PY{c+c1}{\PYZsh{}Plot rolling statistics:}
+             \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+             \PY{n}{orig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{timeseries}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Original}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{mean} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{rolmean}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rolling Mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{std} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{rolstd}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rolling Std}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rolling Mean \PYZam{} Standard Deviation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}Perform Dickey\PYZhy{}Fuller test:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Results of Dickey\PYZhy{}Fuller Test:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{dftest} \PY{o}{=} \PY{n}{adfuller}\PY{p}{(}\PY{n}{timeseries}\PY{p}{,} \PY{n}{autolag}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AIC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{dfoutput} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{dftest}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Statistic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p\PYZhy{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}Lags Used}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Observations Used}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{k}{for} \PY{n}{key}\PY{p}{,}\PY{n}{value} \PY{o+ow}{in} \PY{n}{dftest}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{dfoutput}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Critical Value (}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{key}] = value
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{dfoutput}\PY{p}{)} 
+             
+         \PY{n}{test\PYZus{}stationarity}\PY{p}{(}\PY{n}{ts\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Results of Dickey-Fuller Test:
+Test Statistic                  -1.593535
+p-value                          0.486840
+\#Lags Used                      13.000000
+Number of Observations Used    134.000000
+Critical Value (1\%)             -3.480119
+Critical Value (5\%)             -2.883362
+Critical Value (10\%)            -2.578407
+dtype: float64
+
+    \end{Verbatim}
+
+    \paragraph{Note On Stationarity}\label{note-on-stationarity}
+
+The data is not stationary and there is a clear upward trend. This is
+evident by simply looking at the data -\/- but is also evident via the
+Dickey-Fuller test. There also appears to be very consistent
+seasonality, as evidenced by the \texttt{breakout} plot. There does
+appear to be one outlier
+
+    \subsubsection{Problem 3b}\label{problem-3b}
+
+Using your knowledge of ACF, PACF and other diagnostics, walk us through
+the selection of an appropriate time series model for the data. We are
+interested in both the result and your logical journey to reach that
+model. That journey should begin with observations from the ACF and PACF
+pattern.
+
+    \paragraph{Fit Baseline Model Without
+Differencing}\label{fit-baseline-model-without-differencing}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{} arima model}
+         \PY{n}{mod} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{tsa}\PY{o}{.}\PY{n}{statespace}\PY{o}{.}\PY{n}{SARIMAX}\PY{p}{(}\PY{n}{ts\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                         \PY{n}{trend}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                         \PY{n}{freq}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                         \PY{n}{order}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{results\PYZus{}ARIMA} \PY{o}{=} \PY{n}{mod}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{disp}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{results\PYZus{}ARIMA}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Residuals}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{tsplot}\PY{p}{(}\PY{n}{results\PYZus{}ARIMA}\PY{o}{.}\PY{n}{resid}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                           Statespace Model Results                           
+==============================================================================
+Dep. Variable:                      1   No. Observations:                  148
+Model:                        SARIMAX   Log Likelihood                -353.655
+Date:                Mon, 22 Oct 2018   AIC                            711.311
+Time:                        19:53:30   BIC                            717.305
+Sample:                    01-31-2005   HQIC                           713.746
+                         - 04-30-2017                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+intercept     24.5290      0.233    105.145      0.000      24.072      24.986
+sigma2         6.9674      0.515     13.521      0.000       5.957       7.977
+===================================================================================
+Ljung-Box (Q):                     1085.33   Jarque-Bera (JB):               103.96
+Prob(Q):                              0.00   Prob(JB):                         0.00
+Heteroskedasticity (H):               0.75   Skew:                            -0.88
+Prob(H) (two-sided):                  0.33   Kurtosis:                         6.71
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step).
+
+
+Residuals
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The partial autocorrelation plot (on the raw data) suggests that we need
+a seasonality adjustment at 12 months. It is unclear what other
+parameters for \texttt{(p,\ d,\ q)} should be selected, so a grid-search
+is performed below.
+
+\begin{verbatim}
+(p, d, q):
+* p: auto-regressive part (warm today if warm past 3 days)
+* d: integrated part (amount of differencing)
+* q: moving avg part 
+\end{verbatim}
+
+    \paragraph{Create Hyperparameter Set}\label{create-hyperparameter-set}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{} Define the p, d and q parameters to take any value between 0 and 2}
+         \PY{n}{p} \PY{o}{=} \PY{n}{d} \PY{o}{=} \PY{n}{q} \PY{o}{=} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Generate all different combinations of p, q and q triplets}
+         \PY{n}{pdq} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{itertools}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{d}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Generate all different combinations of seasonal p, q and q triplets}
+         \PY{n}{seasonal\PYZus{}pdq} \PY{o}{=} \PY{p}{[}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{x}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{itertools}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{n}{p}\PY{p}{,} \PY{n}{d}\PY{p}{,} \PY{n}{q}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Examples of parameter combinations for Seasonal ARIMA...}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SARIMAX: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ x }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{pdq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{seasonal\PYZus{}pdq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SARIMAX: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ x }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{pdq}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{seasonal\PYZus{}pdq}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SARIMAX: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ x }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{pdq}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{seasonal\PYZus{}pdq}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SARIMAX: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ x }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{pdq}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{seasonal\PYZus{}pdq}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Examples of parameter combinations for Seasonal ARIMA{\ldots}
+SARIMAX: (0, 0, 1) x (0, 0, 1, 12)
+SARIMAX: (0, 0, 1) x (0, 1, 0, 12)
+SARIMAX: (0, 1, 0) x (0, 1, 1, 12)
+SARIMAX: (0, 1, 0) x (1, 0, 0, 12)
+
+    \end{Verbatim}
+
+    \paragraph{Perform Grid Search Over Hyperparameter Set
+Created}\label{perform-grid-search-over-hyperparameter-set-created}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} method borrowed from }
+         \PY{c+c1}{\PYZsh{} https://www.digitalocean.com/community/tutorials/a\PYZhy{}guide\PYZhy{}to\PYZhy{}time\PYZhy{}series\PYZhy{}forecasting\PYZhy{}with\PYZhy{}arima\PYZhy{}in\PYZhy{}python\PYZhy{}3}
+         \PY{k}{for} \PY{n}{param} \PY{o+ow}{in} \PY{n}{pdq}\PY{p}{:}
+             \PY{k}{for} \PY{n}{param\PYZus{}seasonal} \PY{o+ow}{in} \PY{n}{seasonal\PYZus{}pdq}\PY{p}{:}
+                 \PY{k}{try}\PY{p}{:}
+                     \PY{n}{mod} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{tsa}\PY{o}{.}\PY{n}{statespace}\PY{o}{.}\PY{n}{SARIMAX}\PY{p}{(}\PY{n}{ts\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                                                     \PY{n}{order}\PY{o}{=}\PY{n}{param}\PY{p}{,}
+                                                     \PY{n}{seasonal\PYZus{}order}\PY{o}{=}\PY{n}{param\PYZus{}seasonal}\PY{p}{,}
+                                                     \PY{n}{enforce\PYZus{}stationarity}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                                                     \PY{n}{enforce\PYZus{}invertibility}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+                     \PY{n}{results} \PY{o}{=} \PY{n}{mod}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+         
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ARIMA}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{x}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{12 \PYZhy{} AIC:}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{param}\PY{p}{,} \PY{n}{param\PYZus{}seasonal}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{results}\PY{o}{.}\PY{n}{aic}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{except}\PY{p}{:}
+                     \PY{k}{continue}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+ARIMA(0, 0, 0)x(0, 0, 0, 12)12 - AIC:1361.846
+ARIMA(0, 0, 0)x(0, 0, 1, 12)12 - AIC:1111.236
+ARIMA(0, 0, 0)x(0, 1, 0, 12)12 - AIC:525.466
+ARIMA(0, 0, 0)x(0, 1, 1, 12)12 - AIC:433.511
+ARIMA(0, 0, 0)x(1, 0, 0, 12)12 - AIC:563.298
+ARIMA(0, 0, 0)x(1, 0, 1, 12)12 - AIC:485.68
+ARIMA(0, 0, 0)x(1, 1, 0, 12)12 - AIC:462.147
+ARIMA(0, 0, 0)x(1, 1, 1, 12)12 - AIC:434.232
+ARIMA(0, 0, 1)x(0, 0, 0, 12)12 - AIC:1185.662
+ARIMA(0, 0, 1)x(0, 0, 1, 12)12 - AIC:950.436
+ARIMA(0, 0, 1)x(0, 1, 0, 12)12 - AIC:518.242
+ARIMA(0, 0, 1)x(0, 1, 1, 12)12 - AIC:417.295
+ARIMA(0, 0, 1)x(1, 0, 0, 12)12 - AIC:562.617
+ARIMA(0, 0, 1)x(1, 0, 1, 12)12 - AIC:486.091
+ARIMA(0, 0, 1)x(1, 1, 0, 12)12 - AIC:447.616
+ARIMA(0, 0, 1)x(1, 1, 1, 12)12 - AIC:416.751
+ARIMA(0, 1, 0)x(0, 0, 0, 12)12 - AIC:650.324
+ARIMA(0, 1, 0)x(0, 0, 1, 12)12 - AIC:525.017
+ARIMA(0, 1, 0)x(0, 1, 0, 12)12 - AIC:580.803
+ARIMA(0, 1, 0)x(0, 1, 1, 12)12 - AIC:443.182
+ARIMA(0, 1, 0)x(1, 0, 0, 12)12 - AIC:553.53
+ARIMA(0, 1, 0)x(1, 0, 1, 12)12 - AIC:507.696
+ARIMA(0, 1, 0)x(1, 1, 0, 12)12 - AIC:473.333
+ARIMA(0, 1, 0)x(1, 1, 1, 12)12 - AIC:433.915
+ARIMA(0, 1, 1)x(0, 0, 0, 12)12 - AIC:584.28
+ARIMA(0, 1, 1)x(0, 0, 1, 12)12 - AIC:464.424
+ARIMA(0, 1, 1)x(0, 1, 0, 12)12 - AIC:529.567
+ARIMA(0, 1, 1)x(0, 1, 1, 12)12 - AIC:389.202
+ARIMA(0, 1, 1)x(1, 0, 0, 12)12 - AIC:519.451
+ARIMA(0, 1, 1)x(1, 0, 1, 12)12 - AIC:455.847
+ARIMA(0, 1, 1)x(1, 1, 0, 12)12 - AIC:424.222
+ARIMA(0, 1, 1)x(1, 1, 1, 12)12 - AIC:398.091
+ARIMA(1, 0, 0)x(0, 0, 0, 12)12 - AIC:655.641
+ARIMA(1, 0, 0)x(0, 0, 1, 12)12 - AIC:563.479
+ARIMA(1, 0, 0)x(0, 1, 0, 12)12 - AIC:521.914
+ARIMA(1, 0, 0)x(0, 1, 1, 12)12 - AIC:420.934
+ARIMA(1, 0, 0)x(1, 0, 0, 12)12 - AIC:516.561
+ARIMA(1, 0, 0)x(1, 0, 1, 12)12 - AIC:486.056
+ARIMA(1, 0, 0)x(1, 1, 0, 12)12 - AIC:419.344
+ARIMA(1, 0, 0)x(1, 1, 1, 12)12 - AIC:421.029
+ARIMA(1, 0, 1)x(0, 0, 0, 12)12 - AIC:582.836
+ARIMA(1, 0, 1)x(0, 0, 1, 12)12 - AIC:464.695
+ARIMA(1, 0, 1)x(0, 1, 0, 12)12 - AIC:519.292
+ARIMA(1, 0, 1)x(0, 1, 1, 12)12 - AIC:391.804
+ARIMA(1, 0, 1)x(1, 0, 0, 12)12 - AIC:518.18
+ARIMA(1, 0, 1)x(1, 0, 1, 12)12 - AIC:456.132
+ARIMA(1, 0, 1)x(1, 1, 0, 12)12 - AIC:419.035
+ARIMA(1, 0, 1)x(1, 1, 1, 12)12 - AIC:400.323
+ARIMA(1, 1, 0)x(0, 0, 0, 12)12 - AIC:606.882
+ARIMA(1, 1, 0)x(0, 0, 1, 12)12 - AIC:495.251
+ARIMA(1, 1, 0)x(0, 1, 0, 12)12 - AIC:563.116
+ARIMA(1, 1, 0)x(0, 1, 1, 12)12 - AIC:430.266
+ARIMA(1, 1, 0)x(1, 0, 0, 12)12 - AIC:487.664
+ARIMA(1, 1, 0)x(1, 0, 1, 12)12 - AIC:489.025
+ARIMA(1, 1, 0)x(1, 1, 0, 12)12 - AIC:437.785
+ARIMA(1, 1, 0)x(1, 1, 1, 12)12 - AIC:424.194
+ARIMA(1, 1, 1)x(0, 0, 0, 12)12 - AIC:584.391
+ARIMA(1, 1, 1)x(0, 0, 1, 12)12 - AIC:462.22
+ARIMA(1, 1, 1)x(0, 1, 0, 12)12 - AIC:527.379
+ARIMA(1, 1, 1)x(0, 1, 1, 12)12 - AIC:388.979
+ARIMA(1, 1, 1)x(1, 0, 0, 12)12 - AIC:456.483
+ARIMA(1, 1, 1)x(1, 0, 1, 12)12 - AIC:453.534
+ARIMA(1, 1, 1)x(1, 1, 0, 12)12 - AIC:404.401
+ARIMA(1, 1, 1)x(1, 1, 1, 12)12 - AIC:396.623
+
+    \end{Verbatim}
+
+    It appears that the model with the parameters
+\texttt{ARIMA(0,\ 1,\ 1)x(0,\ 1,\ 1,\ 12)12\ -\ AIC:389.202} performed
+the best in our grid search, so this one was tested. It appeared to fit
+the non-outlier points well, yet the Ljung-Box statistic did not
+maintain a value above the 0.1 threshold.
+
+    \paragraph{Fit Model with Best
+Hyperparameters}\label{fit-model-with-best-hyperparameters}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} arima model}
+         \PY{n}{mod} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{tsa}\PY{o}{.}\PY{n}{statespace}\PY{o}{.}\PY{n}{SARIMAX}\PY{p}{(}\PY{n}{ts\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                                         \PY{n}{trend}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                         \PY{n}{freq}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                         \PY{n}{order}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} 
+                                         \PY{n}{seasonal\PYZus{}order}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{,}\PY{c+c1}{\PYZsh{}(0,1,1,12)}
+                                         \PY{n}{enforce\PYZus{}stationarity}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,}
+                                         \PY{n}{enforce\PYZus{}invertibility}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         
+         \PY{n}{results\PYZus{}ARIMA} \PY{o}{=} \PY{n}{mod}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{disp}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Problem 3c}\label{problem-3c}
+
+Apply and show the appropriate diagnostics to the model to assert that
+it is valid. Include not just a plot but your interpretation of the plot
+in your justification.
+
+    \paragraph{Get Model Summary \& Residual
+Plot}\label{get-model-summary-residual-plot}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{results\PYZus{}ARIMA}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Residuals}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{\PYZus{}} \PY{o}{=} \PY{n}{tsplot}\PY{p}{(}\PY{n}{results\PYZus{}ARIMA}\PY{o}{.}\PY{n}{resid}\PY{p}{,} \PY{l+m+mi}{40}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                           Statespace Model Results                           
+==============================================================================
+Dep. Variable:                      1   No. Observations:                  148
+Model:               SARIMAX(0, 1, 1)   Log Likelihood                -284.820
+Date:                Mon, 22 Oct 2018   AIC                            575.640
+Time:                        19:53:37   BIC                            584.570
+Sample:                    01-31-2005   HQIC                           579.269
+                         - 04-30-2017                                         
+Covariance Type:                  opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+intercept      0.0477      0.007      7.146      0.000       0.035       0.061
+ma.L1         -1.0000   1593.794     -0.001      0.999   -3124.779    3122.779
+sigma2         2.8893   4605.036      0.001      0.999   -9022.816    9028.595
+===================================================================================
+Ljung-Box (Q):                      188.50   Jarque-Bera (JB):               964.05
+Prob(Q):                              0.00   Prob(JB):                         0.00
+Heteroskedasticity (H):               0.67   Skew:                            -2.19
+Prob(H) (two-sided):                  0.17   Kurtosis:                        14.85
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step).
+
+
+Residuals
+
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_71_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{results}\PY{o}{.}\PY{n}{plot\PYZus{}diagnostics}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+\texttt{\color{outcolor}Out[{\color{outcolor}29}]:}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{n}{pred} \PY{o}{=} \PY{n}{results}\PY{o}{.}\PY{n}{get\PYZus{}prediction}\PY{p}{(}\PY{n}{start}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2017\PYZhy{}04\PYZhy{}30}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} 
+                                       \PY{n}{end}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2018\PYZhy{}04\PYZhy{}30}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{dynamic}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{pred\PYZus{}ci} \PY{o}{=} \PY{n}{pred}\PY{o}{.}\PY{n}{conf\PYZus{}int}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ts\PYZus{}df}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{observed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+         \PY{n}{pred}\PY{o}{.}\PY{n}{predicted\PYZus{}mean}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{One\PYZhy{}step ahead Forecast}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{)}
+         \PY{n}{set\PYZus{}mpl\PYZus{}preferences}\PY{p}{(}\PY{n}{ax}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{fill\PYZus{}between}\PY{p}{(}\PY{n}{pred\PYZus{}ci}\PY{o}{.}\PY{n}{index}\PY{p}{,}
+                         \PY{n}{pred\PYZus{}ci}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{pred\PYZus{}ci}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_73_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Out of the models that were fit via brute force that had the lowest AIC
+values, the model that was chosen was the one fit with the parameters
+\texttt{order=(0,\ 1,\ 1)} and
+\texttt{seasonal\_order=(0,\ 0,\ 0,\ 12)}. This model had ACF and PACF
+plots that maintained non-significant status, a Ljung-Box statistic that
+maintained levels above 0.1, and the standardized residuals appear to be
+random noise.
+
+    \subsection{Problem 4 (15 points)}\label{problem-4-15-points}
+
+For a time series data set, a (2,1,1) was derived with the following
+coefficients:
+
+const -0.3916\\
+ar1 0.9172\\
+ar2 -0.2390\\
+ma1 0.4012
+
+The last 5 points are -104.6, -102.1, -103.2, -109.8, -115.7
+
+Compute the next 3 data points by writing the calculation in python.
+Note that this will require not only plugging values into the equation,
+but also taking the d term of the (p,d,q) ARIMA model into account. We
+do not need a general form or function-\/-just the required
+calculations.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{n}{X} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mf}{104.6}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{102.1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{103.2}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{109.8}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mf}{115.7}\PY{p}{]}\PY{p}{)}
+         \PY{n}{X}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:} 0   -104.6
+         1   -102.1
+         2   -103.2
+         3   -109.8
+         4   -115.7
+         dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{X\PYZus{}diff} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X\PYZus{}diff}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} 0    NaN
+         1    2.5
+         2   -1.1
+         3   -6.6
+         4   -5.9
+         dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{coefs} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{const}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.3916}\PY{p}{,}
+                      \PY{n}{ar1}\PY{o}{=}\PY{l+m+mf}{0.9172}\PY{p}{,}
+                      \PY{n}{ar2}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.2390}\PY{p}{,}
+                      \PY{n}{ma1}\PY{o}{=}\PY{l+m+mf}{0.4012}\PY{p}{)}
+         
+         \PY{n}{params} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{p}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{d}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{q}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{yhat\PYZus{}5} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{n}{coefs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{const}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{coefs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ar1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{X\PYZus{}diff}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{+} \PY{n}{coefs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ar2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{X\PYZus{}diff}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{+} \PY{n}{coefs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ma1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{X\PYZus{}diff}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}
+         \PY{n}{yhat\PYZus{}5}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} -113.67276000000001
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]} \PY{o}{=} \PY{n}{yhat\PYZus{}5}
+         \PY{n}{X}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} 0   -104.60000
+         1   -102.10000
+         2   -103.20000
+         3   -109.80000
+         4   -115.70000
+         5   -113.67276
+         dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{X\PYZus{}diff} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X\PYZus{}diff}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} 0        NaN
+         1    2.50000
+         2   -1.10000
+         3   -6.60000
+         4   -5.90000
+         5    2.02724
+         dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{yhat\PYZus{}6} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{n}{coefs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{const}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{coefs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ar1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{X\PYZus{}diff}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]} \PY{o}{+} \PY{n}{coefs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ar2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{X\PYZus{}diff}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{+} \PY{n}{coefs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ma1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{X\PYZus{}diff}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}
+         \PY{n}{yhat\PYZus{}6}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:} -104.48758011733334
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]} \PY{o}{=} \PY{n}{yhat\PYZus{}6}
+         \PY{n}{X\PYZus{}diff} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{yhat\PYZus{}7} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{n}{coefs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{const}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{coefs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ar1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{X\PYZus{}diff}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]} \PY{o}{+} \PY{n}{coefs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ar2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{X\PYZus{}diff}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]} \PY{o}{+} \PY{n}{coefs}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ma1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{X\PYZus{}diff}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]}
+         \PY{n}{X}\PY{p}{[}\PY{l+m+mi}{7}\PY{p}{]} \PY{o}{=} \PY{n}{yhat\PYZus{}7}
+         \PY{n}{X}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} 0   -104.600000
+         1   -102.100000
+         2   -103.200000
+         3   -109.800000
+         4   -115.700000
+         5   -113.672760
+         6   -104.487580
+         7    -96.417846
+         dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{X}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x1198cfcc0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_85_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Problem 5 (2 points)}\label{problem-5-2-points}
+
+How many hours did this homework take you? The answer to this question
+will not affect your grade.
+
+    About 14.
+
+    \subsection{Last step (5 points)}\label{last-step-5-points}
+
+Save this notebook as LastnameFirstnameHW3.ipynb such as BradyTom.ipynb.
+Create a pdf of this notebook named similarly. Submit both the python
+notebook and the pdf version to the Canvas dropbox. We require both
+versions.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
