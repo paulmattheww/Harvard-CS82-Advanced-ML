@@ -1,3 +1,8 @@
 # Deep Feature Learning for Graphs
 
-[This paper](https://arxiv.org/pdf/1704.08829.pdf) 
+- Original Paper by Ryan A. Rossi, Rong Zhou, and Nesreen K. Ahmed
+- Paper Summary by Daniel Sauble
+- Paper Review by Paul Washburn
+
+While [the paper](https://arxiv.org/pdf/1704.08829.pdf)'s premise that the "success of graph-based machine
+learning algorithms depends largely on data representation" is true, their over-use of theoretical jargon and under-use of concrete use cases makes it difficult to intuit applications for the technology and undermines the effectiveness of this novel approach. The idea of learning multi-layered, hierarchical, sequentially connected graphical representations that manifest as relational functions that can generalize across networks is a powerful one, yet it is also somewhat broad and ambiguous. An extension to (or enhancement of) this paper might include one or more use cases that are complete with all data preparation steps involved to create a suitable representation of the type of information that naturally lends itself to this sort of graphical analysis. In this manner much of the theory behind the network representation can be addressed as it arises in the workflow, and the reader would be better equipped to intuit applications for the research. Such an approach would also highlight broad categories of problems to which this approach is best suited, as well as provide guidance on implementation. The paper contributes important work that tackles a non-trivial and creative approach to machine learning that should not be discounted, but these simple extensions to the research would help greatly in the method's adoption in the appropriate domains. 
