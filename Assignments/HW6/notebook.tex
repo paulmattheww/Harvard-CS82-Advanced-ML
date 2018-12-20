@@ -1,0 +1,1834 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{CSCI E-82 HW6 Shakespeare}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    CSCI E-82 2018 Homework 6 Due: December 5, 2018
+
+Team members: Michelle Amaral Esthove Varghese Anish Raj Stephen Jeyaraj
+Paul Washburn
+
+The goal of this assignment is to determine whether the 36 plays
+attributed to William Shakespeare were indeed authored by one person,
+and if so, are we able to classify Shakespeare's lines from those of his
+contemporaries. Authorship questions have arisen due to the
+inconceivability that only one person could write 36 of the greatest
+works of all time within a 24 year span. Alternative possibilities to
+consider, then, include: one or more ghost writers who wrote for
+Shakespeare; a collaborative group that included Shakespeare; a
+collaborative group that did not include Shakespeare. In addition, it is
+possible that Shakespeare solely authored some of the 36 plays but other
+people wrote the remainder, either by themselves or in collaboration
+with others.
+
+Although we don't have a ``gold'' ground truth sample of Shakespeare's
+writing, we can perform experiments to determine whether one person
+authored the 36 plays. Our null hypothesis is that one person wrote all
+36 plays that are in question. The following experiments we conducted
+are an attempt to disprove this hypothesis.
+
+We began with an exploratory analysis of the data. When considering the
+number of lines in each play, ``Hamlet'' was the longest with 4,244
+lines and ``A Comedy of Errors'' was the shortest with 2,055 lines.
+``Richard III'' had the most characters with 71 while ``Two Gentlemen of
+Verona'' had the fewest with 18.
+
+Classification techniques were used to test if Shakespeare's lines were
+sufficiently different from his contemporaries' writings such that a
+model could be built that accepts any given line, then correctly
+classifies it as Shakespeare or not. The plays of 6 of his
+contemporaries were gathered, processed and labeled as ``not
+shakespeare'', then combined with Shakespeare's. Several classification
+algorithms were tested in combination with a TF-IDF and CountVectorizer
+pre-processing techniques. Grid searches were performed to find best
+models. While Shakespeare wrote about 33\% of the lines in the dataset,
+the best model was able to classify 92\% of that 33\% correctly
+(recall). Overall, the best model was very simple (using a
+CountVectorizer and MultinomialNB) and had an accuracy score of 85.98\%.
+It is likely that different techniques, such as word embeddings, could
+yield improvements.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{re}
+        \PY{k+kn}{import} \PY{n+nn}{string}
+        \PY{k+kn}{from} \PY{n+nn}{time} \PY{k}{import} \PY{n}{time}
+        \PY{k+kn}{import} \PY{n+nn}{spacy}
+        \PY{k+kn}{import} \PY{n+nn}{nltk}
+        \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{corpus} \PY{k}{import} \PY{n}{stopwords}
+        \PY{k+kn}{from} \PY{n+nn}{nltk}\PY{n+nn}{.}\PY{n+nn}{stem} \PY{k}{import} \PY{n}{WordNetLemmatizer}
+        \PY{k+kn}{from} \PY{n+nn}{gensim} \PY{k}{import} \PY{n}{corpora}\PY{p}{,} \PY{n}{models}\PY{p}{,} \PY{n}{matutils}\PY{p}{,} \PY{n}{similarities}
+        \PY{k+kn}{from} \PY{n+nn}{gensim}\PY{n+nn}{.}\PY{n+nn}{models}\PY{n+nn}{.}\PY{n+nn}{ldamulticore} \PY{k}{import} \PY{n}{LdaMulticore}
+        \PY{k+kn}{from} \PY{n+nn}{tld} \PY{k}{import} \PY{n}{get\PYZus{}tld}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{base} \PY{k}{import} \PY{n}{TransformerMixin}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{TfidfVectorizer}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{feature\PYZus{}extraction}\PY{n+nn}{.}\PY{n+nn}{text} \PY{k}{import} \PY{n}{CountVectorizer}
+        \PY{k+kn}{import} \PY{n+nn}{requests}
+        \PY{k+kn}{from} \PY{n+nn}{bs4} \PY{k}{import} \PY{n}{BeautifulSoup}
+        \PY{k+kn}{import} \PY{n+nn}{gensim}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{pipeline} \PY{k}{import} \PY{n}{Pipeline}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{LinearSVC}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{GaussianNB}
+        \PY{k+kn}{from} \PY{n+nn}{xgboost} \PY{k}{import} \PY{n}{XGBClassifier}
+        \PY{k+kn}{from} \PY{n+nn}{joblib} \PY{k}{import} \PY{n}{load}\PY{p}{,} \PY{n}{dump}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cluster} \PY{k}{import} \PY{n}{DBSCAN}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{metrics}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{base} \PY{k}{import} \PY{n}{BaseEstimator}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{MultinomialNB}
+        
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{options}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{max\PYZus{}rows} \PY{o}{=} \PY{l+m+mi}{999}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{options}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{max\PYZus{}columns} \PY{o}{=} \PY{l+m+mi}{999}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitegrid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{k}{def} \PY{n+nf}{binary\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{y\PYZus{}hat}\PY{p}{,} \PY{n}{as\PYZus{}pct}\PY{o}{=}\PY{k+kc}{False}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{p}{:}
+            \PY{n}{cm} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{y\PYZus{}hat}\PY{p}{)}\PY{p}{,} 
+                              \PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(+) actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(\PYZhy{}) actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                              \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(+) predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(\PYZhy{}) predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{k}{if} \PY{n}{as\PYZus{}pct}\PY{p}{:}
+                \PY{n}{cm} \PY{o}{=} \PY{n}{cm} \PY{o}{/} \PY{n}{cm}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+                
+            \PY{n}{P} \PY{o}{=} \PY{n}{cm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(+) actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+            \PY{n}{N} \PY{o}{=} \PY{n}{cm}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(\PYZhy{}) actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+            \PY{n}{total} \PY{o}{=} \PY{n}{P} \PY{o}{+} \PY{n}{N}
+            \PY{n}{TP} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(+) predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(+) actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{FP} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(+) predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(\PYZhy{}) actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{TN} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(\PYZhy{}) predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(\PYZhy{}) actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{FN} \PY{o}{=} \PY{n}{cm}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(\PYZhy{}) predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{(+) actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+            \PY{n}{TPR} \PY{o}{=} \PY{n}{TP} \PY{o}{/} \PY{p}{(}\PY{n}{TP} \PY{o}{+} \PY{n}{FN}\PY{p}{)}          \PY{c+c1}{\PYZsh{} recall/sensitivity}
+            \PY{n}{TNR} \PY{o}{=} \PY{n}{TN} \PY{o}{/} \PY{p}{(}\PY{n}{TN} \PY{o}{+} \PY{n}{FP}\PY{p}{)}   \PY{c+c1}{\PYZsh{} specificity}
+            \PY{n}{FPR} \PY{o}{=} \PY{n}{FP} \PY{o}{/} \PY{p}{(}\PY{n}{FP} \PY{o}{+} \PY{n}{TN}\PY{p}{)}   \PY{c+c1}{\PYZsh{} fall\PYZhy{}out}
+            \PY{n}{FNR} \PY{o}{=} \PY{n}{FN} \PY{o}{/} \PY{p}{(}\PY{n}{FN} \PY{o}{+} \PY{n}{TP}\PY{p}{)}   \PY{c+c1}{\PYZsh{} miss rate}
+            \PY{n}{PPV} \PY{o}{=} \PY{n}{TP} \PY{o}{/} \PY{p}{(}\PY{n}{TP} \PY{o}{+} \PY{n}{FP}\PY{p}{)}   \PY{c+c1}{\PYZsh{} precision}
+            \PY{n}{NPV} \PY{o}{=} \PY{n}{TN} \PY{o}{/} \PY{p}{(}\PY{n}{TN} \PY{o}{+} \PY{n}{FN}\PY{p}{)}   \PY{c+c1}{\PYZsh{} neg predictive value}
+            
+            \PY{k}{if} \PY{n}{verbose}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{l+s+s1}{        Condition Positive:                        }\PY{l+s+si}{\PYZpc{}i}
+        \PY{l+s+s1}{        Condition Negative:                        }\PY{l+s+si}{\PYZpc{}i}
+        \PY{l+s+s1}{        Total Observations:                        }\PY{l+s+si}{\PYZpc{}i}
+        \PY{l+s+s1}{        }
+        \PY{l+s+s1}{        True Positive:                             }\PY{l+s+si}{\PYZpc{}i}
+        \PY{l+s+s1}{        True Negative:                             }\PY{l+s+si}{\PYZpc{}i}
+        \PY{l+s+s1}{        False Positive:                            }\PY{l+s+si}{\PYZpc{}i}
+        \PY{l+s+s1}{        False Negative                             }\PY{l+s+si}{\PYZpc{}i}
+        \PY{l+s+s1}{        }
+        \PY{l+s+s1}{        True Positive Rate (recall):               }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}
+        \PY{l+s+s1}{        True Negative Rate (specificity):          }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}
+        \PY{l+s+s1}{        False Positive Rate (fall\PYZhy{}out):            }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}
+        \PY{l+s+s1}{        False Negative Rate (miss rate):           }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}
+        \PY{l+s+s1}{        }
+        \PY{l+s+s1}{        Positive Predictive Value (precision):     }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}
+        \PY{l+s+s1}{        Negative Predictive Value:                 }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+si}{\PYZpc{}\PYZpc{}}
+        \PY{l+s+s1}{        }\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}} \PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{P}\PY{p}{,} \PY{n}{N}\PY{p}{,} \PY{n}{total}\PY{p}{,}
+                     \PY{n}{TP}\PY{p}{,} \PY{n}{TN}\PY{p}{,} \PY{n}{FP}\PY{p}{,} \PY{n}{FN}\PY{p}{,}
+                     \PY{n}{TPR}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{TNR}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{FPR}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{FNR}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} 
+                     \PY{n}{PPV}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{NPV}\PY{o}{*}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+                
+            \PY{n}{metrics} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{P}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{P}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{N}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{total}\PY{p}{,} 
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{TP}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{FP}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{TN}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{FN}\PY{p}{,}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TPR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{TPR}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TNR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{TNR}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FPR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{FPR}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FNR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{FNR}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PPV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{PPV}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NPV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{NPV}\PY{p}{\PYZcb{}}
+            
+            \PY{k}{return} \PY{n}{cm}\PY{p}{,} \PY{n}{metrics}
+        
+        \PY{k}{class} \PY{n+nc}{TextCleaner}\PY{p}{(}\PY{n}{TransformerMixin}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Text cleaning to slot into sklearn interface\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{remove\PYZus{}stopwords}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{remove\PYZus{}urls}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}
+                         \PY{n}{remove\PYZus{}puncts}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{lemmatize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{extra\PYZus{}punct}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                         \PY{n}{custom\PYZus{}stopwords}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{custom\PYZus{}non\PYZus{}stopwords}\PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{,}
+                         \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{parser}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{big}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{        INPUT: remove\PYZus{}stopwords \PYZhy{} bool \PYZhy{} remove is, there, he etc...}
+        \PY{l+s+sd}{               remove\PYZus{}urls \PYZhy{} bool \PYZhy{} \PYZsq{}t www.monkey.com t\PYZsq{} \PYZhy{}\PYZhy{}\PYZgt{} \PYZsq{}t com t\PYZsq{}}
+        \PY{l+s+sd}{               remove\PYZus{}punct \PYZhy{} bool \PYZhy{} all punct and digits gone}
+        \PY{l+s+sd}{               lemmatize \PYZhy{} bool \PYZhy{} whether to apply lemmtization}
+        \PY{l+s+sd}{               extra\PYZus{}punct \PYZhy{} str \PYZhy{} other characters to remove}
+        \PY{l+s+sd}{               custom\PYZus{}stopwords \PYZhy{} list \PYZhy{} add to standard stops}
+        \PY{l+s+sd}{               custom\PYZus{}non\PYZus{}stopwords \PYZhy{} list \PYZhy{} make sure are kept}
+        \PY{l+s+sd}{               verbose \PYZhy{} bool \PYZhy{} whether to print progress statements}
+        \PY{l+s+sd}{               parser \PYZhy{} str \PYZhy{} \PYZsq{}big\PYZsq{} or small, one keeps more, and is slower}
+        \PY{l+s+sd}{        OUTPUT: self \PYZhy{} **due to other method, not this one}
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{c+c1}{\PYZsh{} Initialize passed Attributes to specify operations}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{remove\PYZus{}stopwords} \PY{o}{=} \PY{n}{remove\PYZus{}stopwords}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{remove\PYZus{}urls} \PY{o}{=} \PY{n}{remove\PYZus{}urls}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{remove\PYZus{}puncts} \PY{o}{=} \PY{n}{remove\PYZus{}puncts}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lemmatize} \PY{o}{=} \PY{n}{lemmatize}
+        
+                \PY{c+c1}{\PYZsh{} Change how operations work}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{custom\PYZus{}stopwords} \PY{o}{=} \PY{n}{custom\PYZus{}stopwords}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{custom\PYZus{}non\PYZus{}stopwords} \PY{o}{=} \PY{n}{custom\PYZus{}non\PYZus{}stopwords}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose} \PY{o}{=} \PY{n}{verbose}
+        
+                \PY{c+c1}{\PYZsh{} Set up punctation tranlation table}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{removals} \PY{o}{=} \PY{n}{string}\PY{o}{.}\PY{n}{punctuation} \PY{o}{+} \PY{n}{string}\PY{o}{.}\PY{n}{digits} \PY{o}{+} \PY{n}{extra\PYZus{}punct}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{trans\PYZus{}table} \PY{o}{=} \PY{n+nb}{str}\PY{o}{.}\PY{n}{maketrans}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{key}\PY{p}{:} \PY{k+kc}{None} \PY{k}{for} \PY{n}{key} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{removals}\PY{p}{\PYZcb{}}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{}Load nlp model for parsing usage later}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{parser} \PY{o}{=} \PY{n}{spacy}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{en\PYZus{}core\PYZus{}web\PYZus{}sm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                         \PY{n}{disable}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{parser}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{textcat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                \PY{c+c1}{\PYZsh{}from spacy.lang.en import English}
+                \PY{k}{if} \PY{n}{parser} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{small}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{parser} \PY{o}{=} \PY{n}{spacy}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{en}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{c+c1}{\PYZsh{}English()}
+        
+                \PY{c+c1}{\PYZsh{}Add custom stop words to nlp}
+                \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{custom\PYZus{}stopwords}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{parser}\PY{o}{.}\PY{n}{vocab}\PY{p}{[}\PY{n}{word}\PY{p}{]}\PY{o}{.}\PY{n}{is\PYZus{}stop} \PY{o}{=} \PY{k+kc}{True}
+        
+                \PY{c+c1}{\PYZsh{}Set custom nlp words to be kept}
+                \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{custom\PYZus{}non\PYZus{}stopwords}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{parser}\PY{o}{.}\PY{n}{vocab}\PY{p}{[}\PY{n}{word}\PY{p}{]}\PY{o}{.}\PY{n}{is\PYZus{}stop} \PY{o}{=} \PY{k+kc}{False}
+        
+        
+            \PY{k}{def} \PY{n+nf}{transform}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}take array of docs to clean array of docs\PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{c+c1}{\PYZsh{} Potential replace urls with tld ie www.monkey.com to com}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{remove\PYZus{}urls}\PY{p}{:}
+                    \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CHANGING URLS to TLDS...  }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    \PY{n}{X} \PY{o}{=} \PY{p}{[}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{remove\PYZus{}url}\PY{p}{(}\PY{n}{doc}\PY{p}{)} \PY{k}{for} \PY{n}{doc} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{time() \PYZhy{} start\PYZus{}time:.0f\PYZcb{} seconds}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} Potentially remove punctuation}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{remove\PYZus{}puncts}\PY{p}{:}
+                    \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{REMOVING PUNCTUATION AND DIGITS... }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    \PY{n}{X} \PY{o}{=} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{doc}\PY{p}{)}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{translate}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{trans\PYZus{}table}\PY{p}{)} \PY{k}{for} \PY{n}{doc} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{time() \PYZhy{} start\PYZus{}time:.0f\PYZcb{} seconds}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} Using Spacy to parse text}
+                \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PARSING TEXT WITH SPACY... }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    
+                \PY{n}{X} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{parser}\PY{o}{.}\PY{n}{pipe}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{)}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{time() \PYZhy{} start\PYZus{}time:.0f\PYZcb{} seconds}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} Potential stopword removal}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{remove\PYZus{}stopwords}\PY{p}{:}
+                    \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{REMOVING STOP WORDS FROM DOCUMENTS... }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    \PY{n}{X} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{word} \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{doc} \PY{k}{if} \PY{o+ow}{not} \PY{n}{word}\PY{o}{.}\PY{n}{is\PYZus{}stop}\PY{p}{]} \PY{k}{for} \PY{n}{doc} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{time() \PYZhy{} start\PYZus{}time:.0f\PYZcb{} seconds}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        
+                \PY{c+c1}{\PYZsh{} Potential Lemmatization}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lemmatize}\PY{p}{:}
+                    \PY{n}{start\PYZus{}time} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LEMMATIZING WORDS... }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    \PY{n}{X} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{word}\PY{o}{.}\PY{n}{lemma\PYZus{}} \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{doc}\PY{p}{]} \PY{k}{for} \PY{n}{doc} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}
+                    \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{verbose}\PY{p}{:}
+                        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{time() \PYZhy{} start\PYZus{}time:.0f\PYZcb{} seconds}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+                \PY{c+c1}{\PYZsh{} Put back to normal if no lemmatizing happened}
+                \PY{k}{if} \PY{o+ow}{not} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{lemmatize}\PY{p}{:}
+                    \PY{n}{X} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{word}\PY{p}{)}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{word} \PY{o+ow}{in} \PY{n}{doc}\PY{p}{]} \PY{k}{for} \PY{n}{doc} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}
+        
+                \PY{c+c1}{\PYZsh{} Join Back up}
+                \PY{k}{return} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{lst}\PY{p}{)} \PY{k}{for} \PY{n}{lst} \PY{o+ow}{in} \PY{n}{X}\PY{p}{]}
+        
+        
+            \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}interface conforming, and allows use of fit\PYZus{}transform\PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{k}{return} \PY{n+nb+bp}{self}
+        
+        
+            \PY{n+nd}{@staticmethod}
+            \PY{k}{def} \PY{n+nf}{remove\PYZus{}url}\PY{p}{(}\PY{n}{text}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{        DESCR: given a url string find urls and replace with top level domain}
+        \PY{l+s+sd}{               a bit lazy in that if there are multiple all are replaced by first}
+        \PY{l+s+sd}{        INPUT: text \PYZhy{} str \PYZhy{} \PYZsq{}this is www.monky.com in text\PYZsq{}}
+        \PY{l+s+sd}{        OUTPIT: str \PYZhy{} \PYZsq{}this is \PYZlt{}com\PYZgt{} in text\PYZsq{}}
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{c+c1}{\PYZsh{} Define string to match urls}
+                \PY{n}{url\PYZus{}re} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{((?:www|https?)(://)?[\PYZca{}}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{s]+)}\PY{l+s+s1}{\PYZsq{}}
+        
+                \PY{c+c1}{\PYZsh{} Find potential things to replace}
+                \PY{n}{matches} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{findall}\PY{p}{(}\PY{n}{url\PYZus{}re}\PY{p}{,} \PY{n}{text}\PY{p}{)}
+                \PY{k}{if} \PY{n}{matches} \PY{o}{==} \PY{p}{[}\PY{p}{]}\PY{p}{:}
+                    \PY{k}{return} \PY{n}{text}
+        
+                \PY{c+c1}{\PYZsh{} Get tld of first match}
+                \PY{n}{match} \PY{o}{=} \PY{n}{matches}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                \PY{k}{try}\PY{p}{:}
+                    \PY{n}{tld} \PY{o}{=} \PY{n}{get\PYZus{}tld}\PY{p}{(}\PY{n}{match}\PY{p}{,} \PY{n}{fail\PYZus{}silently}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{fix\PYZus{}protocol}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                \PY{k}{except} \PY{n+ne}{ValueError}\PY{p}{:}
+                    \PY{n}{tld} \PY{o}{=} \PY{k+kc}{None}
+        
+                \PY{c+c1}{\PYZsh{} failures return none so change to empty}
+                \PY{k}{if} \PY{n}{tld} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                    \PY{n}{tld} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
+        
+                \PY{c+c1}{\PYZsh{} make this obvsiouyly an odd tag}
+                \PY{n}{tld} \PY{o}{=} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZlt{}}\PY{l+s+si}{\PYZob{}tld\PYZcb{}}\PY{l+s+s2}{\PYZgt{}}\PY{l+s+s2}{\PYZdq{}}
+        
+                \PY{c+c1}{\PYZsh{} Make replacements and return}
+                \PY{k}{return} \PY{n}{re}\PY{o}{.}\PY{n}{sub}\PY{p}{(}\PY{n}{url\PYZus{}re}\PY{p}{,} \PY{n}{tld}\PY{p}{,} \PY{n}{text}\PY{p}{)}
+            
+        \PY{k}{class} \PY{n+nc}{DenseTransformer}\PY{p}{(}\PY{n}{TransformerMixin}\PY{p}{,} \PY{n}{BaseEstimator}\PY{p}{)}\PY{p}{:}
+        
+            \PY{k}{def} \PY{n+nf}{transform}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{fit\PYZus{}params}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n}{X}\PY{o}{.}\PY{n}{todense}\PY{p}{(}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{fit\PYZus{}transform}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{fit\PYZus{}params}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{fit\PYZus{}params}\PY{p}{)}
+                \PY{k}{return} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{fit}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{fit\PYZus{}params}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb+bp}{self}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} ['christopher\_marlowe.txt',
+         'alllines.txt',
+         'thomas\_dekker.txt',
+         'ben\_johnson.txt',
+         'Shakespeare\_data.csv',
+         'philip\_massinger.txt',
+         'keepempty.md',
+         'beaumont\_fletcher.txt',
+         'thomas\_kyd.txt']
+\end{Verbatim}
+            
+    Read in \texttt{shakespeare} data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{shakespeare} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/Shakespeare\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{shakespeare}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}    Dataline      Play  PlayerLinenumber ActSceneLine         Player  \textbackslash{}
+        0         1  Henry IV               NaN          NaN            NaN   
+        1         2  Henry IV               NaN          NaN            NaN   
+        2         3  Henry IV               NaN          NaN            NaN   
+        3         4  Henry IV               1.0        1.1.1  KING HENRY IV   
+        4         5  Henry IV               1.0        1.1.2  KING HENRY IV   
+        
+                                                  PlayerLine  
+        0                                              ACT I  
+        1                       SCENE I. London. The palace.  
+        2  Enter KING HENRY, LORD JOHN OF LANCASTER, the {\ldots}  
+        3             So shaken as we are, so wan with care,  
+        4         Find we a time for frighted peace to pant,  
+\end{Verbatim}
+            
+    Merge in each play's year of publication.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Source: https://www.opensourceshakespeare.org/views/plays/plays\PYZus{}date.php}
+        \PY{c+c1}{\PYZsh{} 36 plays (1589 \PYZhy{} 1612)}
+        \PY{n}{play\PYZus{}timeline} \PY{o}{=} \PY{p}{\PYZob{}}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A Comedy of Errors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1589}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Henry VI Part 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1590}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Henry VI Part 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1590}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Henry VI Part 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1591}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Richard III}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1592}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taming of the Shrew}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1593}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Titus Andronicus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1593}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Romeo and Juliet}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1594}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Two Gentlemen of Verona}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1594}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loves Labours Lost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1594}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Richard II}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1595}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A Midsummer nights dream}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1595}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{King John}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1596}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Merchant of Venice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1596}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Henry IV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1597}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Henry V}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1598}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Much Ado about nothing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1598}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Twelfth Night}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1599}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{As you like it}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1599}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Julius Caesar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1599}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hamlet}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1600}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Merry Wives of Windsor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1600}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Troilus and Cressida}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1601}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alls well that ends well}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1602}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Othello}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1604}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Measure for measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1604}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{King Lear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1605}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{macbeth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1605}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Antony and Cleopatra}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1606}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coriolanus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1607}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Timon of Athens}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1607}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pericles}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1608}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cymbeline}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1609}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A Winters Tale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1610}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The Tempest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1611}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Henry VIII}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1612}\PY{l+s+s1}{\PYZsq{}}
+        \PY{p}{\PYZcb{}}
+        
+        \PY{c+c1}{\PYZsh{} Adding year}
+        \PY{n}{shakespeare}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{shakespeare}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Play}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{play\PYZus{}timeline}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+        \PY{n}{shakespeare}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} 1594    8656
+        1599    8241
+        1600    7075
+        1604    6760
+        1607    6654
+        1590    6472
+        1605    6352
+        1598    6099
+        1596    5568
+        1593    5532
+        1595    5237
+        1609    3958
+        1592    3941
+        1606    3862
+        1601    3711
+        1610    3489
+        1612    3419
+        1597    3205
+        1602    3083
+        1591    2983
+        1608    2641
+        1611    2403
+        1589    2055
+        Name: Year, dtype: int64
+\end{Verbatim}
+            
+    Merge in genre of each play.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{play\PYZus{}genre} \PY{o}{=} \PY{p}{\PYZob{}}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A Comedy of Errors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Comedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Henry VI Part 2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{History}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Henry VI Part 3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{History}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Henry VI Part 1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{History}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Richard III}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{History}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taming of the Shrew}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Comedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Titus Andronicus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tragedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Romeo and Juliet}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tragedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Two Gentlemen of Verona}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Comedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loves Labours Lost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Comedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Richard II}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{History}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A Midsummer nights dream}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Comedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{King John}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{History}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Merchant of Venice}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Comedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Henry IV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{History}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Henry V}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{History}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Much Ado about nothing}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Comedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Twelfth Night}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Comedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{As you like it}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Comedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Julius Caesar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tragedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hamlet}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tragedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Merry Wives of Windsor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Comedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Troilus and Cressida}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tragedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Alls well that ends well}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Comedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Othello}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tragedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Measure for measure}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Comedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{King Lear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tragedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{macbeth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tragedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Antony and Cleopatra}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tragedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coriolanus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tragedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Timon of Athens}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tragedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pericles}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{History}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cymbeline}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tragedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A Winters Tale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Comedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The Tempest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Comedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Henry VIII}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{History}\PY{l+s+s1}{\PYZsq{}}
+        \PY{p}{\PYZcb{}}
+        
+        \PY{c+c1}{\PYZsh{} Adding genre}
+        \PY{n}{shakespeare}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{shakespeare}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Play}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{n}{play\PYZus{}genre}\PY{p}{)}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Other}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{shakespeare}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} Tragedy    41353
+        Comedy     38284
+        History    31759
+        Name: Genre, dtype: int64
+\end{Verbatim}
+            
+    \section{Exploratory Analysis}\label{exploratory-analysis}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{shakespeare}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} (111396, 8)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{f}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{countplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Play}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{shakespeare}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{40}\PY{p}{,} \PY{n}{ha}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{right}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Data pre\PYZhy{}processing}
+         \PY{n}{df} \PY{o}{=} \PY{n}{shakespeare}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Player}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Player}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Other}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{df\PYZus{}clean} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Play}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlayerLinenumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ActSceneLine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Player}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlayerLine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Genre}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df\PYZus{}clean} \PY{o}{=} \PY{n}{df\PYZus{}clean}\PY{p}{[}\PY{n}{df\PYZus{}clean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Player}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Other}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{df\PYZus{}clean}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df\PYZus{}clean}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}        Play  PlayerLinenumber ActSceneLine         Player  \textbackslash{}
+         0  Henry IV               1.0        1.1.1  KING HENRY IV   
+         1  Henry IV               1.0        1.1.2  KING HENRY IV   
+         2  Henry IV               1.0        1.1.3  KING HENRY IV   
+         3  Henry IV               1.0        1.1.4  KING HENRY IV   
+         4  Henry IV               1.0        1.1.5  KING HENRY IV   
+         
+                                                PlayerLine  Year    Genre  
+         0          So shaken as we are, so wan with care,  1597  History  
+         1      Find we a time for frighted peace to pant,  1597  History  
+         2  And breathe short-winded accents of new broils  1597  History  
+         3         To be commenced in strands afar remote.  1597  History  
+         4       No more the thirsty entrance of this soil  1597  History  
+\end{Verbatim}
+            
+    \section{LDA - Clustering using Topic Models across
+Genre}\label{lda---clustering-using-topic-models-across-genre}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}191}]:} \PY{c+c1}{\PYZsh{} Plotting Year and Genre distribution}
+          \PY{n}{df\PYZus{}samp} \PY{o}{=} \PY{n}{df\PYZus{}clean}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Play}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+          \PY{n}{df\PYZus{}samp} \PY{o}{=} \PY{n}{df\PYZus{}samp}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Dimension:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{df\PYZus{}samp}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Dimension: (36, 3)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}192}]:} \PY{n}{f}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{stripplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Play}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df\PYZus{}samp}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}193}]:} \PY{c+c1}{\PYZsh{} Generate Meta}
+          \PY{k}{def} \PY{n+nf}{get\PYZus{}meta}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{:}
+              \PY{n}{doc\PYZus{}tokens} \PY{o}{=} \PY{n}{TextCleaner}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlayerLine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Token Length:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{doc\PYZus{}tokens}\PY{p}{)}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{} Corpus preperation}
+              \PY{n}{dictionary} \PY{o}{=} \PY{n}{corpora}\PY{o}{.}\PY{n}{Dictionary}\PY{p}{(}\PY{n}{doc\PYZus{}tokens}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{dictionary}\PY{p}{)}
+          
+              \PY{n}{corpus} \PY{o}{=} \PY{p}{[}\PY{n}{dictionary}\PY{o}{.}\PY{n}{doc2bow}\PY{p}{(}\PY{n}{doc}\PY{p}{)} \PY{k}{for} \PY{n}{doc} \PY{o+ow}{in} \PY{n}{doc\PYZus{}tokens}\PY{p}{]}
+              
+              \PY{k}{return} \PY{n}{dictionary}\PY{p}{,} \PY{n}{corpus}
+          
+          \PY{c+c1}{\PYZsh{} Perform LDA}
+          \PY{k}{def} \PY{n+nf}{get\PYZus{}lda}\PY{p}{(}\PY{n}{dictionary}\PY{p}{,} \PY{n}{corpus}\PY{p}{,} \PY{n}{num\PYZus{}topics}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}    
+              \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{p}{(}\PY{p}{)}
+              \PY{n}{lda} \PY{o}{=} \PY{n}{LdaMulticore}\PY{p}{(}\PY{n}{corpus}\PY{p}{,} \PY{n}{num\PYZus{}topics}\PY{o}{=}\PY{n}{num\PYZus{}topics}\PY{p}{,} \PY{n}{id2word}\PY{o}{=}\PY{n}{dictionary}\PY{p}{,} \PY{n}{workers}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{passes}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LDA compleded in }\PY{l+s+si}{\PYZpc{}0.3f}\PY{l+s+s2}{s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{time}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{)}\PY{p}{)}
+              
+              \PY{k}{return} \PY{n}{lda}
+          
+          \PY{c+c1}{\PYZsh{} Generate Topic Distribution}
+          \PY{k}{def} \PY{n+nf}{get\PYZus{}topic\PYZus{}dist}\PY{p}{(}\PY{n}{lda}\PY{p}{,} \PY{n}{corpus}\PY{p}{)}\PY{p}{:}
+              \PY{n}{doc\PYZus{}topic\PYZus{}dist} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{n}{tup}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{tup} \PY{o+ow}{in} \PY{n}{lst}\PY{p}{]} \PY{k}{for} \PY{n}{lst} \PY{o+ow}{in} \PY{n}{lda}\PY{p}{[}\PY{n}{corpus}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+              
+              \PY{k}{return} \PY{n}{doc\PYZus{}topic\PYZus{}dist}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}212}]:} \PY{c+c1}{\PYZsh{} Splitting into 3 subsets across genre}
+          \PY{n}{df\PYZus{}g1} \PY{o}{=} \PY{n}{df\PYZus{}clean}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}clean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{History}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+          \PY{n}{df\PYZus{}g1} \PY{o}{=} \PY{n}{df\PYZus{}g1}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Play}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlayerLine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Subset G1:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{df\PYZus{}g1}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}g1}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{df\PYZus{}g2} \PY{o}{=} \PY{n}{df\PYZus{}clean}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}clean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Comedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+          \PY{n}{df\PYZus{}g2} \PY{o}{=} \PY{n}{df\PYZus{}g2}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Play}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlayerLine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Subset G2:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{df\PYZus{}g2}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}g2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{df\PYZus{}g3} \PY{o}{=} \PY{n}{df\PYZus{}clean}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}clean}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Genre}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tragedy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+          \PY{n}{df\PYZus{}g3} \PY{o}{=} \PY{n}{df\PYZus{}g3}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Play}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PlayerLine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{join}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Subset G3:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{df\PYZus{}g3}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{df\PYZus{}g3}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Subset G1: (10, 2)
+              Play                                         PlayerLine
+0         Henry IV  So shaken as we are, so wan with care, Find we{\ldots}
+1          Henry V  ACT I PROLOGUE Enter Chorus O for a Muse of fi{\ldots}
+2  Henry VI Part 1  ACT I SCENE I. Westminster Abbey. Dead March. {\ldots}
+3  Henry VI Part 2  ACT I SCENE I. London. The palace. Flourish of{\ldots}
+4  Henry VI Part 3  ACT I SCENE I. London. The Parliament-house. A{\ldots}
+
+Subset G2: (14, 2)
+                       Play                                         PlayerLine
+0        A Comedy of Errors  ACT I SCENE I. A hall in DUKE SOLINUS'S palace{\ldots}
+1  A Midsummer nights dream  ACT I SCENE I. Athens. The palace of THESEUS. {\ldots}
+2            A Winters Tale  ACT I SCENE I. Antechamber in LEONTES' palace{\ldots}
+3  Alls well that ends well  ACT I SCENE I. Rousillon. The COUNT's palace. {\ldots}
+4            As you like it  ACT I SCENE I. Orchard of Oliver's house. Ente{\ldots}
+
+Subset G3: (12, 2)
+                   Play                                         PlayerLine
+0  Antony and Cleopatra  ACT I SCENE I. Alexandria. A room in CLEOPATRA{\ldots}
+1            Coriolanus  ACT I SCENE I. Rome. A street. Enter a company{\ldots}
+2             Cymbeline  ACT I SCENE I. Britain. The garden of Cymbelin{\ldots}
+3                Hamlet  ACT I SCENE I. Elsinore. A platform before the{\ldots}
+4         Julius Caesar  ACT I SCENE I. Rome. A street. Enter FLAVIUS, {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}195}]:} \PY{c+c1}{\PYZsh{} Topic modeling on Genre: History + Tragedy}
+          \PY{n}{df\PYZus{}g13} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{df\PYZus{}g1}\PY{p}{,} \PY{n}{df\PYZus{}g3}\PY{p}{]}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Dimension:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{df\PYZus{}g13}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+          
+          \PY{n}{dictionary\PYZus{}g13}\PY{p}{,} \PY{n}{corpus\PYZus{}g13} \PY{o}{=} \PY{n}{get\PYZus{}meta}\PY{p}{(}\PY{n}{df\PYZus{}g13}\PY{p}{)}
+          
+          \PY{n}{lda\PYZus{}g13} \PY{o}{=} \PY{n}{get\PYZus{}lda}\PY{p}{(}\PY{n}{dictionary\PYZus{}g13}\PY{p}{,} \PY{n}{corpus\PYZus{}g13}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Dimension: (22, 2)
+REMOVING PUNCTUATION AND DIGITS{\ldots} 0 seconds
+PARSING TEXT WITH SPACY{\ldots} 37 seconds
+REMOVING STOP WORDS FROM DOCUMENTS{\ldots} 1 seconds
+LEMMATIZING WORDS{\ldots} 0 seconds
+Token Length: 22
+Dictionary(17123 unique tokens: ['', 'able', 'abominable', 'abroad', 'absence']{\ldots})
+LDA compleded in 107.661s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}196}]:} \PY{c+c1}{\PYZsh{} Evaluation on individual Genre}
+          \PY{n}{dictionary\PYZus{}g1}\PY{p}{,} \PY{n}{corpus\PYZus{}g1} \PY{o}{=} \PY{n}{get\PYZus{}meta}\PY{p}{(}\PY{n}{df\PYZus{}g1}\PY{p}{)}
+          \PY{n}{dictionary\PYZus{}g2}\PY{p}{,} \PY{n}{corpus\PYZus{}g2} \PY{o}{=} \PY{n}{get\PYZus{}meta}\PY{p}{(}\PY{n}{df\PYZus{}g2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+REMOVING PUNCTUATION AND DIGITS{\ldots} 0 seconds
+PARSING TEXT WITH SPACY{\ldots} 13 seconds
+REMOVING STOP WORDS FROM DOCUMENTS{\ldots} 0 seconds
+LEMMATIZING WORDS{\ldots} 0 seconds
+Token Length: 10
+Dictionary(10928 unique tokens: ['', 'able', 'abominable', 'abroad', 'absence']{\ldots})
+REMOVING PUNCTUATION AND DIGITS{\ldots} 0 seconds
+PARSING TEXT WITH SPACY{\ldots} 20 seconds
+REMOVING STOP WORDS FROM DOCUMENTS{\ldots} 0 seconds
+LEMMATIZING WORDS{\ldots} 0 seconds
+Token Length: 14
+Dictionary(11971 unique tokens: ['', 'abbess', 'abbey', 'abbeygate', 'abbeywall']{\ldots})
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}201}]:} \PY{k}{def} \PY{n+nf}{jensen\PYZus{}shannon}\PY{p}{(}\PY{n}{query}\PY{p}{,} \PY{n}{matrix}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    This function implements a Jensen\PYZhy{}Shannon similarity}
+          \PY{l+s+sd}{    between the input query (an LDA topic distribution for a document)}
+          \PY{l+s+sd}{    and the entire corpus of topic distributions.}
+          \PY{l+s+sd}{    It returns an array of length M where M is the number of documents in the corpus}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{c+c1}{\PYZsh{} lets keep with the p,q notation above}
+              \PY{n}{p} \PY{o}{=} \PY{n}{query}\PY{p}{[}\PY{k+kc}{None}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{T} \PY{c+c1}{\PYZsh{} take transpose}
+              \PY{n}{q} \PY{o}{=} \PY{n}{matrix}\PY{o}{.}\PY{n}{T} \PY{c+c1}{\PYZsh{} transpose matrix}
+              \PY{n}{m} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{p} \PY{o}{+} \PY{n}{q}\PY{p}{)}
+              \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{o}{*}\PY{p}{(}\PY{n}{entropy}\PY{p}{(}\PY{n}{p}\PY{p}{,}\PY{n}{m}\PY{p}{)} \PY{o}{+} \PY{n}{entropy}\PY{p}{(}\PY{n}{q}\PY{p}{,}\PY{n}{m}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{get\PYZus{}most\PYZus{}similar\PYZus{}documents}\PY{p}{(}\PY{n}{query}\PY{p}{,}\PY{n}{matrix}\PY{p}{,}\PY{n}{k}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    This function implements the Jensen\PYZhy{}Shannon distance above}
+          \PY{l+s+sd}{    and retruns the top k indices of the smallest jensen shannon distances}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{sims} \PY{o}{=} \PY{n}{jensen\PYZus{}shannon}\PY{p}{(}\PY{n}{query}\PY{p}{,}\PY{n}{matrix}\PY{p}{)} \PY{c+c1}{\PYZsh{} list of jensen shannon distances}
+              \PY{k}{return} \PY{n}{sims}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{n}{k}\PY{p}{]} \PY{c+c1}{\PYZsh{} the top k positional index of the smallest Jensen Shannon distances}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}232}]:} \PY{n}{topics\PYZus{}g1} \PY{o}{=} \PY{n}{lda\PYZus{}g13}\PY{p}{[}\PY{n}{corpus\PYZus{}g1}\PY{p}{]}
+          \PY{k}{for} \PY{n}{topic} \PY{o+ow}{in} \PY{n}{topics\PYZus{}g1}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{topic}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[(12, 0.038594298), (39, 0.9514625)]
+[(12, 0.029595591), (23, 0.09643885), (39, 0.8265037), (63, 0.04274439)]
+[(12, 0.01248455), (39, 0.3681734), (63, 0.61194026)]
+[(12, 0.14027283), (31, 0.06663279), (39, 0.5925488), (55, 0.0350705), (63, 0.16539867)]
+[(12, 0.49539447), (31, 0.078951776), (39, 0.39315343), (63, 0.031585664)]
+[(12, 0.027403137), (39, 0.9435166), (63, 0.028991506)]
+[(12, 0.023138141), (39, 0.8275597), (63, 0.14848743)]
+[(31, 0.047438245), (39, 0.9524455)]
+[(12, 0.16071868), (39, 0.8386256)]
+[(12, 0.20706175), (31, 0.4705752), (39, 0.31719172)]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}231}]:} \PY{n}{topics\PYZus{}g2} \PY{o}{=} \PY{n}{lda\PYZus{}g13}\PY{p}{[}\PY{n}{corpus\PYZus{}g2}\PY{p}{]}
+          \PY{k}{for} \PY{n}{topic} \PY{o+ow}{in} \PY{n}{topics\PYZus{}g2}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{topic}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[(31, 0.014087589), (39, 0.975197)]
+[(31, 0.019946849), (39, 0.95683503), (63, 0.011464457)]
+[(23, 0.023265023), (31, 0.017101724), (39, 0.925043), (63, 0.02705532)]
+[(23, 0.014034049), (31, 0.02330771), (39, 0.86194277), (63, 0.098584004)]
+[(31, 0.0568532), (39, 0.83919305), (63, 0.08443109)]
+[(12, 0.03269661), (31, 0.07481916), (39, 0.8430105), (55, 0.0146432305), (63, 0.027335322)]
+[(12, 0.028229704), (31, 0.04117369), (39, 0.88891816), (63, 0.032756653)]
+[(12, 0.01214263), (31, 0.024140242), (39, 0.92158043), (63, 0.030653412)]
+[(31, 0.0426069), (39, 0.89885896), (63, 0.03903643)]
+[(23, 0.011139563), (31, 0.041006025), (39, 0.89492625), (63, 0.04299931)]
+[(12, 0.010948052), (31, 0.13891901), (39, 0.80606765), (55, 0.012058752), (63, 0.025798993)]
+[(12, 0.011334601), (31, 0.11716195), (39, 0.793482), (55, 0.039217766), (63, 0.030994812)]
+[(23, 0.010955789), (31, 0.023749553), (39, 0.8765291), (55, 0.051332787), (63, 0.027613694)]
+[(31, 0.033380024), (39, 0.92437893), (63, 0.024229985)]
+
+    \end{Verbatim}
+
+    \subsection{Need to plot these topics and show intersection between
+genre so that our hypothesis (Shakespeare wrote them all) is
+satisfied}\label{need-to-plot-these-topics-and-show-intersection-between-genre-so-that-our-hypothesis-shakespeare-wrote-them-all-is-satisfied}
+
+\subsubsection{http://jeriwieringa.com/2017/06/21/Calculating-and-Visualizing-Topic-Significance-over-Time-Part-1/}\label{httpjeriwieringa.com20170621calculating-and-visualizing-topic-significance-over-time-part-1}
+
+    \section{\texorpdfstring{Classify Whether or Not
+\texttt{is\_shakespeare}}{Classify Whether or Not is\_shakespeare}}\label{classify-whether-or-not-is_shakespeare}
+
+The names of Shakespeare's contemporaries were derived from the
+\href{https://www.rsc.org.uk/shakespeares-contemporaries/meet-the-contemporaries}{Royal
+Shakespeare Company} and the text of the plays was acquired from
+\href{https://archive.org}{archive.org}.
+
+\emph{Hypothesis:} Shakespeare's style is sufficiently unique from
+playwrights of his time that a classifier can be built that is capable
+of predicting whether or not a given line was written by Shakespeare or
+not.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} use requests and bs4}
+        
+        \PY{n}{thomas\PYZus{}kyd} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://archive.org/stream/worksthomaskyd00kydgoog/worksthomaskyd00kydgoog\PYZus{}djvu.txt}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{christopher\PYZus{}marlowe} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://archive.org/stream/worksofchristoph00marlrich/worksofchristoph00marlrich\PYZus{}djvu.txt}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{ben\PYZus{}johnson} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://archive.org/stream/completeplaysofb01jonsuoft/completeplaysofb01jonsuoft\PYZus{}djvu.txt}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{thomas\PYZus{}dekker} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://archive.org/stream/dramaticworksth02shepgoog/dramaticworksth02shepgoog\PYZus{}djvu.txt}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{john\PYZus{}webster} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NOT FOUND}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{beaumont\PYZus{}fletcher} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://archive.org/stream/worksoffrancisbe004beau/worksoffrancisbe004beau\PYZus{}djvu.txt}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{philip\PYZus{}massinger} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://archive.org/stream/plays00massgoog/plays00massgoog\PYZus{}djvu.txt}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{john\PYZus{}ford} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NOT FOUND}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{n}{urls} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{thomas\PYZus{}kyd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{thomas\PYZus{}kyd}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{christopher\PYZus{}marlowe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{christopher\PYZus{}marlowe}\PY{p}{,}
+               \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ben\PYZus{}johnson}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{ben\PYZus{}johnson}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{thomas\PYZus{}dekker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{thomas\PYZus{}dekker}\PY{p}{,}
+               \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beaumont\PYZus{}fletcher}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{beaumont\PYZus{}fletcher}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{philip\PYZus{}massinger}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{philip\PYZus{}massinger}\PY{p}{\PYZcb{}}
+        
+        \PY{c+c1}{\PYZsh{} not\PYZus{}shakespeare = list()}
+        \PY{k}{for} \PY{n}{author}\PY{p}{,} \PY{n}{url} \PY{o+ow}{in} \PY{n}{urls}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Acquiring plays for }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{author}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}     remove bad text by hand (e.g. credits)}
+        \PY{c+c1}{\PYZsh{}     don\PYZsq{}t want to run twice}
+        \PY{c+c1}{\PYZsh{}     get\PYZus{}url = requests.get(url)}
+        \PY{c+c1}{\PYZsh{}     txt = get\PYZus{}url.text}
+        \PY{c+c1}{\PYZsh{}     soup = BeautifulSoup(txt, \PYZdq{}html.parser\PYZdq{})}
+        \PY{c+c1}{\PYZsh{}     txt\PYZus{}clean = str(soup.find\PYZus{}all(\PYZsq{}pre\PYZsq{})[0])}
+        \PY{c+c1}{\PYZsh{}     not\PYZus{}shakespeare.append(txt\PYZus{}clean)}
+        \PY{c+c1}{\PYZsh{}     with open(r\PYZsq{}data/\PYZob{}\PYZcb{}.txt\PYZsq{}.format(author), \PYZsq{}w\PYZsq{}) as f:}
+        \PY{c+c1}{\PYZsh{}         f.write(txt\PYZus{}clean)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Acquiring plays for thomas\_kyd
+Acquiring plays for christopher\_marlowe
+Acquiring plays for ben\_johnson
+Acquiring plays for thomas\_dekker
+Acquiring plays for beaumont\_fletcher
+Acquiring plays for philip\_massinger
+
+    \end{Verbatim}
+
+    Read in plays from six of Shakespeare's contemporaries. Note that junk
+text was manually identified \& removed from each file that mostly
+pertained to the credits and funding of the archive work (which were
+saved off in a separate file in this repository). Introductions by other
+authors were also removed by hand.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{collections} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+        \PY{k}{for} \PY{n}{author}\PY{p}{,} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n}{urls}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reading in plays for }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{author}\PY{p}{)}\PY{p}{)}
+            \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.txt}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{author}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+                \PY{n}{collections}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{f}\PY{o}{.}\PY{n}{readlines}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Reading in plays for thomas\_kyd
+Reading in plays for christopher\_marlowe
+Reading in plays for ben\_johnson
+Reading in plays for thomas\_dekker
+Reading in plays for beaumont\_fletcher
+Reading in plays for philip\_massinger
+
+    \end{Verbatim}
+
+    Flatten the nested list using a \texttt{lambda} function, then splitting
+on newline characters such that lines are the unit of analysis.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} set up data}
+         \PY{c+c1}{\PYZsh{} remove the admin text in files BY HAND}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Did you remove the credits from the text files, so that only plays are in the data?}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{flatten} \PY{o}{=} \PY{k}{lambda} \PY{n}{l}\PY{p}{:} \PY{p}{[}\PY{n}{item} \PY{k}{for} \PY{n}{sublist} \PY{o+ow}{in} \PY{n}{l} \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{sublist}\PY{p}{]}
+         \PY{n}{not\PYZus{}shakespeare} \PY{o}{=} \PY{n}{flatten}\PY{p}{(}\PY{n}{collections}\PY{p}{)}
+         \PY{n}{not\PYZus{}shakespeare} \PY{o}{=} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{for} \PY{n}{s} \PY{o+ow}{in} \PY{n}{not\PYZus{}shakespeare}\PY{p}{]} 
+         \PY{n}{not\PYZus{}shakespeare} \PY{o}{=} \PY{n}{flatten}\PY{p}{(}\PY{n}{collections}\PY{p}{)}
+         \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{not\PYZus{}shakespeare}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Did you remove the credits from the text files, so that only plays are in the data?
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} array(['\textbackslash{}n', '\textbackslash{}n', 'The Spanish Tragedie\^{} IV. It. \textbackslash{}n', '\textbackslash{}n',
+                "The Latin elegiacs mingled with the English verses, might ' \textbackslash{}n"],
+               dtype='<U100')
+\end{Verbatim}
+            
+    Note that there is still noise. Newline characters and breaks between
+acts in the play need to be identified and removed.
+
+Next Shakespeare's lines are read in from the Kaggle dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{lines} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/alllines.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+             \PY{n}{lines}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{f}\PY{o}{.}\PY{n}{readlines}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+             
+         \PY{n}{lines} \PY{o}{=} \PY{n}{flatten}\PY{p}{(}\PY{n}{lines}\PY{p}{)}
+         \PY{n}{lines}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} ['"ACT I"\textbackslash{}n',
+          '"SCENE I. London. The palace."\textbackslash{}n',
+          '"Enter KING HENRY, LORD JOHN OF LANCASTER, the EARL of WESTMORELAND, SIR WALTER BLUNT, and others"\textbackslash{}n',
+          '"So shaken as we are, so wan with care,"\textbackslash{}n',
+          '"Find we a time for frighted peace to pant,"\textbackslash{}n']
+\end{Verbatim}
+            
+    Convert data to \texttt{X} and \texttt{y} by generating a vector of
+zeros for all lines that are from Shakespeare's contemporaries in
+alignment with the existing data. The same is done with a vector of ones
+to represent the \texttt{y} for Shakespeare's lines. These are then put
+into a \texttt{DataFrame} and shuffled using the
+\texttt{pd.DataFrame.sample} method.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{not\PYZus{}shakespeare}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{not\PYZus{}shakespeare}\PY{p}{)}\PY{p}{)}
+         \PY{n}{X}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{X}\PY{p}{,} \PY{n}{lines}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{y}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{[}\PY{n+nb}{len}\PY{p}{(}\PY{n}{lines}\PY{p}{)}\PY{p}{]}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{X}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{X}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{y}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{y} \PY{o}{=} \PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{y}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{int8}\PY{p}{)}
+         \PY{n}{\PYZus{}df} \PY{o}{=} \PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{frac}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}                                                         X  y
+         310973  "Being spoke behind your back, than to your fa{\ldots}  1
+         119000              Volp. And thou use them scurvily ! \textbackslash{}n  0
+         241107  "her without her tongue. O, that woman that ca{\ldots}  1
+         226243  "life: which if I can save, so, if not, honour{\ldots}  1
+         60178                                                  \textbackslash{}n  0
+         193113  Of noble war extinguish Lovi\^{}s dim tapar,] So {\ldots}  0
+         108087                                                 \textbackslash{}n  0
+         105787                                                 \textbackslash{}n  0
+         232199  "spoil of the city until night: for with these{\ldots}  1
+         250517                             "Pray, get you out."\textbackslash{}n  1
+         251520              "They'll give him death by inches."\textbackslash{}n  1
+         230642       "Methinks I should not thus be led along,"\textbackslash{}n  1
+         53690          But neuer could effect their Stratagem. \textbackslash{}n  0
+         28912                                                  \textbackslash{}n  0
+         122715                                                 \textbackslash{}n  0
+         62430   But stay a while, let me be king till night, 2{\ldots}  0
+         47541                                                  \textbackslash{}n  0
+         320913     "Tigers must prey, and Rome affords no prey"\textbackslash{}n  1
+         125663                                                 \textbackslash{}n  0
+         22079   sort as we behold the prouidence of our almigh{\ldots}  0
+         130771                                                 \textbackslash{}n  0
+         295692                          "Stood in your action."\textbackslash{}n  1
+         275707  "And fortune led you well: you have the captiv{\ldots}  1
+         11642   Hier, Nay, then I care not; come, and we shall{\ldots}  0
+         157981       To trust thy sacred life to an Egyptian ? \textbackslash{}n  0
+\end{Verbatim}
+            
+    Below filters are applied to remove newlines, \texttt{NaN}s, Act
+demarcations, paragraphs, and lines with fewer than eight words. This
+appears to get a reasonable sample dataset with 103355 rows of lines in
+the datatset.
+
+Filter out:
+
+\begin{itemize}
+\tightlist
+\item
+  New lines
+\item
+  \texttt{NaN}s
+\item
+  Lines designating "ACT \_"
+\item
+  New lines with paragraphs
+\item
+  Lines shorter than 8 words
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} filter out (subjectively determined) noisy lines}
+         \PY{n}{\PYZus{}df} \PY{o}{=} \PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{X} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{\PYZus{}df} \PY{o}{=} \PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{X}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         \PY{n}{\PYZus{}df} \PY{o}{=} \PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{X}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{contains}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ACT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}
+         \PY{n}{\PYZus{}df} \PY{o}{=} \PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{X} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{p}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{\PYZus{}df} \PY{o}{=} \PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{X}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{len}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{8}\PY{p}{]}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         
+         \PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(103355, 2)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}                                                         X  y
+         310973  "Being spoke behind your back, than to your fa{\ldots}  1
+         241107  "her without her tongue. O, that woman that ca{\ldots}  1
+         226243  "life: which if I can save, so, if not, honour{\ldots}  1
+         193113  Of noble war extinguish Lovi\^{}s dim tapar,] So {\ldots}  0
+         232199  "spoil of the city until night: for with these{\ldots}  1
+         62430   But stay a while, let me be king till night, 2{\ldots}  0
+         22079   sort as we behold the prouidence of our almigh{\ldots}  0
+         275707  "And fortune led you well: you have the captiv{\ldots}  1
+         11642   Hier, Nay, then I care not; come, and we shall{\ldots}  0
+         157981       To trust thy sacred life to an Egyptian ? \textbackslash{}n  0
+         163387  316 more . . .] more, Cousin . . . Ff, T, as i{\ldots}  0
+         321435  "Ay, just, a verse in Horace, right, you have {\ldots}  1
+         161300  Start not ; it shall be so ; that while the pe{\ldots}  0
+         170304  additional speeches are in rhyme, and form a r{\ldots}  0
+         1753    \^{}nt had to be so managed that he should be the{\ldots}  0
+         116981          Lady P. I pray you lend me your dwarf. \textbackslash{}n  0
+         59330   Qu. In saying this, thou wrongst me Gaueston, {\ldots}  0
+         47348   Clo. Doe you heare sir ? you may saue that lab{\ldots}  0
+         326144       "Hector is dead, there is no more to say."\textbackslash{}n  1
+         167459  I'll set him further off, I'll give a remove 5 \textbackslash{}n  0
+         318107  "there was very little honour showed in't. For{\ldots}  1
+         22803   may with idlenes and ease become pestilent, br{\ldots}  0
+         49401   some of his men to attend you with prouision f{\ldots}  0
+         107289  ward, Tiberius; grew into that favour with the{\ldots}  0
+         85100   Tho. You shall not follow him now, I pray you. \textbackslash{}n  0
+\end{Verbatim}
+            
+    Check the distribution of the number of words in each line after the
+filter was applied. Note that we have many observations of reasonable
+length.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{\PYZus{}df}\PY{o}{.}\PY{n}{X}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{len}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} count    103355.000000
+         mean         10.344492
+         std           1.874410
+         min           9.000000
+         25\%           9.000000
+         50\%          10.000000
+         75\%          11.000000
+         max         163.000000
+         Name: X, dtype: float64
+\end{Verbatim}
+            
+    Check the breakdown between Shakespeare's lines and his contemporaries.
+We see that Shakespeare's lines represent about 33\% of the data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} baseline}
+         \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{n}{y}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} 0.0    0.667154
+         1.0    0.332846
+         dtype: float64
+\end{Verbatim}
+            
+    \subsection{Test Classifiers}\label{test-classifiers}
+
+First we split the data 70-30, stratifying on the \texttt{y} vector and
+setting \texttt{random\_state} for reproducibility.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} stratified split}
+         \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{train\PYZus{}size}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{7}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{777}\PY{p}{,} \PY{n}{stratify}\PY{o}{=}\PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{\texorpdfstring{Test 1: \texttt{TfidfVectorizer} feeding
+\texttt{LinearSVC} via
+\texttt{GridSearchCV}}{Test 1: TfidfVectorizer feeding LinearSVC via GridSearchCV}}\label{test-1-tfidfvectorizer-feeding-linearsvc-via-gridsearchcv}
+
+Below an \texttt{sklearn.pipeline} is set up to enable a grid-search of
+hyperparameters for the \texttt{TfidfVectorizer} and the
+\texttt{LinearSVC} objects. A linear support vector classifier was
+chosen as a baseline model for its reputation on text data. The model is
+deliberately kept simple for use as a baseline first attempt.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tfidf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{TfidfVectorizer}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{LinearSVC}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tfidf\PYZus{}\PYZus{}ngram\PYZus{}range}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{]}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf\PYZus{}\PYZus{}C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{1000}\PY{p}{]}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{pipeline}\PY{p}{,} \PY{n}{params}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{grid}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 3 folds for each of 18 candidates, totalling 54 fits
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=4)]: Done  42 tasks      | elapsed:  7.8min
+[Parallel(n\_jobs=4)]: Done  54 out of  54 | elapsed: 12.5min finished
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} GridSearchCV(cv=3, error\_score='raise',
+                estimator=Pipeline(memory=None,
+              steps=[('tfidf', TfidfVectorizer(analyzer='word', binary=False, decode\_error='strict',
+                 dtype=<class 'numpy.int64'>, encoding='utf-8', input='content',
+                 lowercase=True, max\_df=1.0, max\_features=None, min\_df=1,
+                 ngram\_range=(1, 1), norm='l2', preprocessor=None, smooth\_idf=True,
+          {\ldots}ax\_iter=1000,
+              multi\_class='ovr', penalty='l2', random\_state=None, tol=0.0001,
+              verbose=0))]),
+                fit\_params=None, iid=True, n\_jobs=4,
+                param\_grid=\{'tfidf\_\_ngram\_range': [(1, 2), (1, 3), (1, 4)], 'clf\_\_C': [0.01, 0.1, 1, 10, 100, 1000]\},
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score='warn',
+                scoring=None, verbose=1)
+\end{Verbatim}
+            
+    Isolate the hyperparameters that characterize the
+\texttt{best\_estimator\_} from the \texttt{grid} object.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}41}]:} Pipeline(memory=None,
+              steps=[('tfidf', TfidfVectorizer(analyzer='word', binary=False, decode\_error='strict',
+                 dtype=<class 'numpy.int64'>, encoding='utf-8', input='content',
+                 lowercase=True, max\_df=1.0, max\_features=None, min\_df=1,
+                 ngram\_range=(1, 2), norm='l2', preprocessor=None, smooth\_idf=True,
+          {\ldots}ax\_iter=1000,
+              multi\_class='ovr', penalty='l2', random\_state=None, tol=0.0001,
+              verbose=0))])
+\end{Verbatim}
+            
+    The best model's \texttt{accuracy\_score\ =\ 0.849} and is a solid
+baseline model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{yhat\PYZus{}test} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}\PY{p}{)}
+         \PY{n}{test\PYZus{}acc} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{yhat\PYZus{}test}\PY{p}{)}
+         \PY{n}{yhat\PYZus{}train} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}\PY{p}{)}
+         \PY{n}{train\PYZus{}acc} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{yhat\PYZus{}train}\PY{p}{)} 
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+s1}{Training Accuracy: }\PY{l+s+si}{\PYZob{}train\PYZus{}acc\PYZcb{}}
+         \PY{l+s+s1}{Testing Accuracy: }\PY{l+s+si}{\PYZob{}test\PYZus{}acc\PYZcb{}}
+         \PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{\PYZus{}\PYZus{}} \PY{o}{=} \PY{n}{binary\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{yhat\PYZus{}test}\PY{p}{)}
+         \PY{n}{\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Training Accuracy: 0.9904598481259044
+Testing Accuracy: 0.8493984303414207
+
+
+        Condition Positive:                        61282
+        Condition Negative:                        39122
+        Total Observations:                        100404
+        
+        True Positive:                             56573
+        True Negative:                             28710
+        False Positive:                            10412
+        False Negative                             4709
+        
+        True Positive Rate (recall):               92.32\%
+        True Negative Rate (specificity):          73.39\%
+        False Positive Rate (fall-out):            26.61\%
+        False Negative Rate (miss rate):           7.68\%
+        
+        Positive Predictive Value (precision):     84.46\%
+        Negative Predictive Value:                 85.91\%
+        
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}42}]:}                (+) actual  (-) actual
+         (+) predicted       56573       10412
+         (-) predicted        4709       28710
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{dump}\PY{p}{(}\PY{n}{grid}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{models/linearsvc.joblib}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} ['linearsvc.joblib']
+\end{Verbatim}
+            
+    \subsubsection{\texorpdfstring{Test 2: \texttt{TfidfVectorizer} feeding
+\texttt{MultinomialNB} via
+\texttt{GridSearchCV}}{Test 2: TfidfVectorizer feeding MultinomialNB via GridSearchCV}}\label{test-2-tfidfvectorizer-feeding-multinomialnb-via-gridsearchcv}
+
+Now we test a similar pipeline setup to before, only this time with a
+\texttt{MultinomialNB}. As with the previous approach, a grid-search is
+performed over a range of hyperparameters for both steps in the process.
+
+Note: Several classifiers were sampled, yet several crashed. For
+example, \texttt{XGBClassifier}'s grid-search was terminated by hand due
+to compute time. \texttt{RandomForestClassifier} was also terminated for
+the same reason.
+
+Also, via experimentation it was determined that an
+\texttt{ngram\_range=(1,2)} works best on this data, so this parameter
+was not varied for computational turnover consideration.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tfidf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{TfidfVectorizer}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{MultinomialNB}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tfidf\PYZus{}\PYZus{}ngram\PYZus{}range}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf\PYZus{}\PYZus{}alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{001}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf\PYZus{}\PYZus{}fit\PYZus{}prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{k+kc}{True}\PY{p}{,} \PY{k+kc}{False}\PY{p}{]} 
+                  \PY{p}{\PYZcb{}}
+         
+         \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{pipeline}\PY{p}{,} \PY{n}{params}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{grid}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 3 folds for each of 10 candidates, totalling 30 fits
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=4)]: Done  30 out of  30 | elapsed:  1.8min finished
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} GridSearchCV(cv=3, error\_score='raise',
+                estimator=Pipeline(memory=None,
+              steps=[('tfidf', TfidfVectorizer(analyzer='word', binary=False, decode\_error='strict',
+                 dtype=<class 'numpy.int64'>, encoding='utf-8', input='content',
+                 lowercase=True, max\_df=1.0, max\_features=None, min\_df=1,
+                 ngram\_range=(1, 1), norm='l2', preprocessor=None, smooth\_idf=True,
+          {\ldots}rue,
+                 vocabulary=None)), ('clf', MultinomialNB(alpha=1.0, class\_prior=None, fit\_prior=True))]),
+                fit\_params=None, iid=True, n\_jobs=4,
+                param\_grid=\{'tfidf\_\_ngram\_range': [(1, 2)], 'clf\_\_alpha': [0, 0.001, 0.01, 0.1, 1], 'clf\_\_fit\_prior': [True, False]\},
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score='warn',
+                scoring=None, verbose=1)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{yhat\PYZus{}test} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}\PY{p}{)}
+         \PY{n}{test\PYZus{}acc} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{yhat\PYZus{}test}\PY{p}{)}
+         \PY{n}{yhat\PYZus{}train} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}\PY{p}{)}
+         \PY{n}{train\PYZus{}acc} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{yhat\PYZus{}train}\PY{p}{)} 
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+s1}{Training Accuracy: }\PY{l+s+si}{\PYZob{}train\PYZus{}acc\PYZcb{}}
+         \PY{l+s+s1}{Testing Accuracy: }\PY{l+s+si}{\PYZob{}test\PYZus{}acc\PYZcb{}}
+         \PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{\PYZus{}\PYZus{}} \PY{o}{=} \PY{n}{binary\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{yhat\PYZus{}test}\PY{p}{)}
+         \PY{n}{\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Training Accuracy: 0.9813294745873404
+Testing Accuracy: 0.8573264013385921
+
+
+        Condition Positive:                        67872
+        Condition Negative:                        32532
+        Total Observations:                        100404
+        
+        True Positive:                             60266
+        True Negative:                             25813
+        False Positive:                            6719
+        False Negative                             7606
+        
+        True Positive Rate (recall):               88.79\%
+        True Negative Rate (specificity):          79.35\%
+        False Positive Rate (fall-out):            20.65\%
+        False Negative Rate (miss rate):           11.21\%
+        
+        Positive Predictive Value (precision):     89.97\%
+        Negative Predictive Value:                 77.24\%
+        
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}                (+) actual  (-) actual
+         (+) predicted       60266        6719
+         (-) predicted        7606       25813
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} Pipeline(memory=None,
+              steps=[('tfidf', TfidfVectorizer(analyzer='word', binary=False, decode\_error='strict',
+                 dtype=<class 'numpy.int64'>, encoding='utf-8', input='content',
+                 lowercase=True, max\_df=1.0, max\_features=None, min\_df=1,
+                 ngram\_range=(1, 2), norm='l2', preprocessor=None, smooth\_idf=True,
+          {\ldots}rue,
+                 vocabulary=None)), ('clf', MultinomialNB(alpha=0.1, class\_prior=None, fit\_prior=True))])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{dump}\PY{p}{(}\PY{n}{grid}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{models/multinomialnb.joblib}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:} ['models/multinomialnb.joblib']
+\end{Verbatim}
+            
+    \subsubsection{\texorpdfstring{Test 3: \texttt{TfidfVectorizer} feeding
+\texttt{BernoulliNB} via
+\texttt{GridSearchCV}}{Test 3: TfidfVectorizer feeding BernoulliNB via GridSearchCV}}\label{test-3-tfidfvectorizer-feeding-bernoullinb-via-gridsearchcv}
+
+A similar model is tested for incremental improvement below.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tfidf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{TfidfVectorizer}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{BernoulliNB}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tfidf\PYZus{}\PYZus{}ngram\PYZus{}range}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf\PYZus{}\PYZus{}alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{001}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{0001}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{01}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf\PYZus{}\PYZus{}fit\PYZus{}prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{k+kc}{True}\PY{p}{]}
+                  \PY{p}{\PYZcb{}}
+         
+         \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{pipeline}\PY{p}{,} \PY{n}{params}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{grid}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 3 folds for each of 6 candidates, totalling 18 fits
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=4)]: Done  18 out of  18 | elapsed:  1.2min finished
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:} GridSearchCV(cv=3, error\_score='raise',
+                estimator=Pipeline(memory=None,
+              steps=[('tfidf', TfidfVectorizer(analyzer='word', binary=False, decode\_error='strict',
+                 dtype=<class 'numpy.int64'>, encoding='utf-8', input='content',
+                 lowercase=True, max\_df=1.0, max\_features=None, min\_df=1,
+                 ngram\_range=(1, 1), norm='l2', preprocessor=None, smooth\_idf=True,
+          {\ldots} vocabulary=None)), ('clf', BernoulliNB(alpha=1.0, binarize=0.0, class\_prior=None, fit\_prior=True))]),
+                fit\_params=None, iid=True, n\_jobs=4,
+                param\_grid=\{'tfidf\_\_ngram\_range': [(1, 2)], 'clf\_\_alpha': [0, 0.01, 0.1, 1, 10, 100], 'clf\_\_fit\_prior': [True]\},
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score='warn',
+                scoring=None, verbose=1)
+\end{Verbatim}
+            
+    Note performance is not as good as \texttt{MultinomialNB}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{yhat\PYZus{}test} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}\PY{p}{)}
+         \PY{n}{test\PYZus{}acc} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{yhat\PYZus{}test}\PY{p}{)}
+         \PY{n}{yhat\PYZus{}train} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}\PY{p}{)}
+         \PY{n}{train\PYZus{}acc} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{yhat\PYZus{}train}\PY{p}{)} 
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+s1}{Training Accuracy: }\PY{l+s+si}{\PYZob{}train\PYZus{}acc\PYZcb{}}
+         \PY{l+s+s1}{Testing Accuracy: }\PY{l+s+si}{\PYZob{}test\PYZus{}acc\PYZcb{}}
+         \PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{\PYZus{}\PYZus{}} \PY{o}{=} \PY{n}{binary\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{yhat\PYZus{}test}\PY{p}{)}
+         \PY{n}{\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Training Accuracy: 0.9681397344124163
+Testing Accuracy: 0.8427054699015976
+
+
+        Condition Positive:                        66384
+        Condition Negative:                        34020
+        Total Observations:                        100404
+        
+        True Positive:                             58788
+        True Negative:                             25823
+        False Positive:                            8197
+        False Negative                             7596
+        
+        True Positive Rate (recall):               88.56\%
+        True Negative Rate (specificity):          75.91\%
+        False Positive Rate (fall-out):            24.09\%
+        False Negative Rate (miss rate):           11.44\%
+        
+        Positive Predictive Value (precision):     87.76\%
+        Negative Predictive Value:                 77.27\%
+        
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:}                (+) actual  (-) actual
+         (+) predicted       58788        8197
+         (-) predicted        7596       25823
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} Pipeline(memory=None,
+              steps=[('tfidf', TfidfVectorizer(analyzer='word', binary=False, decode\_error='strict',
+                 dtype=<class 'numpy.int64'>, encoding='utf-8', input='content',
+                 lowercase=True, max\_df=1.0, max\_features=None, min\_df=1,
+                 ngram\_range=(1, 2), norm='l2', preprocessor=None, smooth\_idf=True,
+          {\ldots}vocabulary=None)), ('clf', BernoulliNB(alpha=0.01, binarize=0.0, class\_prior=None, fit\_prior=True))])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{dump}\PY{p}{(}\PY{n}{grid}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{models/bernoullinb.joblib}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} ['models/bernoullinb.joblib']
+\end{Verbatim}
+            
+    \subsubsection{\texorpdfstring{Test 4: Try and Improve Best Model with
+\texttt{CountVectorizer} as Feeding
+Mechanism}{Test 4: Try and Improve Best Model with CountVectorizer as Feeding Mechanism}}\label{test-4-try-and-improve-best-model-with-countvectorizer-as-feeding-mechanism}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{pipeline} \PY{o}{=} \PY{n}{Pipeline}\PY{p}{(}\PY{p}{[}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{CountVectorizer}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+             \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{MultinomialNB}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}\PYZus{}ngram\PYZus{}range}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{]}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count\PYZus{}\PYZus{}min\PYZus{}df}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf\PYZus{}\PYZus{}alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clf\PYZus{}\PYZus{}fit\PYZus{}prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{k+kc}{True}\PY{p}{]} 
+                  \PY{p}{\PYZcb{}}
+         
+         \PY{n}{grid} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{pipeline}\PY{p}{,} \PY{n}{params}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{grid}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fitting 3 folds for each of 6 candidates, totalling 18 fits
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[Parallel(n\_jobs=4)]: Done  18 out of  18 | elapsed:  1.3min finished
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:} GridSearchCV(cv=3, error\_score='raise',
+                estimator=Pipeline(memory=None,
+              steps=[('count', CountVectorizer(analyzer='word', binary=False, decode\_error='strict',
+                 dtype=<class 'numpy.int64'>, encoding='utf-8', input='content',
+                 lowercase=True, max\_df=1.0, max\_features=None, min\_df=1,
+                 ngram\_range=(1, 1), preprocessor=None, stop\_words=None,
+                 strip\_accents=None, token\_pattern='(?u)\textbackslash{}\textbackslash{}b\textbackslash{}\textbackslash{}w\textbackslash{}\textbackslash{}w+\textbackslash{}\textbackslash{}b',
+                 tokenizer=None, vocabulary=None)), ('clf', MultinomialNB(alpha=1.0, class\_prior=None, fit\_prior=True))]),
+                fit\_params=None, iid=True, n\_jobs=4,
+                param\_grid=\{'count\_\_ngram\_range': [(1, 2), (1, 3)], 'count\_\_min\_df': [1, 2, 4], 'clf\_\_alpha': [0.1], 'clf\_\_fit\_prior': [True]\},
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score='warn',
+                scoring=None, verbose=1)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{yhat\PYZus{}test} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}\PY{p}{)}
+         \PY{n}{test\PYZus{}acc} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{yhat\PYZus{}test}\PY{p}{)}
+         \PY{n}{yhat\PYZus{}train} \PY{o}{=} \PY{n}{grid}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}\PY{p}{)}
+         \PY{n}{train\PYZus{}acc} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{yhat\PYZus{}train}\PY{p}{)} 
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+s1}{Training Accuracy: }\PY{l+s+si}{\PYZob{}train\PYZus{}acc\PYZcb{}}
+         \PY{l+s+s1}{Testing Accuracy: }\PY{l+s+si}{\PYZob{}test\PYZus{}acc\PYZcb{}}
+         \PY{l+s+s1}{\PYZsq{}\PYZsq{}\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{\PYZus{}\PYZus{}} \PY{o}{=} \PY{n}{binary\PYZus{}confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{yhat\PYZus{}test}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{grid}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}\PY{p}{)}
+         \PY{n}{\PYZus{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Training Accuracy: 0.9726515646275926
+Testing Accuracy: 0.8598163419784073
+
+
+        Condition Positive:                        62954
+        Condition Negative:                        37450
+        Total Observations:                        100404
+        
+        True Positive:                             57932
+        True Negative:                             28397
+        False Positive:                            9053
+        False Negative                             5022
+        
+        True Positive Rate (recall):               92.02\%
+        True Negative Rate (specificity):          75.83\%
+        False Positive Rate (fall-out):            24.17\%
+        False Negative Rate (miss rate):           7.98\%
+        
+        Positive Predictive Value (precision):     86.49\%
+        Negative Predictive Value:                 84.97\%
+        
+Pipeline(memory=None,
+     steps=[('count', CountVectorizer(analyzer='word', binary=False, decode\_error='strict',
+        dtype=<class 'numpy.int64'>, encoding='utf-8', input='content',
+        lowercase=True, max\_df=1.0, max\_features=None, min\_df=1,
+        ngram\_range=(1, 2), preprocessor=None, stop\_words=None,
+        strip\_accents=None, token\_pattern='(?u)\textbackslash{}\textbackslash{}b\textbackslash{}\textbackslash{}w\textbackslash{}\textbackslash{}w+\textbackslash{}\textbackslash{}b',
+        tokenizer=None, vocabulary=None)), ('clf', MultinomialNB(alpha=0.1, class\_prior=None, fit\_prior=True))])
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:}                (+) actual  (-) actual
+         (+) predicted       57932        9053
+         (-) predicted        5022       28397
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{dump}\PY{p}{(}\PY{n}{grid}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{models/multinomialnb\PYZus{}countvec.joblib}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}51}]:} ['models/multinomialnb\_countvec.joblib']
+\end{Verbatim}
+            
+    \subsection{\texorpdfstring{Conclusions on Classification of
+\texttt{is\_shakespeare}}{Conclusions on Classification of is\_shakespeare}}\label{conclusions-on-classification-of-is_shakespeare}
+
+It is clear that using some sensible pre-processing steps alongside some
+versatile algorithms that we are able to classify reasonably well
+whether a given line from a play (from Shakespeare's time) was indeed
+written by Shakespeare. These models are likely only scratching the
+surface, and it is likely that custom word embeddings could improve on
+these models. It is also possible that semantic analysis could help in
+modeling efforts.
+
+The highest accuracy score was achieved using the
+\texttt{CountVectorizer} feeding a \texttt{MultinomialNB} model,
+achieving 85.98\% accuracy on the test set. This model also achieved a
+true positive rate of 92\% and a precision of 86.49\%. All-in-all these
+are pretty good numbers given the simplicity of the approaches.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
